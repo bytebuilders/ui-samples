@@ -1,0 +1,22 @@
+apiVersion: stash.appscode.com/v1beta1
+kind: RestoreSession
+metadata:
+  name: sample-mongo-restore
+  namespace: demo
+  labels:
+    app.kubernetes.io/component: database
+    app.kubernetes.io/managed-by: kubedb.com
+    app.kubernetes.io/name: mongodbs.kubedb.com
+    app.kubernetes.io/instance: sample-mongo
+spec:
+  task:
+    name: mongodb-restore-4.2.3-v5
+  repository:
+    name: gcs-repo
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: sample-mongo
+  rules:
+  - snapshots: [latest]
