@@ -1,0 +1,10 @@
+- op: add
+  path: /spec/sslMode
+  value: requireSSL
+- op: add
+  path: /spec/tls
+  value:
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: mongo-ca

@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/replicaSet
+  value:
+    name: replicaset
+- op: add
+  path: /spec/replicas
+  value: 3

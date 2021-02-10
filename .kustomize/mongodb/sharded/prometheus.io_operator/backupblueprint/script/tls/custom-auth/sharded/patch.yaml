@@ -1,0 +1,28 @@
+- op: add
+  path: /spec/shardTopology
+  value:
+    configServer:
+      configSecret:
+        name: config
+      replicas: 3
+      storage:
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+    mongos:
+      configSecret:
+        name: config
+      replicas: 2
+    shard:
+      configSecret:
+        name: config
+      replicas: 3
+      shards: 2
+      storage:
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+- op: remove
+  path: /spec/storage
