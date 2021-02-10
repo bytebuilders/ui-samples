@@ -1,0 +1,14 @@
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  name: gcs-repo
+  namespace: demo
+  labels:
+    app.kubernetes.io/name: mongodbs.kubedb.com
+    app.kubernetes.io/instance: sample-mongo
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/sample-mongo
+    storageSecretName: gcs-secret
