@@ -1,0 +1,43 @@
+profiles:
+  standalone:
+  - base: base
+  - base: modes/standalone
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - base: tls
+    fork: true
+  - base: custom-auth
+    fork: true
+  - base: custom-config/standalone
+  replicaset:
+  - base: base
+  - base: modes/replicaset
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - base: tls
+    fork: true
+  - base: custom-auth
+    fork: true
+  - base: custom-config/standalone
+  sharded:
+  - base: base
+  - base: modes/sharded
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - base: tls
+    fork: true
+  - base: custom-auth
+    fork: true
+  - base: custom-config/sharded
