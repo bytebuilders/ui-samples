@@ -4,8 +4,6 @@ metadata:
   name: sample-mongo-backup
   namespace: demo
   labels:
-    app.kubernetes.io/component: database
-    app.kubernetes.io/managed-by: kubedb.com
     app.kubernetes.io/name: mongodbs.kubedb.com
     app.kubernetes.io/instance: sample-mongo
 spec:

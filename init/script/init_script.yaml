@@ -4,14 +4,12 @@ metadata:
   name: mongo-init-script
   namespace: demo
   labels:
-    app.kubernetes.io/component: database
-    app.kubernetes.io/managed-by: kubedb.com
     app.kubernetes.io/name: mongodbs.kubedb.com
     app.kubernetes.io/instance: sample-mongo
 type: Opaque
 stringData:
   mongo-initializer.js: |
-    # create user for "testDB"
+    // create user for "testDB"
     db.createUser({
       user: 'root',
       pwd: 'changeit',
@@ -24,11 +22,11 @@ stringData:
     });
     db = new Mongo().getDB("testDB");
 
-    # create sample collection in the "testDB"
+    // create sample collection in the "testDB"
     db.createCollection('users', { capped: false });
     db.createCollection('test', { capped: false });
 
-    # insert some sample data into the "testDB"
+    // insert some sample data into the "testDB"
     db.test.insert([
       { "item": 1 },
       { "item": 2 },
@@ -36,4 +34,3 @@ stringData:
       { "item": 4 },
       { "item": 5 }
     ]);
-
