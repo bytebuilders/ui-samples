@@ -1,28 +1,12 @@
 - op: add
-  path: /spec/shardTopology
+  path: /spec/shardTopology/configServer/configSecret
   value:
-    configServer:
-      configSecret:
-        name: config
-      replicas: 3
-      storage:
-        resources:
-          requests:
-            storage: 1Gi
-        storageClassName: standard
-    mongos:
-      configSecret:
-        name: config
-      replicas: 2
-    shard:
-      configSecret:
-        name: config
-      replicas: 3
-      shards: 2
-      storage:
-        resources:
-          requests:
-            storage: 1Gi
-        storageClassName: standard
-- op: remove
-  path: /spec/storage
+    name: mongodb-editor-config
+- op: add
+  path: /spec/shardTopology/mongos/configSecret
+  value:
+    name: mongodb-editor-config
+- op: add
+  path: /spec/shardTopology/shard/configSecret
+  value:
+    name: mongodb-editor-config

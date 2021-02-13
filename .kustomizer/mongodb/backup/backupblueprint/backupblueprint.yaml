@@ -1,7 +1,7 @@
 apiVersion: stash.appscode.com/v1beta1
 kind: BackupBlueprint
 metadata:
-  name: mongodb-backup-template
+  name: mongodb-editor-backupconfigblueprint
 spec:
   # ============== Blueprint for Repository ==========================
   backend:

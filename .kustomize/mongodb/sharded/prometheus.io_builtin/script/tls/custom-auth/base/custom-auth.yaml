@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: custom-auth
-  namespace: demo
-stringData:
-  password: thisIs1StrongPassword
-  username: root
-type: Opaque

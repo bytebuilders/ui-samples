@@ -15,7 +15,3 @@
         interval: 30s
         labels:
           release: prometheus-stack
-- op: add
-  path: /spec/storage/accessModes
-  value:
-  - ReadWriteOnce

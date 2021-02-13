@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  labels:
+    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/name: mongodbs.kubedb.com
+  name: mongodb-editor-init-script
+  namespace: demo
+stringData:
+  mongo-initializer.js: |
+    // create user for "testDB"
+    db.createUser({
+      user: 'root',
+      pwd: 'changeit',
+      roles: [
+          {
+              role: 'readWrite',
+              db: 'testDB',
+          },
+      ],
+    });
+    db = new Mongo().getDB("testDB");
+
+    // create sample collection in the "testDB"
+    db.createCollection('users', { capped: false });
+    db.createCollection('test', { capped: false });
+
+    // insert some sample data into the "testDB"
+    db.test.insert([
+      { "item": 1 },
+      { "item": 2 },
+      { "item": 3 },
+      { "item": 4 },
+      { "item": 5 }
+    ]);
+type: Opaque

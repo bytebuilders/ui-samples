@@ -2,7 +2,3 @@
   path: /spec/init
   value:
     waitForInitialRestore: true
-- op: add
-  path: /spec/storage/accessModes
-  value:
-  - ReadWriteOnce

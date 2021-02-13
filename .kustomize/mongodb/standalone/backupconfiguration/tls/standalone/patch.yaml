@@ -1,4 +1,4 @@
 - op: add
   path: /spec/configSecret
   value:
-    name: config
+    name: mongodb-editor-config

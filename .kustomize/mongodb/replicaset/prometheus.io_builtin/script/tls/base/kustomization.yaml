@@ -7,8 +7,8 @@ patchesJson6902:
   target:
     group: kubedb.com
     kind: MongoDB
-    name: sample-mongo
+    name: mongodb-editor
     namespace: demo
     version: v1alpha2
 resources:
-- mongo-ca.yaml
+- mongodb-editor.yaml

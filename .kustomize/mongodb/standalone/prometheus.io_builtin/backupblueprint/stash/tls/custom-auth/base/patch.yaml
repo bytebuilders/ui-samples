@@ -1,4 +1,4 @@
 - op: add
   path: /spec/authSecret
   value:
-    name: custom-auth
+    name: mongodb-editor-auth

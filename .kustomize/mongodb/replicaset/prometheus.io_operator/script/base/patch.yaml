@@ -3,8 +3,4 @@
   value:
     script:
       secret:
-        secretName: mongo-init-script
-- op: add
-  path: /spec/storage/accessModes
-  value:
-  - ReadWriteOnce
+        secretName: mongodb-editor-init-script

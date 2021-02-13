@@ -1,20 +1,20 @@
 apiVersion: stash.appscode.com/v1beta1
 kind: RestoreSession
 metadata:
-  name: sample-mongo-restore
+  name: mongodb-editor-init
   namespace: demo
   labels:
     app.kubernetes.io/name: mongodbs.kubedb.com
-    app.kubernetes.io/instance: sample-mongo
+    app.kubernetes.io/instance: mongodb-editor
 spec:
   task:
     name: mongodb-restore-4.2.3-v5
   repository:
-    name: gcs-repo
+    name: mongodb-editor-init-repo
   target:
     ref:
       apiVersion: appcatalog.appscode.com/v1alpha1
       kind: AppBinding
-      name: sample-mongo
+      name: mongodb-editor
   rules:
   - snapshots: [latest]

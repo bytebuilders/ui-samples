@@ -1,9 +1,5 @@
 - op: add
   path: /metadata/annotations
   value:
-    stash.appscode.com/backup-blueprint: mongodb-backup-template
+    stash.appscode.com/backup-blueprint: mongodb-editor-backupconfigblueprint
     stash.appscode.com/schedule: '*/7 * * * *'
-- op: add
-  path: /spec/storage/accessModes
-  value:
-  - ReadWriteOnce

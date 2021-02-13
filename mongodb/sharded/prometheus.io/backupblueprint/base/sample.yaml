@@ -1,0 +1,133 @@
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  annotations:
+    meta.helm.sh/chart-name: mongodb-editor
+    meta.helm.sh/chart-url: https://bundles.byte.builders/ui/
+    meta.helm.sh/chart-version: v0.1.0
+  labels:
+    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: mongodb-editor-options
+  name: mongodb-editor
+  namespace: demo
+spec:
+  assemblyPhase: Ready
+  componentKinds:
+  - group: app.k8s.io
+    kind: Application
+  - group: kubedb.com
+    kind: MongoDB
+  - group: ""
+    kind: Secret
+  - group: ""
+    kind: ServiceAccount
+  - group: cert-manager.io
+    kind: Issuer
+  - group: monitoring.coreos.com
+    kind: ServiceMonitor
+  - group: stash.appscode.com
+    kind: Repository
+  - group: stash.appscode.com
+    kind: BackupConfiguration
+  - group: stash.appscode.com
+    kind: RestoreSession
+  descriptor:
+    description: MongoDB Editor UI Options
+    icons:
+    - src: https://cdn.appscode.com/images/products/kubedb/kubedb-community-icon.png
+      type: image/png
+    links:
+    - description: website
+      url: https://byte.builders
+    maintainers:
+    - email: support@appscode.com
+      name: appscode
+    type: mongodbs.kubedb.com
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mongodb-editor
+      app.kubernetes.io/name: mongodbs.kubedb.com
+---
+apiVersion: kubedb.com/v1alpha2
+kind: MongoDB
+metadata:
+  annotations:
+    stash.appscode.com/backup-blueprint: mongodb-editor-backupconfigblueprint
+    stash.appscode.com/schedule: '*/7 * * * *'
+  name: mongodb-editor
+  namespace: demo
+spec:
+  monitor:
+    agent: prometheus.io
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  shardTopology:
+    configServer:
+      replicas: 3
+      storage:
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+    mongos:
+      replicas: 2
+    shard:
+      replicas: 3
+      shards: 2
+      storage:
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  version: 4.2.3
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/name: mongodbs.kubedb.com
+    release: prometheus-stack
+  name: mongodb-editor
+  namespace: demo
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 30s
+    path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - demo
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mongodb-editor
+      app.kubernetes.io/name: mongodbs.kubedb.com
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupBlueprint
+metadata:
+  name: mongodb-editor-backupconfigblueprint
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: stash-backup/${TARGET_NAMESPACE}/${TARGET_APP_RESOURCE}/${TARGET_NAME}
+    storageSecretName: gcs-secret
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/5 * * * *'
+  task:
+    name: mongodb-backup-4.2.3-v5

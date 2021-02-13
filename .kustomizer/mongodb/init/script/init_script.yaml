@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mongo-init-script
+  name: mongodb-editor-init-script
   namespace: demo
   labels:
     app.kubernetes.io/name: mongodbs.kubedb.com
-    app.kubernetes.io/instance: sample-mongo
+    app.kubernetes.io/instance: mongodb-editor
 type: Opaque
 stringData:
   mongo-initializer.js: |

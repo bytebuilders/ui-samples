@@ -11,7 +11,3 @@
           requests:
             cpu: 100m
             memory: 128Mi
-- op: add
-  path: /spec/storage/accessModes
-  value:
-  - ReadWriteOnce
