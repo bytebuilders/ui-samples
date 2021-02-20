@@ -3,5 +3,5 @@ bases:
 - ../../base
 kind: Kustomization
 resources:
-- mongodb-editor-repo.yaml
-- mongodb-editor.yaml
+- mongodb-repo.yaml
+- mongodb.yaml

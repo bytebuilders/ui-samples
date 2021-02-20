@@ -1,22 +1,22 @@
 apiVersion: stash.appscode.com/v1beta1
 kind: BackupConfiguration
 metadata:
-  name: mongodb-editor
+  name: mongodb
   namespace: demo
   labels:
     app.kubernetes.io/name: mongodbs.kubedb.com
-    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/instance: mongodb
 spec:
   schedule: "*/5 * * * *"
   task:
     name: mongodb-backup-4.2.3-v5
   repository:
-    name: mongodb-editor-repo
+    name: mongodb-repo
   target:
     ref:
       apiVersion: appcatalog.appscode.com/v1alpha1
       kind: AppBinding
-      name: mongodb-editor
+      name: mongodb
   retentionPolicy:
     name: keep-last-5
     keepLast: 5

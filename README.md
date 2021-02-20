@@ -2,8 +2,8 @@
 
 ```bash
 # generate kustomization.yaml for the handwritten samples
-cd ~/go/src/kmodules.xyz/kustomizer
-go run gen/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/mongodb
+# cd ~/go/src/kmodules.xyz/kustomizer
+# go run gen/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/mongodb
 
 # generate kustomize bases from handwritten sample yamls
 kustomizer ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/mongodb ~/go/src/github.com/appscode/kubedb-samples/.kustomize/mongodb

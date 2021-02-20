@@ -1,15 +1,15 @@
 apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
-  name: mongodb-editor
+  name: mongodb
   namespace: demo
   labels:
-    app.kubernetes.io/name: mongodb-editor-options
-    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/name: mongodb-options
+    app.kubernetes.io/instance: mongodb
     app.kubernetes.io/managed-by: Helm
   annotations:
     meta.helm.sh/chart-url: https://bundles.byte.builders/ui/
-    meta.helm.sh/chart-name: mongodb-editor
+    meta.helm.sh/chart-name: mongodb
     meta.helm.sh/chart-version: v0.1.0
 spec:
   descriptor:
@@ -29,7 +29,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: mongodbs.kubedb.com
-      app.kubernetes.io/instance: mongodb-editor
+      app.kubernetes.io/instance: mongodb
   componentKinds:
     - group: app.k8s.io
       kind: Application

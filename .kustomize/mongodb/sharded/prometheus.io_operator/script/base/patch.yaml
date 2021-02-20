@@ -3,4 +3,4 @@
   value:
     script:
       secret:
-        secretName: mongodb-editor-init-script
+        secretName: mongodb-init-script

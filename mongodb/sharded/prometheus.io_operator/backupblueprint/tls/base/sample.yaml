@@ -2,14 +2,14 @@ apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
   annotations:
-    meta.helm.sh/chart-name: mongodb-editor
+    meta.helm.sh/chart-name: mongodb
     meta.helm.sh/chart-url: https://bundles.byte.builders/ui/
     meta.helm.sh/chart-version: v0.1.0
   labels:
-    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/instance: mongodb
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: mongodb-editor-options
-  name: mongodb-editor
+    app.kubernetes.io/name: mongodb-options
+  name: mongodb
   namespace: demo
 spec:
   assemblyPhase: Ready
@@ -46,25 +46,25 @@ spec:
     type: mongodbs.kubedb.com
   selector:
     matchLabels:
-      app.kubernetes.io/instance: mongodb-editor
+      app.kubernetes.io/instance: mongodb
       app.kubernetes.io/name: mongodbs.kubedb.com
 ---
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: mongodb-editor
+  name: mongodb
   namespace: demo
 spec:
   ca:
-    secretName: mongodb-editor-ca
+    secretName: mongodb-ca
 ---
 apiVersion: kubedb.com/v1alpha2
 kind: MongoDB
 metadata:
   annotations:
-    stash.appscode.com/backup-blueprint: mongodb-editor-backupconfigblueprint
+    stash.appscode.com/backup-blueprint: mongodb-backupconfigblueprint
     stash.appscode.com/schedule: '*/7 * * * *'
-  name: mongodb-editor
+  name: mongodb
   namespace: demo
 spec:
   monitor:
@@ -113,7 +113,7 @@ spec:
 apiVersion: stash.appscode.com/v1beta1
 kind: BackupBlueprint
 metadata:
-  name: mongodb-editor-backupconfigblueprint
+  name: mongodb-backupconfigblueprint
 spec:
   backend:
     gcs:

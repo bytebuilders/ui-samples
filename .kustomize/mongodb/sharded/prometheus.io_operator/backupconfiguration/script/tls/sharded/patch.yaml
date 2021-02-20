@@ -1,12 +1,12 @@
 - op: add
   path: /spec/shardTopology/configServer/configSecret
   value:
-    name: mongodb-editor-config
+    name: mongodb-config
 - op: add
   path: /spec/shardTopology/mongos/configSecret
   value:
-    name: mongodb-editor-config
+    name: mongodb-config
 - op: add
   path: /spec/shardTopology/shard/configSecret
   value:
-    name: mongodb-editor-config
+    name: mongodb-config

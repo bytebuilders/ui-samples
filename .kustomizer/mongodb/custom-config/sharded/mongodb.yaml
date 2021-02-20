@@ -1,7 +1,7 @@
 apiVersion: kubedb.com/v1alpha2
 kind: MongoDB
 metadata:
-  name: mongodb-editor
+  name: mongodb
   namespace: demo
 spec:
   version: "4.2.3"
@@ -9,7 +9,7 @@ spec:
   shardTopology:
     configServer:
       configSecret:
-        name: mongodb-editor-config
+        name: mongodb-config
       replicas: 3
       storage:
         resources:
@@ -18,11 +18,11 @@ spec:
         storageClassName: standard
     mongos:
       configSecret:
-        name: mongodb-editor-config
+        name: mongodb-config
       replicas: 2
     shard:
       configSecret:
-        name: mongodb-editor-config
+        name: mongodb-config
       replicas: 3
       shards: 2
       storage:

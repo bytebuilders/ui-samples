@@ -1,12 +1,12 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: mongodb-editor
+  name: mongodb
   namespace: demo
   labels:
     release: prometheus-stack
     app.kubernetes.io/name: mongodbs.kubedb.com
-    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/instance: mongodb
 spec:
   namespaceSelector:
     matchNames:
@@ -14,7 +14,7 @@ spec:
   selector:
     matchLabels:
       app.kubernetes.io/name: mongodbs.kubedb.com
-      app.kubernetes.io/instance: mongodb-editor
+      app.kubernetes.io/instance: mongodb
   endpoints:
   - port: metrics
     honorLabels: true

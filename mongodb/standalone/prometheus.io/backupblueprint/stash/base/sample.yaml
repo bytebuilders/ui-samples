@@ -2,14 +2,14 @@ apiVersion: app.k8s.io/v1beta1
 kind: Application
 metadata:
   annotations:
-    meta.helm.sh/chart-name: mongodb-editor
+    meta.helm.sh/chart-name: mongodb
     meta.helm.sh/chart-url: https://bundles.byte.builders/ui/
     meta.helm.sh/chart-version: v0.1.0
   labels:
-    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/instance: mongodb
     app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: mongodb-editor-options
-  name: mongodb-editor
+    app.kubernetes.io/name: mongodb-options
+  name: mongodb
   namespace: demo
 spec:
   assemblyPhase: Ready
@@ -46,16 +46,16 @@ spec:
     type: mongodbs.kubedb.com
   selector:
     matchLabels:
-      app.kubernetes.io/instance: mongodb-editor
+      app.kubernetes.io/instance: mongodb
       app.kubernetes.io/name: mongodbs.kubedb.com
 ---
 apiVersion: kubedb.com/v1alpha2
 kind: MongoDB
 metadata:
   annotations:
-    stash.appscode.com/backup-blueprint: mongodb-editor-backupconfigblueprint
+    stash.appscode.com/backup-blueprint: mongodb-backupconfigblueprint
     stash.appscode.com/schedule: '*/7 * * * *'
-  name: mongodb-editor
+  name: mongodb
   namespace: demo
 spec:
   init:
@@ -84,10 +84,10 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   labels:
-    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/instance: mongodb
     app.kubernetes.io/name: mongodbs.kubedb.com
     release: prometheus-stack
-  name: mongodb-editor
+  name: mongodb
   namespace: demo
 spec:
   endpoints:
@@ -100,28 +100,28 @@ spec:
     - demo
   selector:
     matchLabels:
-      app.kubernetes.io/instance: mongodb-editor
+      app.kubernetes.io/instance: mongodb
       app.kubernetes.io/name: mongodbs.kubedb.com
 ---
 apiVersion: stash.appscode.com/v1alpha1
 kind: Repository
 metadata:
   labels:
-    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/instance: mongodb
     app.kubernetes.io/name: mongodbs.kubedb.com
-  name: mongodb-editor-init-repo
+  name: mongodb-init-repo
   namespace: demo
 spec:
   backend:
     gcs:
       bucket: stash-testing
-      prefix: /demo/mongodb-editor
+      prefix: /demo/mongodb
     storageSecretName: gcs-secret
 ---
 apiVersion: stash.appscode.com/v1beta1
 kind: BackupBlueprint
 metadata:
-  name: mongodb-editor-backupconfigblueprint
+  name: mongodb-backupconfigblueprint
 spec:
   backend:
     gcs:
@@ -140,13 +140,13 @@ apiVersion: stash.appscode.com/v1beta1
 kind: RestoreSession
 metadata:
   labels:
-    app.kubernetes.io/instance: mongodb-editor
+    app.kubernetes.io/instance: mongodb
     app.kubernetes.io/name: mongodbs.kubedb.com
-  name: mongodb-editor-init
+  name: mongodb-init
   namespace: demo
 spec:
   repository:
-    name: mongodb-editor-init-repo
+    name: mongodb-init-repo
   rules:
   - snapshots:
     - latest
@@ -154,6 +154,6 @@ spec:
     ref:
       apiVersion: appcatalog.appscode.com/v1alpha1
       kind: AppBinding
-      name: mongodb-editor
+      name: mongodb
   task:
     name: mongodb-restore-4.2.3-v5

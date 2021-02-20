@@ -1,8 +1,0 @@
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: mongodb-editor
-  namespace: demo
-spec:
-  ca:
-    secretName: mongodb-editor-ca

@@ -7,8 +7,8 @@ patchesJson6902:
   target:
     group: kubedb.com
     kind: MongoDB
-    name: mongodb-editor
+    name: mongodb
     namespace: demo
     version: v1alpha2
 resources:
-- mongodb-editor-backupconfigblueprint.yaml
+- mongodb-backupconfigblueprint.yaml
