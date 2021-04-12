@@ -11,7 +11,7 @@ type: Opaque
 apiVersion: v1
 kind: Secret
 metadata:
-  name: mongodb-config
+  name: mongodb-configserver-config
   namespace: demo
 stringData:
   mongod.conf: |
@@ -54,6 +54,28 @@ stringData:
       { "item": 4 },
       { "item": 5 }
     ]);
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-mongos-config
+  namespace: demo
+stringData:
+  mongod.conf: |
+    net:
+      maxIncomingConnections: 30000
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-shard-config
+  namespace: demo
+stringData:
+  mongod.conf: |
+    net:
+      maxIncomingConnections: 40000
 type: Opaque
 ---
 apiVersion: app.k8s.io/v1beta1
@@ -120,7 +142,7 @@ spec:
   shardTopology:
     configServer:
       configSecret:
-        name: mongodb-config
+        name: mongodb-configserver-config
       replicas: 3
       storage:
         resources:
@@ -129,11 +151,11 @@ spec:
         storageClassName: standard
     mongos:
       configSecret:
-        name: mongodb-config
+        name: mongodb-mongos-config
       replicas: 2
     shard:
       configSecret:
-        name: mongodb-config
+        name: mongodb-shard-config
       replicas: 3
       shards: 2
       storage:
