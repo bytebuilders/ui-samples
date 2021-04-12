@@ -11,6 +11,17 @@ type: Opaque
 apiVersion: v1
 kind: Secret
 metadata:
+  name: mongodb-config
+  namespace: demo
+stringData:
+  mongod.conf: |
+    net:
+      maxIncomingConnections: 40000
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
   name: mongodb-configserver-config
   namespace: demo
 stringData:
@@ -107,6 +118,8 @@ metadata:
 spec:
   authSecret:
     name: mongodb-auth
+  configSecret:
+    name: mongodb-config
   shardTopology:
     configServer:
       configSecret:

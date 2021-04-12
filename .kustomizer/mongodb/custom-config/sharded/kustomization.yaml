@@ -6,4 +6,5 @@ resources:
 - mongodb-configserver-config-secret.yaml
 - mongodb-mongos-config-secret.yaml
 - mongodb-shard-config-secret.yaml
+- mongodb-config-secret.yaml
 - mongodb.yaml

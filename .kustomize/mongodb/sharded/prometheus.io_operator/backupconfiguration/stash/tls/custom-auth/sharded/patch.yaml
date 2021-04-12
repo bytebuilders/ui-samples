@@ -1,4 +1,8 @@
 - op: add
+  path: /spec/configSecret
+  value:
+    name: mongodb-config
+- op: add
   path: /spec/shardTopology/configServer/configSecret
   value:
     name: mongodb-configserver-config
