@@ -11,4 +11,6 @@ patchesJson6902:
     namespace: demo
     version: v1alpha2
 resources:
-- mongodb-config.yaml
+- mongodb-configserver-config.yaml
+- mongodb-mongos-config.yaml
+- mongodb-shard-config.yaml
