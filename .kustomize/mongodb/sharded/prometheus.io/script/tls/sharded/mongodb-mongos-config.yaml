@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-mongos-config
+  namespace: demo
+stringData:
+  mongod.conf: |
+    net:
+      maxIncomingConnections: 30000
+type: Opaque
