@@ -9,7 +9,7 @@ spec:
   shardTopology:
     configServer:
       configSecret:
-        name: mongodb-config
+        name: mongodb-configserver-config-secret
       replicas: 3
       storage:
         resources:
@@ -18,11 +18,11 @@ spec:
         storageClassName: standard
     mongos:
       configSecret:
-        name: mongodb-config
+        name: mongodb-mongos-config-secret
       replicas: 2
     shard:
       configSecret:
-        name: mongodb-config
+        name: mongodb-shard-config-secret
       replicas: 3
       shards: 2
       storage:
