@@ -19,55 +19,6 @@ stringData:
       maxIncomingConnections: 20000
 type: Opaque
 ---
-apiVersion: app.k8s.io/v1beta1
-kind: Application
-metadata:
-  annotations:
-    meta.helm.sh/chart-name: mongodb
-    meta.helm.sh/chart-url: https://bundles.byte.builders/ui/
-    meta.helm.sh/chart-version: v0.1.0
-  labels:
-    app.kubernetes.io/instance: mongodb
-    app.kubernetes.io/managed-by: Helm
-    app.kubernetes.io/name: mongodb-options
-  name: mongodb
-  namespace: demo
-spec:
-  assemblyPhase: Ready
-  componentKinds:
-  - group: app.k8s.io
-    kind: Application
-  - group: kubedb.com
-    kind: MongoDB
-  - group: ""
-    kind: Secret
-  - group: cert-manager.io
-    kind: Issuer
-  - group: monitoring.coreos.com
-    kind: ServiceMonitor
-  - group: stash.appscode.com
-    kind: Repository
-  - group: stash.appscode.com
-    kind: BackupConfiguration
-  - group: stash.appscode.com
-    kind: RestoreSession
-  descriptor:
-    description: MongoDB Editor UI Options
-    icons:
-    - src: https://cdn.appscode.com/images/products/kubedb/kubedb-community-icon.png
-      type: image/png
-    links:
-    - description: website
-      url: https://byte.builders
-    maintainers:
-    - email: support@appscode.com
-      name: appscode
-    type: mongodbs.kubedb.com
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: mongodb
-      app.kubernetes.io/name: mongodbs.kubedb.com
----
 apiVersion: kubedb.com/v1alpha2
 kind: MongoDB
 metadata:

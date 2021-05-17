@@ -21,7 +21,7 @@ go run stats/main.go ~/go/src/github.com/appscode/kubedb-samples/mongodb
 ### MongoDB
 
 ```
-sharded/prometheus.io/backupconfiguration/stash/tls/custom-auth/sharded                 13
-sharded/backupconfiguration/stash/tls/custom-auth/sharded                               12
-sharded/prometheus.io/backupblueprint/stash/tls/custom-auth/sharded                     12
+sharded/prometheus.io/backupconfiguration/stash/tls/custom-auth/sharded                 12
+sharded/backupconfiguration/stash/tls/custom-auth/sharded                               11
+sharded/prometheus.io/backupblueprint/stash/tls/custom-auth/sharded                     11
 ```
