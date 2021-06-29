@@ -1,0 +1,14 @@
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  name: postgres-repo
+  namespace: demo
+  labels:
+    app.kubernetes.io/name: postgreses.kubedb.com
+    app.kubernetes.io/instance: postgres
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/postgres
+    storageSecretName: gcs-secret
