@@ -1,0 +1,21 @@
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupConfiguration
+metadata:
+  name: postgres
+  namespace: demo
+  labels:
+    app.kubernetes.io/name: postgreses.kubedb.com
+    app.kubernetes.io/instance: postgres
+spec:
+  schedule: "*/2 * * * *"
+  repository:
+    name: postgres-init-repo
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: postgres
+  retentionPolicy:
+    name: keep-last-5
+    keepLast: 5
+    prune: true
