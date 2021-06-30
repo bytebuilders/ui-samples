@@ -1,0 +1,21 @@
+apiVersion: stash.appscode.com/v1beta1
+kind: RestoreSession
+metadata:
+  labels:
+    app.kubernetes.io/instance: mariadb
+    app.kubernetes.io/name: mariadbs.kubedb.com
+  name: mariadb-init
+  namespace: demo
+spec:
+  repository:
+    name: mariadb-init-repo
+  rules:
+  - snapshots:
+    - latest
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: mariadb
+  task:
+    name: mariadb-restore-10.5.8

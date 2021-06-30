@@ -1,17 +1,20 @@
 apiVersion: stash.appscode.com/v1beta1
 kind: BackupConfiguration
 metadata:
-  name: sample-mariadb-backup
+  name: mariadb
   namespace: demo
+  labels:
+    app.kubernetes.io/name: mariadbs.kubedb.com
+    app.kubernetes.io/instance: mariadb
 spec:
   schedule: "*/5 * * * *"
   repository:
-    name: gcs-repo
+    name: mariadb-repo
   target:
     ref:
       apiVersion: appcatalog.appscode.com/v1alpha1
       kind: AppBinding
-      name: sample-mariadb
+      name: mariadb
   retentionPolicy:
     name: keep-last-5
     keepLast: 5

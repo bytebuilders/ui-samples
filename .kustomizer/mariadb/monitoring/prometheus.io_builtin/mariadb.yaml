@@ -1,13 +1,15 @@
 apiVersion: kubedb.com/v1alpha2
-kind: MongoDB
+kind: MariaDB
 metadata:
-  name: mongodb
+  name: mariadb
   namespace: demo
 spec:
-  version: "4.2.3"
+  version: "10.5.8"
   storageType: Durable
   storage:
     storageClassName: "standard"
+    accessModes:
+      - ReadWriteOnce
     resources:
       requests:
         storage: 1Gi
@@ -23,4 +25,3 @@ spec:
             cpu: 100m
             memory: 128Mi
   terminationPolicy: WipeOut
-

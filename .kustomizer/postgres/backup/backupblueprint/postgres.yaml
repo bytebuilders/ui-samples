@@ -4,7 +4,7 @@ metadata:
   name: postgres
   namespace: demo
   annotations:
-    stash.appscode.com/backup-blueprint: postgres-backupconfigblueprint
+    stash.appscode.com/backup-blueprint: postgres-backupblueprint
     stash.appscode.com/schedule: "*/7 * * * *"
 spec:
   version: "13.2"

@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: mariadb
+    app.kubernetes.io/name: mariadbs.kubedb.com
+    release: prometheus-stack
+  name: mariadb
+  namespace: demo
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 30s
+    path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - demo
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mariadb
+      app.kubernetes.io/name: mariadbs.kubedb.com

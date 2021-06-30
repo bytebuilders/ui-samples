@@ -1,0 +1,20 @@
+- op: add
+  path: /spec/monitor
+  value:
+    agent: prometheus.io/operator
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+      serviceMonitor:
+        interval: 30s
+        labels:
+          release: prometheus-stack
+- op: replace
+  path: /spec/replicas
+  value: 3

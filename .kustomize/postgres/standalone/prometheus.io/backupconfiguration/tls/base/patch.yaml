@@ -1,0 +1,13 @@
+- op: replace
+  path: /spec/replicas
+  value: 3
+- op: add
+  path: /spec/sslMode
+  value: verify-full
+- op: add
+  path: /spec/tls
+  value:
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: postgres-ca-issuer

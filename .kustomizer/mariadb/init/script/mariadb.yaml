@@ -1,10 +1,11 @@
 apiVersion: kubedb.com/v1alpha2
 kind: MariaDB
 metadata:
-  name: sample-mariadb
+  name: mariadb
   namespace: demo
 spec:
   version: "10.5.8"
+  storageType: Durable
   storage:
     storageClassName: "standard"
     accessModes:
@@ -15,5 +16,5 @@ spec:
   init:
     script:
       configMap:
-        name: md-init-script
+        name: mariadb-init-script
   terminationPolicy: WipeOut

@@ -1,0 +1,19 @@
+- op: add
+  path: /spec/requireSSL
+  value: true
+- op: add
+  path: /spec/tls
+  value:
+    certificates:
+    - alias: server
+      dnsNames:
+      - localhost
+      ipAddresses:
+      - 127.0.0.1
+      subject:
+        organizations:
+        - kubedb:server
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: mariadb-issuer

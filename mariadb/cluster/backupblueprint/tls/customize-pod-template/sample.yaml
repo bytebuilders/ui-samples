@@ -1,0 +1,71 @@
+apiVersion: cert-manager.io/v1beta1
+kind: Issuer
+metadata:
+  name: mariadb-issuer
+  namespace: demo
+spec:
+  ca:
+    secretName: md-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: MariaDB
+metadata:
+  annotations:
+    stash.appscode.com/backup-blueprint: mariadb-backupblueprint
+    stash.appscode.com/schedule: '*/7 * * * *'
+  name: mariadb
+  namespace: demo
+spec:
+  podTemplate:
+    spec:
+      args:
+      - --character-set-server=utf8mb4
+      env:
+      - name: MYSQL_DATABASE
+        value: mdDB
+      resources:
+        requests:
+          cpu: 250m
+          memory: 1Gi
+  replicas: 1
+  requireSSL: true
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  tls:
+    certificates:
+    - alias: server
+      dnsNames:
+      - localhost
+      ipAddresses:
+      - 127.0.0.1
+      subject:
+        organizations:
+        - kubedb:server
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: mariadb-issuer
+  version: 10.5.8
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupBlueprint
+metadata:
+  name: mariadb-backupblueprint
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: mariadb-backup/${TARGET_NAMESPACE}/${TARGET_APP_RESOURCE}/${TARGET_NAME}
+    storageSecretName: gcs-secret
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/5 * * * *'

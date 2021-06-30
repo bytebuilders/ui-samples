@@ -1,11 +1,18 @@
-apiVersion: v1
-kind: Secret
+apiVersion: kubedb.com/v1alpha2
+kind: MariaDB
 metadata:
-  name: md-configuration
+  name: mariadb
   namespace: demo
-type: Opaque
-stringData:
-  md-config.cnf: |
-    [mysqld]
-    max_connections = 200
-    read_buffer_size = 1048576
+spec:
+  version: "10.5.8"
+  storageType: Durable
+  storage:
+    storageClassName: "standard"
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+  terminationPolicy: WipeOut
+  configSecret:
+    name: mariadb-config

@@ -1,0 +1,151 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mariadb-auth
+  namespace: demo
+stringData:
+  password: thisIs1StrongPassword
+  username: root
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mariadb-config
+  namespace: demo
+stringData:
+  md-config.cnf: |
+    [mysqld]
+    max_connections = 200
+    read_buffer_size = 1048576
+type: Opaque
+---
+apiVersion: kubedb.com/v1alpha2
+kind: MariaDB
+metadata:
+  name: mariadb
+  namespace: demo
+spec:
+  authSecret:
+    name: mariadb-auth
+  configSecret:
+    name: mariadb-config
+  monitor:
+    agent: prometheus.io
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  replicas: 1
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  version: 10.5.8
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: mariadb
+    app.kubernetes.io/name: mariadbs.kubedb.com
+    release: prometheus-stack
+  name: mariadb
+  namespace: demo
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 30s
+    path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - demo
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mariadb
+      app.kubernetes.io/name: mariadbs.kubedb.com
+---
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  labels:
+    app.kubernetes.io/instance: mariadb
+    app.kubernetes.io/name: mariadbs.kubedb.com
+  name: mariadb-init-repo
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/mariadb/mariadb
+    storageSecretName: gcs-secret
+---
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  labels:
+    app.kubernetes.io/instance: mariadb
+    app.kubernetes.io/name: mariadbs.kubedb.com
+  name: mariadb-repo
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/mariadb/mariadb
+    storageSecretName: gcs-secret
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupConfiguration
+metadata:
+  labels:
+    app.kubernetes.io/instance: mariadb
+    app.kubernetes.io/name: mariadbs.kubedb.com
+  name: mariadb
+  namespace: demo
+spec:
+  repository:
+    name: mariadb-repo
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/5 * * * *'
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: mariadb
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: RestoreSession
+metadata:
+  labels:
+    app.kubernetes.io/instance: mariadb
+    app.kubernetes.io/name: mariadbs.kubedb.com
+  name: mariadb-init
+  namespace: demo
+spec:
+  repository:
+    name: mariadb-init-repo
+  rules:
+  - snapshots:
+    - latest
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: mariadb
+  task:
+    name: mariadb-restore-10.5.8

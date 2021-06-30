@@ -1,0 +1,86 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-config
+  namespace: demo
+stringData:
+  user.conf: |
+    max_connections=110
+    shared_buffers=258MB
+type: Opaque
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: postgres-ca-issuer
+  namespace: demo
+spec:
+  ca:
+    secretName: postgres-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Postgres
+metadata:
+  annotations:
+    stash.appscode.com/backup-blueprint: postgres-backupblueprint
+    stash.appscode.com/schedule: '*/7 * * * *'
+  name: postgres
+  namespace: demo
+spec:
+  clientAuthMode: scram
+  configSecret:
+    name: postgres-config
+  monitor:
+    agent: prometheus.io/operator
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+      serviceMonitor:
+        interval: 30s
+        labels:
+          release: prometheus-stack
+  podTemplate:
+    spec:
+      containerSecurityContext:
+        privileged: false
+        runAsGroup: 1000620000
+        runAsUser: 1000620000
+  sslMode: verify-full
+  standbyMode: Hot
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  tls:
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: postgres-ca-issuer
+  version: 13.2-debian
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupBlueprint
+metadata:
+  name: postgres-backupblueprint
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: stash-backup/${TARGET_NAMESPACE}/${TARGET_APP_RESOURCE}/${TARGET_NAME}
+    storageSecretName: gcs-secret
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/5 * * * *'

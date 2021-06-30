@@ -1,0 +1,10 @@
+- op: add
+  path: /spec/leaderElection
+  value:
+    electionTick: 10
+    heartbeatTick: 1
+    maximumLagBeforeFailover: 33554432
+    period: 100ms
+- op: replace
+  path: /spec/replicas
+  value: 3

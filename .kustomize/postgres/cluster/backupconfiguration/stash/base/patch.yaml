@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/init
+  value:
+    waitForInitialRestore: true
+- op: replace
+  path: /spec/replicas
+  value: 3

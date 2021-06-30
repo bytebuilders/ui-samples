@@ -1,10 +1,11 @@
 apiVersion: kubedb.com/v1alpha2
 kind: MariaDB
 metadata:
-  name: sample-mariadb
+  name: mariadb
   namespace: demo
   annotations:
-    stash.appscode.com/backup-blueprint: mariadb-backup-template
+    stash.appscode.com/backup-blueprint: mariadb-backupblueprint
+    stash.appscode.com/schedule: "*/7 * * * *"
 spec:
   version: "10.5.8"
   replicas: 1

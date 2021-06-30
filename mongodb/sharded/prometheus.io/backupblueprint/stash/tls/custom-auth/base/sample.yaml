@@ -21,7 +21,7 @@ apiVersion: kubedb.com/v1alpha2
 kind: MongoDB
 metadata:
   annotations:
-    stash.appscode.com/backup-blueprint: mongodb-backupconfigblueprint
+    stash.appscode.com/backup-blueprint: mongodb-backupblueprint
     stash.appscode.com/schedule: '*/7 * * * *'
   name: mongodb
   namespace: demo
@@ -110,7 +110,7 @@ spec:
 apiVersion: stash.appscode.com/v1beta1
 kind: BackupBlueprint
 metadata:
-  name: mongodb-backupconfigblueprint
+  name: mongodb-backupblueprint
 spec:
   backend:
     gcs:

@@ -1,0 +1,13 @@
+- op: add
+  path: /spec/podTemplate
+  value:
+    spec:
+      containerSecurityContext:
+        privileged: false
+        runAsGroup: 1000620000
+        runAsUser: 1000620000
+- op: replace
+  path: /spec/version
+  value: 13.2-debian
+- op: remove
+  path: /spec/replicas

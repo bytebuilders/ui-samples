@@ -1,7 +1,7 @@
 apiVersion: kubedb.com/v1alpha2
 kind: MariaDB
 metadata:
-  name: md-standalone-tls
+  name: mariadb
   namespace: demo
 spec:
   version: "10.5.8"
@@ -18,7 +18,7 @@ spec:
     issuerRef:
       apiGroup: cert-manager.io
       kind: Issuer
-      name: md-issuer
+      name: mariadb-issuer
     certificates:
       - alias: server
         subject:

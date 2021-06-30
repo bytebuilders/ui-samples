@@ -1,0 +1,13 @@
+- op: add
+  path: /spec/podTemplate
+  value:
+    spec:
+      args:
+      - --character-set-server=utf8mb4
+      env:
+      - name: MYSQL_DATABASE
+        value: mdDB
+      resources:
+        requests:
+          cpu: 250m
+          memory: 1Gi
