@@ -50,7 +50,7 @@ cluster/prometheus.io/backupblueprint/stash/tls/custom-auth/config-file         
 cluster/prometheus.io/backupconfiguration/script/tls/custom-auth/config-file                        8
 ```
 
-### MariaDB
+### Postgres
 
 ```
 cluster/prometheus.io/backupconfiguration/stash/tls/custom-auth/custom-auth-mode/custom-config/base                                         9
