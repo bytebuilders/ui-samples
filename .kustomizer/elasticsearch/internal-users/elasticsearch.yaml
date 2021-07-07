@@ -1,0 +1,33 @@
+apiVersion: kubedb.com/v1alpha2
+kind: Elasticsearch
+metadata:
+  name: elasticsearch
+  namespace: demo
+spec:
+  internalUsers:
+    admin:
+      backendRoles:
+      - admin
+      reserved: true
+      secretName: elasticsearch-admin-cred
+    kibanaro:
+      secretName: elasticsearch-kibanaro-cred
+    kibanaserver:
+      reserved: true
+      secretName: elasticsearch-kibanaserver-cred
+    logstash:
+      secretName: elasticsearch-logstash-cred
+    readall:
+      secretName: elasticsearch-readall-cred
+    snapshotrestore:
+      secretName: elasticsearch-snapshotrestore-cred
+  version: searchguard-7.10.2
+  storageType: Durable
+  replicas: 3
+  storage:
+    storageClassName: "linode-block-storage"
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi

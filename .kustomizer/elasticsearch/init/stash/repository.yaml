@@ -1,0 +1,11 @@
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  name: elasticsearch-init-repo
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: kubedb-testing
+      prefix: /elasticsearch
+    storageSecretName: gcs-secret

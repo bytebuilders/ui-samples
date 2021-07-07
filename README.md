@@ -6,6 +6,7 @@
 # go run gen/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/mongodb
 # go run gen/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/postgres
 # go run gen/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/mariadb
+# go run gen/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/elasticsearch
 
 # generate kustomize bases from handwritten sample yamls
 kustomizer ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/mongodb ~/go/src/github.com/appscode/kubedb-samples/.kustomize/mongodb
