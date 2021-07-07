@@ -15,6 +15,8 @@ kustomizer ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/postgres ~/go
 
 kustomizer ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/mariadb ~/go/src/github.com/appscode/kubedb-samples/.kustomize/mariadb
 
+kustomizer ~/go/src/github.com/appscode/kubedb-samples/.kustomizer/elasticsearch ~/go/src/github.com/appscode/kubedb-samples/.kustomize/elasticsearch
+
 # build final sample yamls
 cd ~/go/src/kmodules.xyz/kustomizer
 go run build/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomize/mongodb ~/go/src/github.com/appscode/kubedb-samples/mongodb
@@ -23,12 +25,16 @@ go run build/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomize/post
 
 go run build/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomize/mariadb ~/go/src/github.com/appscode/kubedb-samples/mariadb
 
+go run build/main.go ~/go/src/github.com/appscode/kubedb-samples/.kustomize/elasticsearch ~/go/src/github.com/appscode/kubedb-samples/elasticsearch
+
 # determine the most complex configuration
 go run stats/main.go ~/go/src/github.com/appscode/kubedb-samples/mongodb
 
 go run stats/main.go ~/go/src/github.com/appscode/kubedb-samples/mariadb
 
 go run stats/main.go ~/go/src/github.com/appscode/kubedb-samples/postgres
+
+go run stats/main.go ~/go/src/github.com/appscode/kubedb-samples/elasticsearch
 ```
 
 ## Complex Configurations
@@ -70,4 +76,18 @@ standalone/prometheus.io/backupconfiguration/stash/tls/custom-auth/custom-config
 standalone/prometheus.io/backupconfiguration/stash/tls/custom-auth/custom-config/custom-pg-coordinator/base                                 9
 standalone/prometheus.io/backupconfiguration/stash/tls/custom-auth/custom-config/custom-pg-coordinator/custom-uid                           9
 standalone/prometheus.io/backupconfiguration/stash/tls/custom-auth/custom-config/custom-uid                                                 9
+```
+
+### Elasticsearch
+
+```
+topology/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                                         15
+topology/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/kernel-settings                              15
+topology/prometheus.io/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                           15
+topology/prometheus.io/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/kernel-settings                15
+topology/prometheus.io_builtin/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                   15
+topology/prometheus.io_builtin/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/kernel-settings        15
+topology/prometheus.io_operator/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                  15
+topology/prometheus.io_operator/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/kernel-settings       15
+combined/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                                         14
 ```

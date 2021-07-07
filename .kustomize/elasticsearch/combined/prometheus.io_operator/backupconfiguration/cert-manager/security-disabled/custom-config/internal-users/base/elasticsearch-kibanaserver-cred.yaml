@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: elasticsearch-kibanaserver-cred
+  namespace: demo
+stringData:
+  password: WeakPassword
+  username: kibanaserver
+type: kubernetes.io/basic-auth

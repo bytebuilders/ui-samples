@@ -1,0 +1,4 @@
+- op: add
+  path: /metadata/annotations
+  value:
+    stash.appscode.com/backup-blueprint: elasticsearch-backupblueprint

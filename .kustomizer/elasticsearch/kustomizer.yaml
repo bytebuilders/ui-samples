@@ -1,0 +1,37 @@
+profiles:
+  combined:
+  - base: base
+  - base: modes/combined
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - dir: tls
+    fork: true
+  - dir: auth
+  - base: custom-config
+    fork: true
+  - base: internal-users
+    fork: true
+  - base: kernel-settings
+    fork: true
+  topology:
+  - base: base
+  - base: modes/topology
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - dir: tls
+    fork: true
+  - dir: auth
+  - base: custom-config
+    fork: true
+  - base: internal-users
+    fork: true
+  - base: kernel-settings
+    fork: true

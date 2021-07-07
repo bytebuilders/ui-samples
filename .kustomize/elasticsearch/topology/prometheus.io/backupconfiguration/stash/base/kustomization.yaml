@@ -1,0 +1,15 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+bases:
+- ../../base
+kind: Kustomization
+patchesJson6902:
+- path: patch.yaml
+  target:
+    group: kubedb.com
+    kind: Elasticsearch
+    name: elasticsearch
+    namespace: demo
+    version: v1alpha2
+resources:
+- elasticsearch-init-repo.yaml
+- elasticsearch-init.yaml

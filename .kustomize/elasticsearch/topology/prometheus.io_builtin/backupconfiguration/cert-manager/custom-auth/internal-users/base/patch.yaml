@@ -1,0 +1,22 @@
+- op: add
+  path: /spec/internalUsers
+  value:
+    admin:
+      backendRoles:
+      - admin
+      reserved: true
+      secretName: elasticsearch-admin-cred
+    kibanaro:
+      secretName: elasticsearch-kibanaro-cred
+    kibanaserver:
+      reserved: true
+      secretName: elasticsearch-kibanaserver-cred
+    logstash:
+      secretName: elasticsearch-logstash-cred
+    readall:
+      secretName: elasticsearch-readall-cred
+    snapshotrestore:
+      secretName: elasticsearch-snapshotrestore-cred
+- op: replace
+  path: /spec/version
+  value: searchguard-7.10.2

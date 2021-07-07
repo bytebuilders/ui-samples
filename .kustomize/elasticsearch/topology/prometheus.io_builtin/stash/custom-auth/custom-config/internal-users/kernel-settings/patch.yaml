@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/kernelSettings
+  value:
+    privileged: true
+    sysctls:
+    - name: vm.max_map_count
+      value: "262144"

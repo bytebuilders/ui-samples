@@ -1,0 +1,3 @@
+- op: add
+  path: /spec/enableSSL
+  value: true
