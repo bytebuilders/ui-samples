@@ -4,6 +4,6 @@ stringData:
   username: kibanaserver
 kind: Secret
 metadata:
-  name: custom-kibanaserver-cred
+  name: elasticsearch-kibanaserver-cred
   namespace: demo
 type: kubernetes.io/basic-auth

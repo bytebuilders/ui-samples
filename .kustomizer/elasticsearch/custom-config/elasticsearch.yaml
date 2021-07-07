@@ -5,7 +5,7 @@ metadata:
   namespace: demo
 spec:
   configSecret:
-    name: elasticsearch-custom-config
+    name: elasticsearch-config
   version: xpack-7.13.2
   storageType: Durable
   replicas: 3

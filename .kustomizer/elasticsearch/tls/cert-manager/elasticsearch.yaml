@@ -9,7 +9,7 @@ spec:
     issuerRef:
       apiGroup: "cert-manager.io"
       kind: Issuer
-      name: es-issuer
+      name: elasticsearch
   version: xpack-7.13.2
   storageType: Durable
   replicas: 3

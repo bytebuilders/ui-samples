@@ -5,7 +5,7 @@ metadata:
   namespace: demo
 spec:
   authSecret:
-    name: custom-elastic-cred
+    name: elasticsearch-auth
   version: xpack-7.13.2
   storageType: Durable
   replicas: 3

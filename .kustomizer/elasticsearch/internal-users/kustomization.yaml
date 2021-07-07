@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+bases:
+- ../base
+kind: Kustomization
+resources:
+- elasticsearch-admin-cred.yaml
+- elasticsearch-kibanaro-cred.yaml
+- elasticsearch-kibanaserver-cred.yaml
+- elasticsearch-logstash-cred.yaml
+- elasticsearch-readall-cred.yaml
+- elasticsearch-snapshotrestore-cred.yaml
+- elasticsearch.yaml

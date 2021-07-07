@@ -5,7 +5,7 @@ metadata:
   namespace: demo
 spec:
   init:
-    waitForInitialRestore: true 
+    waitForInitialRestore: true
   version: xpack-7.13.2
   storageType: Durable
   replicas: 3

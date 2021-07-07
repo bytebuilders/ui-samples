@@ -14,7 +14,7 @@ spec:
       secretName: elasticsearch-kibanaro-cred
     kibanaserver:
       reserved: true
-      secretName: custom-kibanaserver-cred
+      secretName: elasticsearch-kibanaserver-cred
     logstash:
       secretName: elasticsearch-logstash-cred
     readall:

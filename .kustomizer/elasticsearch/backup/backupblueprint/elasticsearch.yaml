@@ -4,7 +4,7 @@ metadata:
   name: elasticsearch
   namespace: demo
   annotations:
-    stash.appscode.com/backup-blueprint: elasticsearch-backup-template
+    stash.appscode.com/backup-blueprint: elasticsearch-backupblueprint
 spec:
   version: xpack-7.13.2
   storageType: Durable

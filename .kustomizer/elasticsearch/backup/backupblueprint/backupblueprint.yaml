@@ -1,7 +1,7 @@
 apiVersion: stash.appscode.com/v1beta1
 kind: BackupBlueprint
 metadata:
-  name: elasticsearch-backup-template
+  name: elasticsearch-backupblueprint
 spec:
   backend:
     gcs:
@@ -11,7 +11,7 @@ spec:
   schedule: "*/5 * * * *"
   interimVolumeTemplate:
     metadata:
-      name: ${TARGET_APP_RESOURCE}-${TARGET_NAME} 
+      name: ${TARGET_APP_RESOURCE}-${TARGET_NAME}
     spec:
       accessModes: [ "ReadWriteOnce" ]
       storageClassName: "standard"
