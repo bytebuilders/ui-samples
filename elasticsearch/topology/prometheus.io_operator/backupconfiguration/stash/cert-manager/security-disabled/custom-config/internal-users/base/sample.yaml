@@ -137,7 +137,7 @@ spec:
 apiVersion: kubedb.com/v1alpha2
 kind: Elasticsearch
 metadata:
-  name: elsticsearch
+  name: elasticsearch
   namespace: demo
 spec:
   storageType: Durable

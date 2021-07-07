@@ -3,4 +3,4 @@ bases:
 - ../../base
 kind: Kustomization
 resources:
-- elsticsearch.yaml
+- elasticsearch.yaml
