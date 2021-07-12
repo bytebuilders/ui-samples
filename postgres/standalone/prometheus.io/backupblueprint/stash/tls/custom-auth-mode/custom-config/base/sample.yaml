@@ -12,7 +12,7 @@ type: Opaque
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: postgres-ca-issuer
+  name: postgres-ca
   namespace: demo
 spec:
   ca:
@@ -59,7 +59,7 @@ spec:
     issuerRef:
       apiGroup: cert-manager.io
       kind: Issuer
-      name: postgres-ca-issuer
+      name: postgres-ca
   version: "13.2"
 ---
 apiVersion: monitoring.coreos.com/v1

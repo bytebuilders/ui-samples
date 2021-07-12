@@ -1,0 +1,13 @@
+- op: add
+  path: /spec/replicas
+  value: 3
+- op: add
+  path: /spec/topology
+  value:
+    innoDBCluster:
+      router:
+        replica: 3
+    mode: InnoDBCluster
+- op: replace
+  path: /spec/version
+  value: 8.0.24

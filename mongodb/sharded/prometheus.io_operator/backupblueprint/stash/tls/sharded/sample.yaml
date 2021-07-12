@@ -45,7 +45,7 @@ type: Opaque
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: mongodb
+  name: mongodb-ca
   namespace: demo
 spec:
   ca:

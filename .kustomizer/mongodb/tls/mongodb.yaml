@@ -8,7 +8,7 @@ spec:
   sslMode: requireSSL
   tls:
     issuerRef:
-      name: mongo
+      name: mongo-ca
       kind: Issuer
       apiGroup: "cert-manager.io"
   storageType: Durable

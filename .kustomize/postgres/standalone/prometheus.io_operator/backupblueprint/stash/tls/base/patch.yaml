@@ -10,4 +10,4 @@
     issuerRef:
       apiGroup: cert-manager.io
       kind: Issuer
-      name: postgres-ca-issuer
+      name: postgres-ca

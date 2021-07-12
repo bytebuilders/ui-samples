@@ -1,0 +1,147 @@
+apiVersion: v1
+data:
+  init.sql: |-
+    USE `mysql`;
+
+    DROP TABLE IF EXISTS
+        `kubedb_table`;
+
+    CREATE TABLE `kubedb_table`(
+        `id` BIGINT(20) NOT NULL,
+        `name` VARCHAR(255) DEFAULT NULL
+    );
+
+    --
+    -- Dumping data for table `kubedb_table`
+    --
+
+    INSERT INTO `kubedb_table`(`id`, `name`)
+    VALUES(1, 'name1'),(2, 'name2'),(3, 'name3');
+
+    --
+    -- Indexes for table `kubedb_table`
+    --
+
+    ALTER TABLE
+        `kubedb_table` ADD PRIMARY KEY(`id`);
+
+    --
+    -- AUTO_INCREMENT for table `kubedb_table`
+    --
+
+    ALTER TABLE
+        `kubedb_table` MODIFY `id` BIGINT(20) NOT NULL AUTO_INCREMENT,
+        AUTO_INCREMENT = 4;
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/instance: mysql
+    app.kubernetes.io/name: mysqls.kubedb.com
+  name: mysql-init-script
+  namespace: demo
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-auth
+  namespace: demo
+stringData:
+  password: thisIs1StrongPassword
+  username: root
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-config
+  namespace: demo
+stringData:
+  my-config.cnf: |
+    [mysqld]
+    max_connections = 200
+    read_buffer_size = 1048576
+type: Opaque
+---
+apiVersion: cert-manager.io/v1beta1
+kind: Issuer
+metadata:
+  name: mysql-ca
+  namespace: demo
+spec:
+  ca:
+    secretName: mysql-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: MySQL
+metadata:
+  annotations:
+    stash.appscode.com/backup-blueprint: mysql-backupblueprint
+    stash.appscode.com/schedule: '*/7 * * * *'
+  name: mysql
+  namespace: demo
+spec:
+  authSecret:
+    name: mysql-auth
+  configSecret:
+    name: mysql-config
+  init:
+    script:
+      configMap:
+        name: mysql-init-script
+  monitor:
+    agent: prometheus.io/operator
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+      serviceMonitor:
+        interval: 30s
+        labels:
+          release: prometheus-stack
+  replicas: 1
+  requireSSL: true
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  tls:
+    certificates:
+    - alias: server
+      dnsNames:
+      - localhost
+      ipAddresses:
+      - 127.0.0.1
+      subject:
+        organizations:
+        - kubedb:server
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: mysql-ca
+  version: 8.0.23-v1
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupBlueprint
+metadata:
+  name: mysql-backupblueprint
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: mysql-backup/${TARGET_NAMESPACE}/${TARGET_APP_RESOURCE}/${TARGET_NAME}
+    storageSecretName: gcs-secret
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/5 * * * *'

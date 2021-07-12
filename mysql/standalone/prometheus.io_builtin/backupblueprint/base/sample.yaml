@@ -1,0 +1,47 @@
+apiVersion: kubedb.com/v1alpha2
+kind: MySQL
+metadata:
+  annotations:
+    stash.appscode.com/backup-blueprint: mysql-backupblueprint
+    stash.appscode.com/schedule: '*/7 * * * *'
+  name: mysql
+  namespace: demo
+spec:
+  monitor:
+    agent: prometheus.io/builtin
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  replicas: 1
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  version: 8.0.23-v1
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupBlueprint
+metadata:
+  name: mysql-backupblueprint
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: mysql-backup/${TARGET_NAMESPACE}/${TARGET_APP_RESOURCE}/${TARGET_NAME}
+    storageSecretName: gcs-secret
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/5 * * * *'

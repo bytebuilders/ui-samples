@@ -1,0 +1,122 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-auth
+  namespace: demo
+stringData:
+  password: thisIs1StrongPassword
+  username: root
+type: Opaque
+---
+apiVersion: cert-manager.io/v1beta1
+kind: Issuer
+metadata:
+  name: mysql-ca
+  namespace: demo
+spec:
+  ca:
+    secretName: mysql-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: MySQL
+metadata:
+  annotations:
+    stash.appscode.com/backup-blueprint: mysql-backupblueprint
+    stash.appscode.com/schedule: '*/7 * * * *'
+  name: mysql
+  namespace: demo
+spec:
+  authSecret:
+    name: mysql-auth
+  monitor:
+    agent: prometheus.io
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  podTemplate:
+    spec:
+      args:
+      - --character-set-server=utf8mb4
+      env:
+      - name: MYSQL_DATABASE
+        value: myDB
+      resources:
+        requests:
+          cpu: 250m
+          memory: 1Gi
+  replicas: 1
+  requireSSL: true
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: Halt
+  tls:
+    certificates:
+    - alias: server
+      dnsNames:
+      - localhost
+      ipAddresses:
+      - 127.0.0.1
+      subject:
+        organizations:
+        - kubedb:server
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: mysql-ca
+  topology:
+    innoDBCluster:
+      router:
+        replica: 3
+    mode: InnoDBCluster
+  version: 8.0.24
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: mysql
+    app.kubernetes.io/name: mysqls.kubedb.com
+    release: prometheus-stack
+  name: mysql
+  namespace: demo
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 30s
+    path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - demo
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mysql
+      app.kubernetes.io/name: mysqls.kubedb.com
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupBlueprint
+metadata:
+  name: mysql-backupblueprint
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: mysql-backup/${TARGET_NAMESPACE}/${TARGET_APP_RESOURCE}/${TARGET_NAME}
+    storageSecretName: gcs-secret
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/5 * * * *'

@@ -8,7 +8,7 @@ metadata:
     stash.appscode.com/schedule: "*/7 * * * *"
 spec:
   version: "13.2"
-  replicas: 3
+  replicas: 1
   standbyMode: Hot
   storageType: Durable
   storage:

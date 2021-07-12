@@ -61,7 +61,7 @@ type: kubernetes.io/basic-auth
 apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
-  name: elasticsearch
+  name: elasticsearch-ca
   namespace: demo
 spec:
   selfSigned: {}
@@ -117,7 +117,7 @@ spec:
     issuerRef:
       apiGroup: cert-manager.io
       kind: Issuer
-      name: elasticsearch
+      name: elasticsearch-ca
   version: searchguard-7.10.2
 ---
 apiVersion: stash.appscode.com/v1alpha1

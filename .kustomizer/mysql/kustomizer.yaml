@@ -1,0 +1,49 @@
+profiles:
+  standalone:
+  - base: base
+  - base: modes/standalone
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - base: tls
+    fork: true
+  - base: custom-auth
+    fork: true
+  - base: custom-config/config-file
+    fork: true
+  - base: custom-config/customize-pod-template
+  group-replication:
+  - base: base
+  - base: modes/cluster/group-replication
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - base: tls
+    fork: true
+  - base: custom-auth
+    fork: true
+  - base: custom-config/config-file
+    fork: true
+  - base: custom-config/customize-pod-template
+  innodb-cluster:
+  - base: base
+  - base: modes/cluster/innodb-cluster
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - base: tls
+    fork: true
+  - base: custom-auth
+    fork: true
+  - base: custom-config/config-file
+    fork: true
+  - base: custom-config/customize-pod-template

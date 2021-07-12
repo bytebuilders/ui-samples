@@ -43,11 +43,11 @@ metadata:
 apiVersion: cert-manager.io/v1beta1
 kind: Issuer
 metadata:
-  name: mariadb-issuer
+  name: mariadb-ca
   namespace: demo
 spec:
   ca:
-    secretName: md-ca
+    secretName: mariadb-ca
 ---
 apiVersion: kubedb.com/v1alpha2
 kind: MariaDB
@@ -83,7 +83,7 @@ spec:
     issuerRef:
       apiGroup: cert-manager.io
       kind: Issuer
-      name: mariadb-issuer
+      name: mariadb-ca
   version: 10.5.8
 ---
 apiVersion: stash.appscode.com/v1alpha1

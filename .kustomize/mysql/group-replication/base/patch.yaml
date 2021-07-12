@@ -1,0 +1,9 @@
+- op: add
+  path: /spec/replicas
+  value: 3
+- op: add
+  path: /spec/topology
+  value:
+    group:
+      name: dc002fc3-c412-4d18-b1d4-66c1fbfbbc9b
+    mode: GroupReplication
