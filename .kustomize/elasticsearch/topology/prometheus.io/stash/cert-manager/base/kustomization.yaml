@@ -11,4 +11,4 @@ patchesJson6902:
     namespace: demo
     version: v1alpha2
 resources:
-- elasticsearch.yaml
+- elasticsearch-ca.yaml

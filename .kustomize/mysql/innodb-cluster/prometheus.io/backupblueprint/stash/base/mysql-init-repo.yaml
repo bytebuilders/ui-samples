@@ -1,0 +1,14 @@
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  labels:
+    app.kubernetes.io/instance: mysql
+    app.kubernetes.io/name: mysqls.kubedb.com
+  name: mysql-init-repo
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/mysql/mysql
+    storageSecretName: gcs-secret

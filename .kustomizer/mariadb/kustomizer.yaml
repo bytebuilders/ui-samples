@@ -12,7 +12,10 @@ profiles:
     fork: true
   - base: custom-auth
     fork: true
-  - dir: custom-config
+  - base: custom-config/config-file
+    fork: true
+  - base: custom-config/customize-pod-template
+    fork: true
   cluster:
   - base: base
   - base: modes/cluster
@@ -26,4 +29,7 @@ profiles:
     fork: true
   - base: custom-auth
     fork: true
-  - dir: custom-config
+  - base: custom-config/config-file
+    fork: true
+  - base: custom-config/customize-pod-template
+    fork: true

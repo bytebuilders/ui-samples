@@ -18,7 +18,7 @@ spec:
     issuerRef:
       apiGroup: cert-manager.io
       kind: Issuer
-      name: mysql-issuer
+      name: mysql-ca
     certificates:
       - alias: server
         subject:

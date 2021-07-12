@@ -16,4 +16,4 @@
     issuerRef:
       apiGroup: cert-manager.io
       kind: Issuer
-      name: mariadb-issuer
+      name: mariadb-ca

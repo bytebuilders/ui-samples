@@ -5,7 +5,7 @@ metadata:
   namespace: demo
 spec:
   version: "13.2"
-  replicas: 3
+  replicas: 1
   standbyMode: Hot
   storageType: Durable
   storage:

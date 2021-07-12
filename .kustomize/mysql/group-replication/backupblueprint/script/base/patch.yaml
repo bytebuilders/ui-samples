@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/init
+  value:
+    script:
+      configMap:
+        name: mysql-init-script

@@ -12,7 +12,7 @@ spec:
   tls:
     issuerRef:
       apiGroup: cert-manager.io
-      name: postgres-ca-issuer
+      name: postgres-ca
       kind: Issuer
   storage:
     storageClassName: standard

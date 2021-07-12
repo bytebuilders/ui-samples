@@ -107,23 +107,6 @@ spec:
       secretName: elasticsearch-readall-cred
     snapshotrestore:
       secretName: elasticsearch-snapshotrestore-cred
-  replicas: 3
-  storage:
-    accessModes:
-    - ReadWriteOnce
-    resources:
-      requests:
-        storage: 1Gi
-    storageClassName: linode-block-storage
-  storageType: Durable
-  version: searchguard-7.10.2
----
-apiVersion: kubedb.com/v1alpha2
-kind: Elasticsearch
-metadata:
-  name: elasticsearch
-  namespace: demo
-spec:
   storageType: Durable
   topology:
     data:
@@ -216,7 +199,7 @@ spec:
           requests:
             storage: 1Gi
         storageClassName: linode-block-storage
-  version: xpack-7.13.2
+  version: searchguard-7.10.2
 ---
 apiVersion: stash.appscode.com/v1alpha1
 kind: Repository
