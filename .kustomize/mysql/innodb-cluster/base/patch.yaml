@@ -6,7 +6,7 @@
   value:
     innoDBCluster:
       router:
-        replica: 3
+        replicas: 3
     mode: InnoDBCluster
 - op: replace
   path: /spec/version

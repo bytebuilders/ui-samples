@@ -98,6 +98,6 @@ spec:
   topology:
     innoDBCluster:
       router:
-        replica: 3
+        replicas: 3
     mode: InnoDBCluster
   version: 8.0.24
