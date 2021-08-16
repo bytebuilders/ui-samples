@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: elasticsearch
+  namespace: demo
+  labels:
+    release: prometheus-stack
+    app.kubernetes.io/name: elasticsearches.kubedb.com
+    app.kubernetes.io/instance: elasticsearch
+spec:
+  namespaceSelector:
+    matchNames:
+    - demo
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: elasticsearches.kubedb.com
+      app.kubernetes.io/instance: elasticsearch
+  endpoints:
+  - port: metrics
+    honorLabels: true
+    interval: 30s
+    path: /metrics

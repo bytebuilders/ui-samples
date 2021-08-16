@@ -89,12 +89,10 @@ cluster/prometheus.io/backupconfiguration/stash/tls/custom-auth/custom-auth-mode
 ### Elasticsearch
 
 ```
-combined/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                                         14
-combined/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/kernel-settings                              14
-combined/prometheus.io/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                           14
-combined/prometheus.io/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/kernel-settings                14
-combined/prometheus.io_builtin/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                   14
-combined/prometheus.io_builtin/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/kernel-settings        14
+topology/prometheus.io/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/kernel-settings                7|15
+topology/prometheus.io/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                           7|15
+combined/prometheus.io/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/kernel-settings                7|15
+combined/prometheus.io/backupconfiguration/stash/cert-manager/custom-auth/custom-config/internal-users/base                           7|15
 ```
 
 ### MySQL

@@ -4,3 +4,4 @@ bases:
 kind: Kustomization
 resources:
 - elasticsearch.yaml
+- servicemonitor.yaml
