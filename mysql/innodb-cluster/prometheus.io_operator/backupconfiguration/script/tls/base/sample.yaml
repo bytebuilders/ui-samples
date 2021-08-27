@@ -40,7 +40,7 @@ metadata:
   name: mysql-init-script
   namespace: demo
 ---
-apiVersion: cert-manager.io/v1beta1
+apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: mysql-ca

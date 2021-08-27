@@ -20,7 +20,7 @@ stringData:
     read_buffer_size = 1048576
 type: Opaque
 ---
-apiVersion: cert-manager.io/v1beta1
+apiVersion: cert-manager.io/v1
 kind: Issuer
 metadata:
   name: mysql-ca
