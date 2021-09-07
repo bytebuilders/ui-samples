@@ -21,7 +21,7 @@ type: kubernetes.io/basic-auth
 apiVersion: v1
 kind: Secret
 metadata:
-  name: elasticsearch-config
+  name: elasticsearch-user-config
   namespace: demo
 stringData:
   elasticsearch.yml: 'node.processors: 2'
@@ -111,7 +111,7 @@ spec:
   authSecret:
     name: elasticsearch-admin-cred
   configSecret:
-    name: elasticsearch-config
+    name: elasticsearch-user-config
   enableSSL: true
   init:
     waitForInitialRestore: true
