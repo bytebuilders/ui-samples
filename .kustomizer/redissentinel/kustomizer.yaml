@@ -6,5 +6,3 @@ profiles:
   - base: tls
     fork: true
   - base: custom-auth
-    fork: true
-  - base: custom-config

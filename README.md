@@ -127,16 +127,23 @@ sentinel/prometheus.io/backupconfiguration/stash/tls/custom-auth/custom-config  
 sentinel/prometheus.io/backupconfiguration/stash/tls/custom-config                        8|9
 sentinel/prometheus.io/backupconfiguration/stash/tls/custom-auth/base                     8|9
 sentinel/prometheus.io/backupblueprint/stash/tls/custom-auth/custom-config                8|9
+sentinel/prometheus.io/backupblueprint/stash/tls/custom-config                            8|8
+sentinel/prometheus.io/backupblueprint/stash/tls/custom-auth/base                         8|8
+standalone/prometheus.io/backupconfiguration/stash/tls/custom-auth/custom-config          7|9
+sentinel/prometheus.io_operator/backupconfiguration/stash/tls/custom-auth/custom-config   7|9
+sentinel/prometheus.io_builtin/backupconfiguration/stash/tls/custom-auth/custom-config    7|9
+sentinel/prometheus.io/backupconfiguration/stash/custom-auth/custom-config                7|9
+sentinel/backupconfiguration/stash/tls/custom-auth/custom-config                          7|9
+cluster/prometheus.io/backupconfiguration/stash/tls/custom-auth/custom-config             7|9
 ```
 
 ### Redis Sentinel
 
 ```
-prometheus.io/tls/custom-auth/custom-config          4|5
-prometheus.io/tls/custom-config                      4|4
-prometheus.io/tls/custom-auth/base                   4|4
-tls/custom-auth/custom-config                        3|4
-prometheus.io_operator/tls/custom-auth/custom-config 3|4
-prometheus.io_builtin/tls/custom-auth/custom-config  3|4
-prometheus.io/custom-auth/custom-config              3|4
+prometheus.io/tls/custom-auth          4|4
+tls/custom-auth                        3|3
+prometheus.io_operator/tls/custom-auth 3|3
+prometheus.io_builtin/tls/custom-auth  3|3
+prometheus.io/tls/base                 3|3
+prometheus.io/custom-auth              3|3
 ```
