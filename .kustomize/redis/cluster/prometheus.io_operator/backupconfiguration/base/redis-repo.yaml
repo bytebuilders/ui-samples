@@ -1,0 +1,14 @@
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis-repo
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/redis
+    storageSecretName: gcs-secret

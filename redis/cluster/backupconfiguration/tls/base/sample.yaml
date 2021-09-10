@@ -1,0 +1,71 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: redis-ca
+  namespace: demo
+spec:
+  ca:
+    secretName: redis-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: redis
+  namespace: demo
+spec:
+  cluster:
+    master: 3
+    replicas: 1
+  mode: Cluster
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  tls:
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: redis-ca
+  version: 6.0.6
+---
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis-repo
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/redis
+    storageSecretName: gcs-secret
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupConfiguration
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis
+  namespace: demo
+spec:
+  repository:
+    name: redis-repo
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/2 * * * *'
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: redis

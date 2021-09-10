@@ -1,0 +1,102 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: redis-auth
+  namespace: demo
+stringData:
+  password: thisIs1StrongPassword
+  username: root
+type: Opaque
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: redis-ca
+  namespace: demo
+spec:
+  ca:
+    secretName: redis-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: redis
+  namespace: demo
+spec:
+  authSecret:
+    name: redis-auth
+  mode: Sentinel
+  replicas: 3
+  sentinelRef:
+    name: sentinel
+    namespace: demo
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  tls:
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: redis-ca
+  version: 6.2.5
+---
+apiVersion: kubedb.com/v1alpha2
+kind: RedisSentinel
+metadata:
+  name: sentinel
+  namespace: demo
+spec:
+  replicas: 3
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  version: 6.2.5
+---
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis-repo
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/redis
+    storageSecretName: gcs-secret
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupConfiguration
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis
+  namespace: demo
+spec:
+  repository:
+    name: redis-repo
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/2 * * * *'
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: redis

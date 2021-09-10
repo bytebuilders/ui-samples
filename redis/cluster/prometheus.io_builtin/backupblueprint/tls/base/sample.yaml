@@ -1,0 +1,64 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: redis-ca
+  namespace: demo
+spec:
+  ca:
+    secretName: redis-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  annotations:
+    stash.appscode.com/backup-blueprint: redis-backupblueprint
+    stash.appscode.com/schedule: '*/7 * * * *'
+  name: redis
+  namespace: demo
+spec:
+  cluster:
+    master: 3
+    replicas: 1
+  mode: Cluster
+  monitor:
+    agent: prometheus.io/builtin
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  tls:
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: redis-ca
+  version: 6.0.6
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupBlueprint
+metadata:
+  name: redis-backupblueprint
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: stash-backup/${TARGET_NAMESPACE}/${TARGET_APP_RESOURCE}/${TARGET_NAME}
+    storageSecretName: gcs-secret
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/5 * * * *'

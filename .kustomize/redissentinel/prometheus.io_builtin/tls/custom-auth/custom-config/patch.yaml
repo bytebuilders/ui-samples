@@ -1,0 +1,6 @@
+- op: add
+  path: /spec/configSecret
+  value:
+    name: redissentinel-config
+- op: remove
+  path: /spec/storageType

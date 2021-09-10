@@ -1,0 +1,13 @@
+- op: add
+  path: /spec/monitor
+  value:
+    agent: prometheus.io
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi

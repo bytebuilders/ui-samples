@@ -1,0 +1,22 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+    release: prometheus-stack
+  name: redis
+  namespace: demo
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 30s
+    path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - demo
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: redis
+      app.kubernetes.io/name: redises.kubedb.com

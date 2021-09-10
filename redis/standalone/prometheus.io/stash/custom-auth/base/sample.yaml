@@ -1,0 +1,99 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: redis-auth
+  namespace: demo
+stringData:
+  password: thisIs1StrongPassword
+  username: root
+type: Opaque
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: redis
+  namespace: demo
+spec:
+  authSecret:
+    name: redis-auth
+  init:
+    waitForInitialRestore: true
+  monitor:
+    agent: prometheus.io
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  version: 6.0.6
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+    release: prometheus-stack
+  name: redis
+  namespace: demo
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 30s
+    path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - demo
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: redis
+      app.kubernetes.io/name: redises.kubedb.com
+---
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis-init-repo
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/redis
+    storageSecretName: gcs-secret
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: RestoreSession
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis-init
+  namespace: demo
+spec:
+  repository:
+    name: redis-init-repo
+  rules:
+  - snapshots:
+    - latest
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: redis

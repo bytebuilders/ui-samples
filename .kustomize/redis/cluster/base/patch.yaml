@@ -1,0 +1,8 @@
+- op: add
+  path: /spec/cluster
+  value:
+    master: 3
+    replicas: 1
+- op: add
+  path: /spec/mode
+  value: Cluster
