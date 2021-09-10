@@ -8,7 +8,7 @@ metadata:
     app.kubernetes.io/instance: redis
 spec:
   repository:
-    name: redis-repo
+    name: redis-init-repo
   target:
     ref:
       apiVersion: appcatalog.appscode.com/v1alpha1

@@ -1,0 +1,21 @@
+apiVersion: stash.appscode.com/v1beta1
+kind: BackupConfiguration
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis
+  namespace: demo
+spec:
+  repository:
+    name: redis-repo
+  retentionPolicy:
+    keepLast: 5
+    name: keep-last-5
+    prune: true
+  schedule: '*/2 * * * *'
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: redis

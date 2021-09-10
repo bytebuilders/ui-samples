@@ -1,0 +1,82 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: redis-ca
+  namespace: demo
+spec:
+  ca:
+    secretName: redis-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: redis
+  namespace: demo
+spec:
+  cluster:
+    master: 3
+    replicas: 1
+  init:
+    waitForInitialRestore: true
+  mode: Cluster
+  monitor:
+    agent: prometheus.io/builtin
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  tls:
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: redis-ca
+  version: 6.0.6
+---
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis-init-repo
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/redis
+    storageSecretName: gcs-secret
+---
+apiVersion: stash.appscode.com/v1beta1
+kind: RestoreSession
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis-init
+  namespace: demo
+spec:
+  repository:
+    name: redis-init-repo
+  rules:
+  - snapshots:
+    - latest
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: redis

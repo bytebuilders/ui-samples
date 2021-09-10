@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: redissentinel-config
+  namespace: demo
+stringData:
+  redis.conf: |
+    databases 10
+    maxclients 500
+type: Opaque

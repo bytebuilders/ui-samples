@@ -1,0 +1,19 @@
+apiVersion: stash.appscode.com/v1beta1
+kind: RestoreSession
+metadata:
+  labels:
+    app.kubernetes.io/instance: redis
+    app.kubernetes.io/name: redises.kubedb.com
+  name: redis-init
+  namespace: demo
+spec:
+  repository:
+    name: redis-init-repo
+  rules:
+  - snapshots:
+    - latest
+  target:
+    ref:
+      apiVersion: appcatalog.appscode.com/v1alpha1
+      kind: AppBinding
+      name: redis

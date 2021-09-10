@@ -1,0 +1,43 @@
+profiles:
+  standalone:
+  - base: base
+  - base: modes/standalone
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - base: tls
+    fork: true
+  - base: custom-auth
+    fork: true
+  - base: custom-config
+  cluster:
+  - base: base
+  - base: modes/cluster
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - base: tls
+    fork: true
+  - base: custom-auth
+    fork: true
+  - base: custom-config
+  sentinel:
+  - base: base
+  - base: modes/sentinel
+  - dir: monitoring
+    fork: true
+  - dir: backup
+    fork: true
+  - dir: init
+    fork: true
+  - base: tls
+    fork: true
+  - base: custom-auth
+    fork: true
+  - base: custom-config

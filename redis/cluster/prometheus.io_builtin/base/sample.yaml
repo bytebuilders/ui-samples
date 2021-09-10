@@ -1,0 +1,31 @@
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: redis
+  namespace: demo
+spec:
+  cluster:
+    master: 3
+    replicas: 1
+  mode: Cluster
+  monitor:
+    agent: prometheus.io/builtin
+    prometheus:
+      exporter:
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+  storage:
+    accessModes:
+    - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: WipeOut
+  version: 6.0.6
