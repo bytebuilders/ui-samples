@@ -1,0 +1,21 @@
+apiVersion: kubevault.com/v1alpha1
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  replicas: 1
+  version: 1.8.2
+  backend:
+    inmem: {}
+  unsealer:
+    secretShares: 5
+    secretThreshold: 3
+    mode:
+      googleKmsGcs:
+        kmsCryptoKey: <kms-key>
+        kmsKeyRing: <kms-ring>
+        kmsLocation: <kms-location>
+        kmsProject: <project-name>
+        bucket: <bucket-name>
+        credentialSecret: gcs-creds
