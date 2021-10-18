@@ -7,13 +7,9 @@ spec:
   replicas: 1
   version: 1.8.2
   backend:
-    raft:
-      path: "/vault/data"
-      storage:
-        storageClassName: "standard"
-        resources:
-          requests:
-            storage: 1Gi
+    swift: 
+      credentialSecret: swift-cred
+      authTokenSecret: auth-secret
   unsealer:
     secretShares: 5
     secretThreshold: 3

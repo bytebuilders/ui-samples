@@ -18,7 +18,7 @@ spec:
     secretShares: 5
     secretThreshold: 3
     mode:
-      awsKmsSsm:
-        credentialSecret: aws-cred
-        kmsKeyID: <kms-key-id> 
-        region: <region>
+      azureKeyVault:
+        vaultBaseURL: <vault-base-url>
+        clientCertSecret: client-secret
+        aadClientSecret: aad-secret
