@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-consul-creds
+  namespace: demo
+stringData:
+  aclToken: <acl-token>
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-consul-tls
+  namespace: demo
+stringData:
+  ca.crt: <ca-cert>
+  client.crt: <client-cert>
+  client.key: <client-key>
+type: Opaque
+---
+apiVersion: kubevault.com/v1alpha1
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  backend:
+    consul:
+      aclTokenSecretName: vault-backend-consul-creds
+      address: http://consul-server.default.svc:8500
+      path: vault
+      tlsSecretName: vault-backend-consul-tls
+  replicas: 1
+  unsealer:
+    mode:
+      kubernetesSecret:
+        secretName: vault-keys
+    secretShares: 5
+    secretThreshold: 3
+  version: 1.8.2

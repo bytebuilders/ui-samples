@@ -8,7 +8,7 @@ spec:
   version: 1.8.2
   backend:
     postgresql:
-      connectionURLSecret: pg-secret
+      connectionURLSecret: vault-backend-postgresql-creds
   unsealer:
     secretShares: 5
     secretThreshold: 3

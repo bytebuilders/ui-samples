@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/backend/swift
+  value:
+    authTokenSecret: vault-backend-swift-auth-token
+    credentialSecret: vault-backend-swift-creds
+- op: remove
+  path: /spec/backend/raft

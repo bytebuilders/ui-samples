@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-gcs-creds
+  namespace: demo
+stringData:
+  sa.json: <gcs-sa.json>
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-unsealer-gcp-creds
+  namespace: demo
+stringData:
+  sa.json: |-
+    {
+      "key": "value",
+    }
+type: Opaque
+---
+apiVersion: kubevault.com/v1alpha1
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  backend:
+    gcs:
+      bucket: <bucket-name>
+      credentialSecret: vault-backend-gcs-creds
+  replicas: 1
+  unsealer:
+    mode:
+      googleKmsGcs:
+        bucket: <bucket-name>
+        credentialSecret: vault-unsealer-gcp-creds
+        kmsCryptoKey: <kms-key>
+        kmsKeyRing: <kms-ring>
+        kmsLocation: <kms-location>
+        kmsProject: <project-name>
+    secretShares: 5
+    secretThreshold: 3
+  version: 1.8.2

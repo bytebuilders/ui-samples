@@ -9,7 +9,7 @@ spec:
   backend:
     etcd:
       address: <etcd-server-address>
-      credentialSecretName: etcd-cred
+      credentialSecretName: vault-backend-etcd-creds
   unsealer:
     secretShares: 5
     secretThreshold: 3

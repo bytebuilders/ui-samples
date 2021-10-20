@@ -7,9 +7,9 @@ spec:
   replicas: 1
   version: 1.8.2
   backend:
-    swift: 
-      credentialSecret: swift-cred
-      authTokenSecret: auth-secret
+    swift:
+      credentialSecret: vault-backend-swift-creds
+      authTokenSecret: vault-backend-swift-auth-token
   unsealer:
     secretShares: 5
     secretThreshold: 3

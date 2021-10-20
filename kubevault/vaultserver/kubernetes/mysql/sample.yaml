@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-mysql-creds
+  namespace: demo
+stringData:
+  password: <password>
+  username: <username>
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-mysql-tls
+  namespace: demo
+stringData:
+  tls_ca_file: <tls-ca-file>
+type: Opaque
+---
+apiVersion: kubevault.com/v1alpha1
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  backend:
+    mysql:
+      tlsCASecret: vault-backend-mysql-tls
+      userCredentialSecret: vault-backend-mysql-creds
+  replicas: 1
+  unsealer:
+    mode:
+      kubernetesSecret:
+        secretName: vault-keys
+    secretShares: 5
+    secretThreshold: 3
+  version: 1.8.2

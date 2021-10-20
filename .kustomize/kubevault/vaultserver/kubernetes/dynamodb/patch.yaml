@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/backend/dynamodb
+  value:
+    credentialSecret: vault-backend-dynamodb-creds
+    sessionTokenSecret: vault-backend-dynamodb-session-token
+- op: remove
+  path: /spec/backend/raft

@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/backend/gcs
+  value:
+    bucket: <bucket-name>
+    credentialSecret: vault-backend-gcs-creds
+- op: remove
+  path: /spec/backend/raft

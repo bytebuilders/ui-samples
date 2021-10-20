@@ -20,5 +20,5 @@ spec:
     mode:
       azureKeyVault:
         vaultBaseURL: <vault-base-url>
-        clientCertSecret: client-secret
-        aadClientSecret: aad-secret
+        clientCertSecret: vault-unsealer-azure-client-creds
+        aadClientSecret: vault-unsealer-azure-aad-creds

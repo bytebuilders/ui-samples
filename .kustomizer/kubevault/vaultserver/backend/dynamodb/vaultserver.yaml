@@ -8,8 +8,8 @@ spec:
   version: 1.8.2
   backend:
     dynamodb:
-      credentialSecret: dynamo-cred
-      sessionTokenSecret: session-secret
+      credentialSecret: vault-backend-dynamodb-creds
+      sessionTokenSecret: vault-backend-dynamodb-session-token
   unsealer:
     secretShares: 5
     secretThreshold: 3

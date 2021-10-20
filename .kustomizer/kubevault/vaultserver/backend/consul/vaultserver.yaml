@@ -10,8 +10,8 @@ spec:
     consul:
       address: "http://consul-server.default.svc:8500"
       path: "vault"
-      aclTokenSecretName: acl-secret
-      tlsSecretName: tls-secret
+      aclTokenSecretName: vault-backend-consul-creds
+      tlsSecretName: vault-backend-consul-tls
   unsealer:
     secretShares: 5
     secretThreshold: 3

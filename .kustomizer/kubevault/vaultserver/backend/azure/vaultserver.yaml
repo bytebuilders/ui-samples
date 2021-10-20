@@ -8,8 +8,8 @@ spec:
   version: 1.8.2
   backend:
     azure:
-       accountName: <account-name>
-       accountKeySecret: azure-cred
+      accountName: <account-name>
+      accountKeySecret: vault-backend-azure-creds
   unsealer:
     secretShares: 5
     secretThreshold: 3

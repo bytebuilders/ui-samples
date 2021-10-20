@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-consul-creds
+  namespace: demo
+stringData:
+  aclToken: <acl-token>
+type: Opaque

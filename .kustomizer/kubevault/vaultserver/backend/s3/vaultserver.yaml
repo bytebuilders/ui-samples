@@ -9,7 +9,7 @@ spec:
   backend:
     gcs:
       bucket: <bucket-name>
-      credentialSecret: s3-cred
+      credentialSecret: vault-backend-s3-creds
   unsealer:
     secretShares: 5
     secretThreshold: 3

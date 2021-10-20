@@ -1,0 +1,17 @@
+profiles:
+  aws-kms-ssm:
+  - base: base
+  - base: unsealer/aws-kms-ssm
+  - dir: backend
+  azure:
+  - base: base
+  - base: unsealer/azure
+  - dir: backend
+  google-kms-gcs:
+  - base: base
+  - base: unsealer/google-kms-gcs
+  - dir: backend
+  kubernetes:
+  - base: base
+  - base: unsealer/kubernetes
+  - dir: backend
