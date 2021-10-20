@@ -1,0 +1,17 @@
+apiVersion: kubevault.com/v1alpha1
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  replicas: 1
+  version: 1.8.2
+  backend:
+    postgresql:
+      connectionURLSecret: vault-backend-creds
+  unsealer:
+    secretShares: 5
+    secretThreshold: 3
+    mode:
+      kubernetesSecret:
+        secretName: vault-keys

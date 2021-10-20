@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-creds
+  namespace: demo
+stringData:
+  password: <password>
+  username: <username>
+type: Opaque
+---
+apiVersion: kubevault.com/v1alpha1
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  backend:
+    etcd:
+      address: <etcd-server-address>
+      credentialSecretName: vault-backend-creds
+  replicas: 1
+  unsealer:
+    mode:
+      kubernetesSecret:
+        secretName: vault-keys
+    secretShares: 5
+    secretThreshold: 3
+  version: 1.8.2

@@ -1,0 +1,5 @@
+- op: add
+  path: /spec/backend/inmem
+  value: {}
+- op: remove
+  path: /spec/backend/raft

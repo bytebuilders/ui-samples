@@ -1,0 +1,7 @@
+- op: add
+  path: /spec/backend/etcd
+  value:
+    address: <etcd-server-address>
+    credentialSecretName: vault-backend-creds
+- op: remove
+  path: /spec/backend/raft

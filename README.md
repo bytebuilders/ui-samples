@@ -24,6 +24,7 @@ resources:
 # go run gen/main.go ~/go/src/github.com/appscode/ui-samples/.kustomizer/mysql
 # go run gen/main.go ~/go/src/github.com/appscode/ui-samples/.kustomizer/redis
 # go run gen/main.go ~/go/src/github.com/appscode/ui-samples/.kustomizer/redissentinel
+# go run gen/main.go ~/go/src/github.com/appscode/ui-samples/.kustomizer/kubevault/vaultserver
 
 # generate kustomize bases from handwritten sample yamls
 kustomizer ~/go/src/github.com/appscode/ui-samples/.kustomizer/mongodb ~/go/src/github.com/appscode/ui-samples/.kustomize/mongodb
@@ -39,6 +40,8 @@ kustomizer ~/go/src/github.com/appscode/ui-samples/.kustomizer/mysql ~/go/src/gi
 kustomizer ~/go/src/github.com/appscode/ui-samples/.kustomizer/redis ~/go/src/github.com/appscode/ui-samples/.kustomize/redis
 
 kustomizer ~/go/src/github.com/appscode/ui-samples/.kustomizer/redissentinel ~/go/src/github.com/appscode/ui-samples/.kustomize/redissentinel
+
+kustomizer ~/go/src/github.com/appscode/ui-samples/.kustomizer/kubevault/vaultserver ~/go/src/github.com/appscode/ui-samples/.kustomize/kubevault/vaultserver
 
 # build final sample yamls
 cd ~/go/src/kmodules.xyz/kustomizer
@@ -56,6 +59,8 @@ go run build/main.go ~/go/src/github.com/appscode/ui-samples/.kustomize/redis ~/
 
 go run build/main.go ~/go/src/github.com/appscode/ui-samples/.kustomize/redissentinel ~/go/src/github.com/appscode/ui-samples/redissentinel
 
+go run build/main.go ~/go/src/github.com/appscode/ui-samples/.kustomize/kubevault/vaultserver ~/go/src/github.com/appscode/ui-samples/kubevault/vaultserver
+
 # determine the most complex configuration
 go run stats/main.go ~/go/src/github.com/appscode/ui-samples/mongodb
 
@@ -70,6 +75,8 @@ go run stats/main.go ~/go/src/github.com/appscode/ui-samples/mysql
 go run stats/main.go ~/go/src/github.com/appscode/ui-samples/redis
 
 go run stats/main.go ~/go/src/github.com/appscode/ui-samples/redissentinel
+
+go run stats/main.go ~/go/src/github.com/appscode/ui-samples/kubevault/vaultserver
 ```
 
 ## Complex Configurations
@@ -146,4 +153,15 @@ prometheus.io_operator/tls/custom-auth 3|3
 prometheus.io_builtin/tls/custom-auth  3|3
 prometheus.io/tls/base                 3|3
 prometheus.io/custom-auth              3|3
+```
+
+### kubevault/vaultserver
+
+```
+google-kms-gcs/mysql    2|4
+google-kms-gcs/consul   2|4
+azure/mysql             2|4
+azure/consul            2|4
+aws-kms-ssm/mysql       2|4
+aws-kms-ssm/consul      2|4
 ```

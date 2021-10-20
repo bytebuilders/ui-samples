@@ -1,0 +1,18 @@
+apiVersion: kubevault.com/v1alpha1
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  replicas: 1
+  version: 1.8.2
+  backend:
+    gcs:
+      bucket: <bucket-name>
+      credentialSecret: vault-backend-creds
+  unsealer:
+    secretShares: 5
+    secretThreshold: 3
+    mode:
+      kubernetesSecret:
+        secretName: vault-keys

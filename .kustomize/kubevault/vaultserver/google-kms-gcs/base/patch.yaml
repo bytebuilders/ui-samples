@@ -1,0 +1,11 @@
+- op: add
+  path: /spec/unsealer/mode/googleKmsGcs
+  value:
+    bucket: <bucket-name>
+    credentialSecret: vault-unsealer-creds
+    kmsCryptoKey: <kms-key>
+    kmsKeyRing: <kms-ring>
+    kmsLocation: <kms-location>
+    kmsProject: <project-name>
+- op: remove
+  path: /spec/unsealer/mode/kubernetesSecret

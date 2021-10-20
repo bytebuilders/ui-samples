@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-unsealer-creds
+  namespace: demo
+stringData:
+  client-cert: <client-cert>
+  client-cert-password: <client-cert-password>
+  client-id: <client-cert>
+  client-secret: <client-secret>
+type: Opaque

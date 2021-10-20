@@ -1,0 +1,36 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-unsealer-creds
+  namespace: demo
+stringData:
+  client-cert: <client-cert>
+  client-cert-password: <client-cert-password>
+  client-id: <client-cert>
+  client-secret: <client-secret>
+type: Opaque
+---
+apiVersion: kubevault.com/v1alpha1
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  backend:
+    raft:
+      path: /vault/data
+      storage:
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+  replicas: 1
+  unsealer:
+    mode:
+      azureKeyVault:
+        aadClientSecret: vault-unsealer-creds
+        clientCertSecret: vault-unsealer-creds
+        vaultBaseURL: <vault-base-url>
+    secretShares: 5
+    secretThreshold: 3
+  version: 1.8.2

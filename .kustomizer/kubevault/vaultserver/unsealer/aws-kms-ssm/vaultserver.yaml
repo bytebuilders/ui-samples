@@ -1,0 +1,24 @@
+apiVersion: kubevault.com/v1alpha1
+kind: VaultServer
+metadata:
+  name: vault
+  namespace: demo
+spec:
+  replicas: 1
+  version: 1.8.2
+  backend:
+    raft:
+      path: "/vault/data"
+      storage:
+        storageClassName: "standard"
+        resources:
+          requests:
+            storage: 1Gi
+  unsealer:
+    secretShares: 5
+    secretThreshold: 3
+    mode:
+      awsKmsSsm:
+        credentialSecret: vault-unsealer-creds
+        kmsKeyID: <kms-key-id>
+        region: <region>

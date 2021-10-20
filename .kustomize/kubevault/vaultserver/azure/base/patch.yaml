@@ -1,0 +1,8 @@
+- op: add
+  path: /spec/unsealer/mode/azureKeyVault
+  value:
+    aadClientSecret: vault-unsealer-creds
+    clientCertSecret: vault-unsealer-creds
+    vaultBaseURL: <vault-base-url>
+- op: remove
+  path: /spec/unsealer/mode/kubernetesSecret
