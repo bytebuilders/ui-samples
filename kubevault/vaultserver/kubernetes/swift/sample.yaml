@@ -1,18 +1,10 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vault-backend-swift-auth-token
+  name: vault-backend-creds
   namespace: demo
 stringData:
   auth_token: <auth-token>
-type: Opaque
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: vault-backend-swift-creds
-  namespace: demo
-stringData:
   password: <password>
   username: <username>
 type: Opaque
@@ -25,8 +17,8 @@ metadata:
 spec:
   backend:
     swift:
-      authTokenSecret: vault-backend-swift-auth-token
-      credentialSecret: vault-backend-swift-creds
+      authTokenSecret: vault-backend-creds
+      credentialSecret: vault-backend-creds
   replicas: 1
   unsealer:
     mode:

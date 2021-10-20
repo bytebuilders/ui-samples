@@ -1,9 +1,9 @@
 - op: add
   path: /spec/backend/consul
   value:
-    aclTokenSecretName: vault-backend-consul-creds
+    aclTokenSecretName: vault-backend-creds
     address: http://consul-server.default.svc:8500
     path: vault
-    tlsSecretName: vault-backend-consul-tls
+    tlsSecretName: vault-backend-tls
 - op: remove
   path: /spec/backend/raft

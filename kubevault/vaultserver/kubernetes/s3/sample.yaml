@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vault-backend-s3-creds
+  name: vault-backend-creds
   namespace: demo
 stringData:
   access_key: <access_key>
@@ -17,7 +17,7 @@ spec:
   backend:
     gcs:
       bucket: <bucket-name>
-      credentialSecret: vault-backend-s3-creds
+      credentialSecret: vault-backend-creds
   replicas: 1
   unsealer:
     mode:

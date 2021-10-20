@@ -3,6 +3,5 @@ bases:
 - ../../base
 kind: Kustomization
 resources:
-- auth-secret.yaml
 - swift-secret.yaml
 - vaultserver.yaml

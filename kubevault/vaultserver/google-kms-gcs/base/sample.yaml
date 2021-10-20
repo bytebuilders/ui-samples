@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vault-unsealer-gcp-creds
+  name: vault-unsealer-creds
   namespace: demo
 stringData:
   sa.json: |-
@@ -29,7 +29,7 @@ spec:
     mode:
       googleKmsGcs:
         bucket: <bucket-name>
-        credentialSecret: vault-unsealer-gcp-creds
+        credentialSecret: vault-unsealer-creds
         kmsCryptoKey: <kms-key>
         kmsKeyRing: <kms-ring>
         kmsLocation: <kms-location>

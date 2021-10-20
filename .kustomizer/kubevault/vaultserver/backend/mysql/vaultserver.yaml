@@ -8,8 +8,8 @@ spec:
   version: 1.8.2
   backend:
     mysql:
-      userCredentialSecret: vault-backend-mysql-creds
-      tlsCASecret: vault-backend-mysql-tls
+      userCredentialSecret: vault-backend-creds
+      tlsCASecret: vault-backend-tls
   unsealer:
     secretShares: 5
     secretThreshold: 3

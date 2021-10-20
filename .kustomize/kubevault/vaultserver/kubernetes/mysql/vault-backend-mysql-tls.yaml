@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: vault-backend-mysql-tls
-  namespace: demo
-stringData:
-  tls_ca_file: <tls-ca-file>
-type: Opaque

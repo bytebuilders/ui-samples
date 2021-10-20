@@ -11,5 +11,4 @@ patchesJson6902:
     namespace: demo
     version: v1alpha1
 resources:
-- vault-backend-dynamodb-creds.yaml
-- vault-backend-dynamodb-session-token.yaml
+- vault-backend-creds.yaml

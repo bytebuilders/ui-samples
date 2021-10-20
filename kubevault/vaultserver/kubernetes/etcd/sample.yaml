@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vault-backend-etcd-creds
+  name: vault-backend-creds
   namespace: demo
 stringData:
   password: <password>
@@ -17,7 +17,7 @@ spec:
   backend:
     etcd:
       address: <etcd-server-address>
-      credentialSecretName: vault-backend-etcd-creds
+      credentialSecretName: vault-backend-creds
   replicas: 1
   unsealer:
     mode:

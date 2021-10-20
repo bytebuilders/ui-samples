@@ -1,26 +1,18 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vault-backend-dynamodb-creds
+  name: vault-backend-creds
   namespace: demo
 stringData:
   access_key: <access_key>
   secret_key: <secret_key>
-type: Opaque
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: vault-backend-dynamodb-session-token
-  namespace: demo
-stringData:
   session_token: <session-token>
 type: Opaque
 ---
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vault-unsealer-gcp-creds
+  name: vault-unsealer-creds
   namespace: demo
 stringData:
   sa.json: |-
@@ -37,14 +29,14 @@ metadata:
 spec:
   backend:
     dynamodb:
-      credentialSecret: vault-backend-dynamodb-creds
-      sessionTokenSecret: vault-backend-dynamodb-session-token
+      credentialSecret: vault-backend-creds
+      sessionTokenSecret: vault-backend-creds
   replicas: 1
   unsealer:
     mode:
       googleKmsGcs:
         bucket: <bucket-name>
-        credentialSecret: vault-unsealer-gcp-creds
+        credentialSecret: vault-unsealer-creds
         kmsCryptoKey: <kms-key>
         kmsKeyRing: <kms-ring>
         kmsLocation: <kms-location>

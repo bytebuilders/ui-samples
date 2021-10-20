@@ -11,5 +11,4 @@ patchesJson6902:
     namespace: demo
     version: v1alpha1
 resources:
-- vault-backend-swift-auth-token.yaml
-- vault-backend-swift-creds.yaml
+- vault-backend-creds.yaml

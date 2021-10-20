@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: Secret
-metadata:
-  name: vault-backend-mysql-creds
-  namespace: demo
-stringData:
-  password: <password>
-  username: <username>
-type: Opaque

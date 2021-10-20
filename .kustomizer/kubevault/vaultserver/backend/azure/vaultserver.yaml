@@ -9,7 +9,7 @@ spec:
   backend:
     azure:
       accountName: <account-name>
-      accountKeySecret: vault-backend-azure-creds
+      accountKeySecret: vault-backend-creds
   unsealer:
     secretShares: 5
     secretThreshold: 3

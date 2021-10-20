@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-tls
+  namespace: demo
+stringData:
+  tls_ca_file: <tls-ca-file>
+type: Opaque

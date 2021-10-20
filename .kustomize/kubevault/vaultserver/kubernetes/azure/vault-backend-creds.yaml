@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-creds
+  namespace: demo
+stringData:
+  account_key: <account_key>
+type: Opaque

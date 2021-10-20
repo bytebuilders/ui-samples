@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vault-backend-azure-creds
+  name: vault-backend-creds
   namespace: demo
 stringData:
   account_key: <account_key>
@@ -15,7 +15,7 @@ metadata:
 spec:
   backend:
     azure:
-      accountKeySecret: vault-backend-azure-creds
+      accountKeySecret: vault-backend-creds
       accountName: <account-name>
   replicas: 1
   unsealer:

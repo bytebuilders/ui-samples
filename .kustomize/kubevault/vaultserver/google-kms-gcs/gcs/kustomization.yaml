@@ -11,4 +11,4 @@ patchesJson6902:
     namespace: demo
     version: v1alpha1
 resources:
-- vault-backend-gcs-creds.yaml
+- vault-backend-creds.yaml

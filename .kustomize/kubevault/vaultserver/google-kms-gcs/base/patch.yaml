@@ -2,7 +2,7 @@
   path: /spec/unsealer/mode/googleKmsGcs
   value:
     bucket: <bucket-name>
-    credentialSecret: vault-unsealer-gcp-creds
+    credentialSecret: vault-unsealer-creds
     kmsCryptoKey: <kms-key>
     kmsKeyRing: <kms-ring>
     kmsLocation: <kms-location>

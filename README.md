@@ -75,6 +75,8 @@ go run stats/main.go ~/go/src/github.com/appscode/ui-samples/mysql
 go run stats/main.go ~/go/src/github.com/appscode/ui-samples/redis
 
 go run stats/main.go ~/go/src/github.com/appscode/ui-samples/redissentinel
+
+go run stats/main.go ~/go/src/github.com/appscode/ui-samples/kubevault/vaultserver
 ```
 
 ## Complex Configurations
@@ -151,4 +153,15 @@ prometheus.io_operator/tls/custom-auth 3|3
 prometheus.io_builtin/tls/custom-auth  3|3
 prometheus.io/tls/base                 3|3
 prometheus.io/custom-auth              3|3
+```
+
+### kubevault/vaultserver
+
+```
+google-kms-gcs/mysql    2|4
+google-kms-gcs/consul   2|4
+azure/mysql             2|4
+azure/consul            2|4
+aws-kms-ssm/mysql       2|4
+aws-kms-ssm/consul      2|4
 ```

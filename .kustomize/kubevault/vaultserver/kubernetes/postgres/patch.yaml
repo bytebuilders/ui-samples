@@ -1,6 +1,6 @@
 - op: add
   path: /spec/backend/postgresql
   value:
-    connectionURLSecret: vault-backend-postgresql-creds
+    connectionURLSecret: vault-backend-creds
 - op: remove
   path: /spec/backend/raft

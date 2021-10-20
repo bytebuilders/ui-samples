@@ -1,7 +1,7 @@
 - op: add
   path: /spec/backend/azure
   value:
-    accountKeySecret: vault-backend-azure-creds
+    accountKeySecret: vault-backend-creds
     accountName: <account-name>
 - op: remove
   path: /spec/backend/raft

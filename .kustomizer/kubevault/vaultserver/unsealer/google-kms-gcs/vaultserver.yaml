@@ -24,4 +24,4 @@ spec:
         kmsLocation: <kms-location>
         kmsProject: <project-name>
         bucket: <bucket-name>
-        credentialSecret: vault-unsealer-gcp-creds
+        credentialSecret: vault-unsealer-creds

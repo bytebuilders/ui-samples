@@ -4,5 +4,4 @@ bases:
 kind: Kustomization
 resources:
 - dynamodb-secret.yaml
-- session-secret.yaml
 - vaultserver.yaml

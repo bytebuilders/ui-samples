@@ -1,7 +1,7 @@
 - op: add
   path: /spec/unsealer/mode/awsKmsSsm
   value:
-    credentialSecret: vault-unsealer-aws-creds
+    credentialSecret: vault-unsealer-creds
     kmsKeyID: <kms-key-id>
     region: <region>
 - op: remove

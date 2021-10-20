@@ -3,6 +3,5 @@ bases:
 - ../../base
 kind: Kustomization
 resources:
-- aad-secret.yaml
 - client-secret.yaml
 - vaultserver.yaml

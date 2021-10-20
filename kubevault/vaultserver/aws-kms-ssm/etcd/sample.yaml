@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vault-backend-etcd-creds
+  name: vault-backend-creds
   namespace: demo
 stringData:
   password: <password>
@@ -11,7 +11,7 @@ type: Opaque
 apiVersion: v1
 kind: Secret
 metadata:
-  name: vault-unsealer-aws-creds
+  name: vault-unsealer-creds
   namespace: demo
 stringData:
   access_key: <access_key>
@@ -27,12 +27,12 @@ spec:
   backend:
     etcd:
       address: <etcd-server-address>
-      credentialSecretName: vault-backend-etcd-creds
+      credentialSecretName: vault-backend-creds
   replicas: 1
   unsealer:
     mode:
       awsKmsSsm:
-        credentialSecret: vault-unsealer-aws-creds
+        credentialSecret: vault-unsealer-creds
         kmsKeyID: <kms-key-id>
         region: <region>
     secretShares: 5

@@ -11,5 +11,4 @@ patchesJson6902:
     namespace: demo
     version: v1alpha1
 resources:
-- vault-unsealer-azure-aad-creds.yaml
-- vault-unsealer-azure-client-creds.yaml
+- vault-unsealer-creds.yaml

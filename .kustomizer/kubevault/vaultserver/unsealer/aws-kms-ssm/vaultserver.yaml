@@ -19,6 +19,6 @@ spec:
     secretThreshold: 3
     mode:
       awsKmsSsm:
-        credentialSecret: vault-unsealer-aws-creds
+        credentialSecret: vault-unsealer-creds
         kmsKeyID: <kms-key-id>
         region: <region>

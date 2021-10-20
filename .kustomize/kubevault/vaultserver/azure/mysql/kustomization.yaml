@@ -11,5 +11,5 @@ patchesJson6902:
     namespace: demo
     version: v1alpha1
 resources:
-- vault-backend-mysql-creds.yaml
-- vault-backend-mysql-tls.yaml
+- vault-backend-creds.yaml
+- vault-backend-tls.yaml
