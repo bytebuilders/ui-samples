@@ -158,6 +158,7 @@ prometheus.io/custom-auth              3|3
 ### kubevault/vaultserver
 
 ```
+custom                  2|5
 google-kms-gcs/mysql    2|4
 google-kms-gcs/consul   2|4
 azure/mysql             2|4

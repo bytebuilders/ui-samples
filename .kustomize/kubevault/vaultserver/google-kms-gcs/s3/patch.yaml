@@ -1,5 +1,5 @@
 - op: add
-  path: /spec/backend/gcs
+  path: /spec/backend/s3
   value:
     bucket: <bucket-name>
     credentialSecret: vault-backend-creds

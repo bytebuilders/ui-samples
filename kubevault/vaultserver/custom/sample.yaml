@@ -4,8 +4,18 @@ metadata:
   name: vault-backend-creds
   namespace: demo
 stringData:
-  access_key: <access_key>
-  secret_key: <secret_key>
+  aclToken: <acl-token>
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-backend-tls
+  namespace: demo
+stringData:
+  ca.crt: <ca-cert>
+  client.crt: <client-cert>
+  client.key: <client-key>
 type: Opaque
 ---
 apiVersion: v1
@@ -18,6 +28,15 @@ stringData:
   secret_key: <secret_key>
 type: Opaque
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-config
+  namespace: demo
+stringData:
+  vault.hcl: <data>
+type: Opaque
+---
 apiVersion: kubevault.com/v1alpha1
 kind: VaultServer
 metadata:
@@ -25,9 +44,11 @@ metadata:
   namespace: demo
 spec:
   backend:
-    s3:
-      bucket: <bucket-name>
-      credentialSecret: vault-backend-creds
+    consul:
+      aclTokenSecretName: vault-backend-creds
+      address: http://consul-server.default.svc:8500
+      path: vault
+      tlsSecretName: vault-backend-tls
   replicas: 1
   unsealer:
     mode:
@@ -38,3 +59,5 @@ spec:
     secretShares: 5
     secretThreshold: 3
   version: 1.8.2
+  configSecret:
+    name: vault-config

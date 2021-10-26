@@ -27,7 +27,7 @@ metadata:
   namespace: demo
 spec:
   backend:
-    gcs:
+    s3:
       bucket: <bucket-name>
       credentialSecret: vault-backend-creds
   replicas: 1
