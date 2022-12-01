@@ -1,7 +1,7 @@
 apiVersion: stash.appscode.com/v1beta1
 kind: RestoreSession
 metadata:
-  name: statefulset-restore
+  name: restore-app
   namespace: demo
 spec:
   driver: Restic
