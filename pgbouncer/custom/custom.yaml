@@ -1,0 +1,120 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pgbouncer-auth
+  namespace: demo
+stringData:
+  password: thisIs1StrongPassword
+  username: root
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pgbouncer-config
+  namespace: demo
+stringData:
+  md-config.cnf: |
+    [mysqld]
+    max_connections = 200
+    read_buffer_size = 1048576
+type: Opaque
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: pgbouncer-ca
+  namespace: demo
+spec:
+  ca:
+    secretName: pgbouncer-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: PgBouncer
+metadata:
+  name: pgbouncer
+  namespace: demo
+spec:
+  authSecret:
+    name: pgbouncer-auth
+  configSecret:
+    name: pgbouncer-config
+  monitor:
+    agent: prometheus.io
+    prometheus:
+      serviceMonitor:
+        interval: 30s
+        labels:
+          release: prometheus-stack
+  podTemplate:
+    spec:
+      args:
+      - --character-set-server=utf8mb4
+      env:
+      - name: MYSQL_DATABASE
+        value: mdDB
+      resources:
+        requests:
+          cpu: 250m
+          memory: 1Gi
+
+  version: "1.17.0"
+  replicas: 3
+  databases:
+  - alias: "testdb"
+    databaseName: "test"
+    databaseRef:
+      name: "demo-pg"
+      namespace: demo
+  connectionPool:
+    port: 5432
+    defaultPoolSize: 20
+    poolMode: session
+    minPoolSize: 0
+    maxClientConnections: 20
+    reservePoolSize: 5
+    maxDBConnections: 0
+    maxUserConnections: 0
+    statsPeriodSeconds: 60
+    authType: md5
+    adminUsers:
+    - rakib
+    authUser: rakib
+  tls:
+    certificates:
+    - alias: server
+      dnsNames:
+      - localhost
+      ipAddresses:
+      - 127.0.0.1
+      subject:
+        organizations:
+        - kubedb:server
+    issuerRef:
+      apiGroup: cert-manager.io
+      kind: Issuer
+      name: proxysql-ca
+  terminationPolicy: WipeOut
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: pgbouncer
+    app.kubernetes.io/name: pgbouncers.kubedb.com
+    release: prometheus-stack
+  name: pgbouncer
+  namespace: demo
+spec:
+  endpoints:
+  - honorLabels: true
+    interval: 30s
+    path: /metrics
+    port: metrics
+  namespaceSelector:
+    matchNames:
+    - demo
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: pgbouncer
+      app.kubernetes.io/name: pgbouncers.kubedb.com
