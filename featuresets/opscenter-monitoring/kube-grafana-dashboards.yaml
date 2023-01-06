@@ -3,16 +3,13 @@ kind: HelmRelease
 metadata:
   name: kube-grafana-dashboards
   namespace: kubeops
-  labels:
-    app.kubernetes.io/managed-by: kubeops.dev
-    app.kubernetes.io/component: kube-grafana-dashboards
-    app.kubernetes.io/part-of: opscenter-monitoring
 spec:
   interval: 30m
   releaseName: kube-grafana-dashboards
   chart:
     spec:
       chart: kube-grafana-dashboards
+      targetNamespace: monitoring
       version: "v2022.06.14"
       sourceRef:
         kind: HelmRepository

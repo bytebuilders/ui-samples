@@ -3,16 +3,13 @@ kind: HelmRelease
 metadata:
   name: license-proxyserver
   namespace: kubeops
-  labels:
-    app.kubernetes.io/managed-by: kubeops.dev
-    app.kubernetes.io/component: license-proxyserver
-    app.kubernetes.io/part-of: opscenter-essentials
 spec:
   interval: 30m
   releaseName: license-proxyserver
   chart:
     spec:
       chart: license-proxyserver
+      targetNamespace: kubeops
       version: "v2022.06.14"
       sourceRef:
         kind: HelmRepository
