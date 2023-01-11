@@ -6,10 +6,10 @@ metadata:
 spec:
   interval: 30m
   releaseName: kube-grafana-dashboards
+  targetNamespace: monitoring
   chart:
     spec:
       chart: kube-grafana-dashboards
-      targetNamespace: monitoring
       version: "v2022.06.14"
       sourceRef:
         kind: HelmRepository
