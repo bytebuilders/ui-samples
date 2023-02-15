@@ -15,3 +15,5 @@ spec:
         kind: HelmRepository
         name: appscode
         namespace: kubeops
+  install:
+    createNamespace: true
