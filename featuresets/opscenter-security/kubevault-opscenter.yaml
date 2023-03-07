@@ -1,19 +1,19 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: kubedb-ui-server
+  name: kubevault-opscenter
   namespace: kubeops
 spec:
   interval: 30m
-  releaseName: kubedb-ui-server
-  targetNamespace: kubedb
+  releaseName: kubevault-opscenter
+  targetNamespace: kubevault
   chart:
     spec:
-      chart: kubedb-ui-server
-      version: "v2023.02.28"
+      chart: kubevault-opscenter
+      version: "v2023.03.03"
       sourceRef:
         kind: HelmRepository
-        name: kubedb
+        name: kubevault
         namespace: kubeops
   install:
     createNamespace: true
