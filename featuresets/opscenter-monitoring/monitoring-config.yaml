@@ -4,7 +4,8 @@ metadata:
   name: monitoring-config
   namespace: kubeops
 spec:
-  interval: 30m
+  interval: 5m
+  timeout: 10m
   releaseName: monitoring-config
   targetNamespace: monitoring
   chart:
@@ -18,5 +19,9 @@ spec:
   install:
     createNamespace: true
     crds: CreateReplace
+    remediation:
+      retries: 5
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 5

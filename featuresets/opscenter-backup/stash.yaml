@@ -4,7 +4,8 @@ metadata:
   name: stash
   namespace: kubeops
 spec:
-  interval: 30m
+  interval: 5m
+  timeout: 10m
   releaseName: stash
   targetNamespace: stash
   chart:
@@ -18,5 +19,12 @@ spec:
   install:
     createNamespace: true
     crds: CreateReplace
+    remediation:
+      retries: 5
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 5
+  values:
+    features:
+      enterprise: true

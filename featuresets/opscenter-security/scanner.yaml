@@ -4,7 +4,8 @@ metadata:
   name: scanner
   namespace: kubeops
 spec:
-  interval: 30m
+  interval: 5m
+  timeout: 10m
   releaseName: scanner
   targetNamespace: kubeops
   chart:
@@ -18,5 +19,9 @@ spec:
   install:
     createNamespace: true
     crds: CreateReplace
+    remediation:
+      retries: 5
   upgrade:
     crds: CreateReplace
+    remediation:
+      retries: 5
