@@ -1,0 +1,33 @@
+apiVersion: kubedb.com/v1alpha2
+kind: Kafka
+metadata:
+  name: kafka-topology
+  namespace: demo
+spec:
+  version: 3.3.2
+  enableSSL : true
+  tls:
+    issuerRef:
+      apiGroup: cert-manager.io
+      name: kafka-ca-issuer
+      kind: Issuer
+  topology:
+    broker:
+      replicas: 3
+      storage:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+    controller:
+      replicas: 2
+      storage:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+  terminationPolicy: DoNotTerminate
