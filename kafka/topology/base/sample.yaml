@@ -1,3 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: kafka-ca-issuer
+  namespace: demo
+spec:
+  ca:
+    secretName: kafka-ca
+---
 apiVersion: kubedb.com/v1alpha2
 kind: Kafka
 metadata:

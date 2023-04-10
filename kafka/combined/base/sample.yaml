@@ -1,3 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: kafka-ca-issuer
+  namespace: demo
+spec:
+  ca:
+    secretName: kafka-ca
+---
 apiVersion: kubedb.com/v1alpha2
 kind: Kafka
 metadata:
@@ -6,6 +15,12 @@ metadata:
 spec:
   replicas: 3
   version: 3.4.0
+  enableSSL: true
+  tls:
+    issuerRef:
+      apiGroup: cert-manager.io
+      name: kafka-ca-issuer
+      kind: Issuer
   storage:
     accessModes:
       - ReadWriteOnce
