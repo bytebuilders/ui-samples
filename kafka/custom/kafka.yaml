@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: kafka-admin-cred
+  namespace: demo
+stringData:
+  password: WeakPassword
+  username: admin
+type: kubernetes.io/basic-auth
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Kafka
+metadata:
+  name: kafka-combined
+  namespace: demo
+spec:
+  authSecret:
+    name: kafka-admin-cred
+  healthChecker:
+    failureThreshold: 5
+    periodSeconds: 30
+    timeoutSeconds: 10
+  podTemplate:
+    spec:
+      resources:
+        limits:
+          memory: 1.5Gi
+        requests:
+          cpu: 500m
+          memory: 1Gi
+  replicas: 3
+  storage:
+    accessModes:
+      - ReadWriteOnce
+    resources:
+      requests:
+        storage: 1Gi
+    storageClassName: standard
+  storageType: Durable
+  terminationPolicy: DoNotTerminate
+  version: 3.4.0
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: kafka-ca-issuer
+  namespace: demo
+spec:
+  ca:
+    secretName: kafka-ca
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Kafka
+metadata:
+  name: kafka-topology
+  namespace: demo
+spec:
+  version: 3.3.2
+  enableSSL : true
+  tls:
+    issuerRef:
+      apiGroup: cert-manager.io
+      name: kafka-ca-issuer
+      kind: Issuer
+  authSecret:
+    name: kafka-admin-cred
+  topology:
+    broker:
+      replicas: 3
+      storage:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+    controller:
+      replicas: 2
+      storage:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: 1Gi
+        storageClassName: standard
+  storageType: Ephemeral
+  terminationPolicy: WipeOut
