@@ -11,56 +11,15 @@ type: kubernetes.io/basic-auth
 apiVersion: kubedb.com/v1alpha2
 kind: Kafka
 metadata:
-  name: kafka-combined
-  namespace: demo
-spec:
-  authSecret:
-    name: kafka-admin-cred
-  healthChecker:
-    failureThreshold: 5
-    periodSeconds: 30
-    timeoutSeconds: 10
-  podTemplate:
-    spec:
-      resources:
-        limits:
-          memory: 1.5Gi
-        requests:
-          cpu: 500m
-          memory: 1Gi
-  replicas: 3
-  storage:
-    accessModes:
-      - ReadWriteOnce
-    resources:
-      requests:
-        storage: 1Gi
-    storageClassName: standard
-  storageType: Durable
-  terminationPolicy: DoNotTerminate
-  version: 3.4.0
----
-apiVersion: cert-manager.io/v1
-kind: Issuer
-metadata:
-  name: kafka-ca-issuer
-  namespace: demo
-spec:
-  ca:
-    secretName: kafka-ca
----
-apiVersion: kubedb.com/v1alpha2
-kind: Kafka
-metadata:
-  name: kafka-topology
+  name: kafka
   namespace: demo
 spec:
   version: 3.3.2
-  enableSSL : true
+  enableSSL: true
   tls:
     issuerRef:
       apiGroup: cert-manager.io
-      name: kafka-ca-issuer
+      name: kafka-ca
       kind: Issuer
   authSecret:
     name: kafka-admin-cred
@@ -83,5 +42,37 @@ spec:
           requests:
             storage: 1Gi
         storageClassName: standard
+  monitor:
+    agent: prometheus.io/operator
+    prometheus:
+      exporter:
+        port: 9091
+      serviceMonitor:
+        labels:
+          release: prometheus
+        interval: 10s
   storageType: Ephemeral
   terminationPolicy: WipeOut
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    app.kubernetes.io/instance: kafka
+    app.kubernetes.io/name: kafkas.kubedb.com
+    release: prometheus-stack
+  name: kafka
+  namespace: demo
+spec:
+  endpoints:
+    - honorLabels: true
+      interval: 10s
+      path: /metrics
+      port: metrics
+  namespaceSelector:
+    matchNames:
+      - demo
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: kafka
+      app.kubernetes.io/name: kafkas.kubedb.com
