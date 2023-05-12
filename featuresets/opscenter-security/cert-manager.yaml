@@ -5,7 +5,7 @@ metadata:
   namespace: kubeops
 spec:
   interval: 5m
-  timeout: 10m
+  timeout: 30m
   releaseName: cert-manager
   targetNamespace: cert-manager
   chart:
@@ -20,10 +20,10 @@ spec:
     createNamespace: true
     crds: CreateReplace
     remediation:
-      retries: 5
+      retries: -1
   upgrade:
     crds: CreateReplace
     remediation:
-      retries: 5
+      retries: -1
   values:
     installCRDs: true
