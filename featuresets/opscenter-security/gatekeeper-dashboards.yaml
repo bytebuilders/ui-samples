@@ -1,0 +1,30 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gatekeeper-grafana-dashboards
+  namespace: kubeops
+spec:
+  interval: 5m
+  timeout: 30m
+  releaseName: gatekeeper-grafana-dashboards
+  targetNamespace: gatekeeper-system
+  storageNamespace: gatekeeper-system
+  chart:
+    spec:
+      name: gatekeeper-grafana-dashboards
+      version: "v2023.03.23"
+      sourceRef:
+        kind: HelmRepository
+        name: kubeops
+        namespace: kubeops
+  values:
+    enable: constraints
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1

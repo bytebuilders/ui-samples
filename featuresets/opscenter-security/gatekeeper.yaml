@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: gatekeeper
+  namespace: kubeops
+spec:
+  interval: 5m
+  timeout: 30m
+  releaseName: gatekeeper
+  targetNamespace: gatekeeper-system
+  storageNamespace: gatekeeper-system
+  chart:
+    spec:
+      chart: gatekeeper
+      version: ""
+      sourceRef:
+        kind: HelmRepository
+        name: gatekeeper
+        namespace: kubeops
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
