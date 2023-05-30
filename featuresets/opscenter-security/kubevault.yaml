@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: kubevault
   targetNamespace: kubevault
+  storageNamespace: kubevault
   chart:
     spec:
       chart: kubevault

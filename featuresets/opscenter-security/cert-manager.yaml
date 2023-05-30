@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: cert-manager
   targetNamespace: cert-manager
+  storageNamespace: cert-manager
   chart:
     spec:
       chart: cert-manager

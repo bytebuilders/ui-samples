@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: panopticon
   targetNamespace: monitoring
+  storageNamespace: monitoring
   chart:
     spec:
       chart: panopticon
