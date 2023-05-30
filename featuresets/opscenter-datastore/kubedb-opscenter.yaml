@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: kubedb-opscenter
   targetNamespace: kubedb
+  storageNamespace: kubedb
   chart:
     spec:
       chart: kubedb-opscenter

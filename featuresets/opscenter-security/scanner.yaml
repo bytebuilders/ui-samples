@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: scanner
   targetNamespace: kubeops
+  storageNamespace: kubeops
   chart:
     spec:
       chart: scanner

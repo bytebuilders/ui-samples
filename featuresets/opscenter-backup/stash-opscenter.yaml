@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: stash-opscenter
   targetNamespace: stash
+  storageNamespace: stash
   chart:
     spec:
       chart: stash-opscenter

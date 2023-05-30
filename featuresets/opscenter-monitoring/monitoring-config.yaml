@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: monitoring-config
   targetNamespace: monitoring
+  storageNamespace: monitoring
   chart:
     spec:
       chart: monitoring-config

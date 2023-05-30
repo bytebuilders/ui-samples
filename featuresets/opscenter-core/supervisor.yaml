@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: supervisor
   targetNamespace: kubeops
+  storageNamespace: kubeops
   chart:
     spec:
       chart: supervisor

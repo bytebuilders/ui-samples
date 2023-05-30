@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: kube-prometheus-stack
   targetNamespace: monitoring
+  storageNamespace: monitoring
   chart:
     spec:
       chart: kube-prometheus-stack

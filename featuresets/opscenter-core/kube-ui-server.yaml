@@ -8,6 +8,7 @@ spec:
   timeout: 30m
   releaseName: kube-ui-server
   targetNamespace: kubeops
+  storageNamespace: kubeops
   chart:
     spec:
       chart: kube-ui-server
