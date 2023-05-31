@@ -17,8 +17,6 @@ spec:
         kind: HelmRepository
         name: kubeops
         namespace: kubeops
-  values:
-    enable: constraints
   install:
     createNamespace: true
     crds: CreateReplace
