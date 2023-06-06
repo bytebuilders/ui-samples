@@ -1,0 +1,39 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: falco
+  namespace: kubeops
+spec:
+  interval: 5m
+  timeout: 30m
+  releaseName: falco
+  targetNamespace: falco
+  storageNamespace: falco
+  chart:
+    spec:
+      chart: falco
+      version: ""
+      sourceRef:
+        kind: HelmRepository
+        name: falcosecurity
+        namespace: kubeops
+  values:
+    driver:
+      kind: modern-bpf
+    tty: true
+    falco:
+      modern_bpf:
+        cpus_for_each_syscall_buffer: 1
+    falcosidekick:
+      enabled: true
+      webui:
+        enabled: true
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
