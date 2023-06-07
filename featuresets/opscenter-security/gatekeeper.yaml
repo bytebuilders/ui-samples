@@ -17,9 +17,9 @@ spec:
         kind: HelmRepository
         name: gatekeeper
         namespace: kubeops
-  values:
-    disableMutation: true
-    disableValidatingWebhook: true
+  # values:
+  #   disableMutation: true
+  #   disableValidatingWebhook: true
   install:
     createNamespace: true
     crds: CreateReplace
