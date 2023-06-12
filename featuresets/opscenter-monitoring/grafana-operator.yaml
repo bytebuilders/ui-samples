@@ -1,18 +1,18 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: grafana-opscenter
+  name: grafana-operator
   namespace: kubeops
 spec:
   interval: 5m
   timeout: 30m
-  releaseName: grafana-opscenter
+  releaseName: grafana-operator
   targetNamespace: monitoring
   storageNamespace: monitoring
   chart:
     spec:
-      chart: grafana-opscenter
-      version: "v2023.03.23"
+      chart: grafana-operator
+      version: "v0.0.2"
       sourceRef:
         kind: HelmRepository
         name: appscode
@@ -26,8 +26,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  values:
-    grafana-ui-server:
-      enabled: true
-    kube-grafana-dashboards:
-      enabled: true
