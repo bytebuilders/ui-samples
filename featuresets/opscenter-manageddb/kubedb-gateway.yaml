@@ -11,7 +11,7 @@ spec:
   storageNamespace: gateway-system
   chart:
     spec:
-      chart: charts/gateway-helm
+      chart: gateway-helm
       version: "v0.0.0-latest"
       sourceRef:
         kind: HelmRepository
