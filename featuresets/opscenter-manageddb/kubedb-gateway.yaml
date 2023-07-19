@@ -12,9 +12,10 @@ spec:
   chart:
     spec:
       chart: charts/gateway-helm
+      version: "v0.0.0-latest"
       sourceRef:
-        kind: GitRepository
-        name: kubedb-gateway
+        kind: HelmRepository
+        name: appscode
         namespace: kubeops
   install:
     createNamespace: true
