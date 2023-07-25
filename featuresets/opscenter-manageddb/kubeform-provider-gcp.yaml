@@ -17,10 +17,6 @@ spec:
         kind: HelmRepository
         name: appscode
         namespace: kubeops
-  values:
-    gcp:
-      projectID: "<gcp-project-id>"
-      secretName: "gcp-credential"
   install:
     createNamespace: true
     crds: CreateReplace
