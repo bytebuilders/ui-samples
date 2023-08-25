@@ -1,0 +1,63 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachinePool
+metadata:
+  name: dedicated-redis-machinepool
+  namespace: kubedb-managed
+  annotations:
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "6"
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "3"
+spec:
+  clusterName: shaad-test
+  replicas: 3
+  template:
+    spec:
+      bootstrap:
+        dataSecretName: ""
+      clusterName: shaad-test
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+        kind: GCPManagedMachinePool
+        name: dedicated-redis-pool-1
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: GCPManagedMachinePool
+metadata:
+  name: dedicated-redis-pool-1
+  namespace: kubedb-managed
+spec:
+  scaling:
+    minCount: 3
+    maxCount: 6
+  nodePoolName: appscode-redis
+  kubernetesLabels:
+    kubedb: redis
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: redis-cluster-dedicated
+  namespace: demo
+spec:
+  disableAuth: true
+  version: 6.2.5
+  mode: Cluster
+  cluster:
+    master: 3
+    replicas: 1
+  storageType: Durable
+  storage:
+    resources:
+      requests:
+        storage: "100Mi"
+    storageClassName: "standard-rwo"
+    accessModes:
+      - ReadWriteOnce
+  podTemplate:
+    spec:
+      nodeSelector:
+        kubedb: "redis"
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "100Mi"
+  terminationPolicy: WipeOut
