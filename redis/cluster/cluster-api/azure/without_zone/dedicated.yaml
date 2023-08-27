@@ -1,0 +1,65 @@
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachinePool
+metadata:
+  name: dedicated-redis-machinepool-0
+  namespace: kubedb-managed
+  annotations:
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "6"
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
+spec:
+  clusterName: tapo-test
+  replicas: 1
+  template:
+    metadata: {}
+    spec:
+      bootstrap:
+        dataSecretName: ""
+      clusterName: tapo-test
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+        kind: AzureManagedMachinePool
+        name: dedicated-redis-machinepool-0
+      version: v1.27.3
+---
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: AzureManagedMachinePool
+metadata:
+  name: dedicated-redis-machinepool-0
+  namespace: kubedb-managed
+spec:
+  mode: User
+  name: dredispool0
+  sku: Standard_D2s_v3
+  scaling:
+    maxSize: 6
+    minSize: 1
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: redis-cluster-dedicated
+  namespace: demo
+spec:
+  disableAuth: true
+  version: 6.2.5
+  mode: Cluster
+  cluster:
+    master: 3
+    replicas: 1
+  storageType: Durable
+  storage:
+    resources:
+      requests:
+        storage: "100Mi"
+    storageClassName: "managed-premium"
+    accessModes:
+      - ReadWriteOnce
+  podTemplate:
+    spec:
+      nodeSelector:
+        kubernetes.azure.com/agentpool: dredispool0
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "100Mi"
+  terminationPolicy: WipeOut
