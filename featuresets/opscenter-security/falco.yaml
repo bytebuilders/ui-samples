@@ -17,22 +17,6 @@ spec:
         kind: HelmRepository
         name: falcosecurity
         namespace: kubeops
-  values:
-    driver:
-      kind: modern-bpf
-    tty: true
-    falco:
-      modern_bpf:
-        cpus_for_each_syscall_buffer: 1
-      json_output: true
-      json_include_output_property: true
-      http_output:
-        enabled: true
-        url: http://falco-ui-server:8080/falcoevents
-    falcosidekick:
-      enabled: false
-      webui:
-        enabled: false
   install:
     createNamespace: true
     crds: CreateReplace
@@ -42,3 +26,24 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
+  values:
+    driver:
+      kind: modern-bpf
+    falco:
+      grpc:
+        enabled: true
+      grpc_output:
+        enabled: true
+      http_output:
+        enabled: true
+        insecure: true
+        url: http://falco-ui-server:8080/falcoevents
+      json_include_output_property: true
+      json_output: true
+      modern_bpf:
+        cpus_for_each_syscall_buffer: 1
+    falcosidekick:
+      enabled: false
+      webui:
+        enabled: false
+    tty: true

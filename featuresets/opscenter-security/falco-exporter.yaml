@@ -1,0 +1,37 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: falco-exporter
+  namespace: kubeops
+spec:
+  interval: 5m
+  timeout: 30m
+  releaseName: falco-exporter
+  targetNamespace: falco
+  storageNamespace: falco
+  chart:
+    spec:
+      chart: falco-exporter
+      version: ""
+      sourceRef:
+        kind: HelmRepository
+        name: falcosecurity
+        namespace: kubeops
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  values:
+    prometheusRules:
+      enabled: true
+    service:
+      annotations: null
+    serviceMonitor:
+      additionalLabels:
+        release: kube-prometheus-stack
+      enabled: true
