@@ -1,0 +1,61 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: AWSManagedMachinePool
+metadata:
+  name: dedicated-pool1
+  namespace: kubedb-managed
+spec:
+  roleName: nodesc2-kubedb-managed
+  scaling:
+    minSize: 1
+    maxSize: 6
+---
+apiVersion: cluster.x-k8s.io/v1beta1
+kind: MachinePool
+metadata:
+  name: dedicated-pool1
+  namespace: kubedb-managed
+  annotations:
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "6"
+spec:
+  clusterName: c2
+  replicas: 2
+  template:
+    spec:
+      bootstrap:
+        dataSecretName: ""
+      clusterName: c2
+      infrastructureRef:
+        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+        kind: AWSManagedMachinePool
+        name: dedicated-pool1
+---
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: redis-cluster-dedicated02
+  namespace: demo
+spec:
+  disableAuth: true
+  version: 6.2.5
+  mode: Cluster
+  cluster:
+    master: 3
+    replicas: 1
+  storageType: Durable
+  storage:
+    resources:
+      requests:
+        storage: "100Mi"
+    storageClassName: "gp2"
+    accessModes:
+      - ReadWriteOnce
+  podTemplate:
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: "kubedb-managed_dedicated-pool1"
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "100Mi"
+  terminationPolicy: WipeOut

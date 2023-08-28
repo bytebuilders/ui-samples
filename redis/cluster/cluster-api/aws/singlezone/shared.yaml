@@ -1,0 +1,29 @@
+apiVersion: kubedb.com/v1alpha2
+kind: Redis
+metadata:
+  name: redis-cluster-shared
+  namespace: demo
+spec:
+  disableAuth: true
+  version: 6.2.5
+  mode: Cluster
+  cluster:
+    master: 3
+    replicas: 1
+  storageType: Durable
+  storage:
+    resources:
+      requests:
+        storage: "100Mi"
+    storageClassName: "gp2"
+    accessModes:
+      - ReadWriteOnce
+  podTemplate:
+    spec:
+      nodeSelector:
+        eks.amazonaws.com/nodegroup: "kubedb-managed_c2-pool-0"
+      resources:
+        requests:
+          cpu: "100m"
+          memory: "100Mi"
+  terminationPolicy: WipeOut
