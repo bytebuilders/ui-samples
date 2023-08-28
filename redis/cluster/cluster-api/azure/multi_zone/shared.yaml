@@ -1,14 +1,14 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
-  name: kubedb-shared-pool
+  name: multi-zone-shared
   namespace: kubedb-managed
   annotations:
-    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "6"
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "5"
     cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "3"
 spec:
   clusterName: tapo-test
-  replicas: 1
+  replicas: 3
   template:
     metadata: {}
     spec:
@@ -18,30 +18,34 @@ spec:
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AzureManagedMachinePool
-        name: kubedb-shared-pool
+        name: multi-zone-shared
       version: v1.27.3
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AzureManagedMachinePool
 metadata:
-  name: kubedb-shared-pool
+  name: multi-zone-shared
   namespace: kubedb-managed
 spec:
   mode: User
-  name: sharedpool
+  name: smultizone
   sku: Standard_D2s_v3
+  availabilityZones:
+    - "1"
+    - "2"
+    - "3"
   scaling:
-    maxSize: 6
+    maxSize: 5
     minSize: 3
 ---
 apiVersion: kubedb.com/v1alpha2
 kind: Redis
 metadata:
-  name: redis-cluster-shared
+  name: redis-cluster-shared-multi-zone
   namespace: demo
 spec:
   disableAuth: true
-  version: 6.2.5
+  version: 7.2.0
   mode: Cluster
   cluster:
     master: 3
@@ -57,7 +61,7 @@ spec:
   podTemplate:
     spec:
       nodeSelector:
-        kubernetes.azure.com/agentpool: sharedpool
+        kubernetes.azure.com/agentpool: smultizone
       resources:
         requests:
           cpu: "100m"
