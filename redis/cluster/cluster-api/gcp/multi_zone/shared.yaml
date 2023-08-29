@@ -20,8 +20,6 @@ spec:
       - ReadWriteOnce
   podTemplate:
     spec:
-      nodeSelector:
-        kubedb: "shared-pool"
       resources:
         requests:
           cpu: "100m"
