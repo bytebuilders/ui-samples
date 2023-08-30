@@ -1,45 +1,7 @@
-apiVersion: cluster.x-k8s.io/v1beta1
-kind: MachinePool
-metadata:
-  name: multiple-zone-dedicated
-  namespace: kubedb-managed
-  annotations:
-    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "5"
-    cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "3"
-spec:
-  clusterName: tapo-test
-  replicas: 3
-  template:
-    metadata: {}
-    spec:
-      bootstrap:
-        dataSecretName: ""
-      clusterName: tapo-test
-      infrastructureRef:
-        apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-        kind: AzureManagedMachinePool
-        name: multiple-zone-dedicated
-      version: v1.27.3
----
-apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
-kind: AzureManagedMachinePool
-metadata:
-  name: multiple-zone-dedicated
-  namespace: kubedb-managed
-spec:
-  mode: User
-  name: dmultizone
-  sku: Standard_D2s_v3
-  availabilityZones:
-    - "1"
-  scaling:
-    maxSize: 5
-    minSize: 3
----
 apiVersion: kubedb.com/v1alpha2
 kind: Redis
 metadata:
-  name: redis-cluster-dedicated-multizone
+  name: redis-cluster-shared-single-zone
   namespace: demo
 spec:
   disableAuth: true
@@ -58,8 +20,6 @@ spec:
       - ReadWriteOnce
   podTemplate:
     spec:
-      nodeSelector:
-        kubernetes.azure.com/agentpool: dmultizone
       resources:
         requests:
           cpu: "100m"
