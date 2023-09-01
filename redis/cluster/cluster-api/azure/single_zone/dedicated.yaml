@@ -35,6 +35,10 @@ spec:
   scaling:
     maxSize: 5
     minSize: 3
+  taints:
+    - effect: NoSchedule
+      key: dedicated
+      value: "true"
 ---
 apiVersion: kubedb.com/v1alpha2
 kind: Redis
@@ -64,4 +68,9 @@ spec:
         requests:
           cpu: "100m"
           memory: "100Mi"
+      tolerations:
+        - key: dedicated
+          operator: "Equal"
+          value: "true"
+          effect: "NoSchedule"
   terminationPolicy: WipeOut
