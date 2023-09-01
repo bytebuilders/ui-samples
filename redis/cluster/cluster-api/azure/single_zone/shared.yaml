@@ -1,11 +1,11 @@
 apiVersion: kubedb.com/v1alpha2
 kind: Redis
 metadata:
-  name: redis-cluster-shared
+  name: redis-cluster-shared-single-zone
   namespace: demo
 spec:
   disableAuth: true
-  version: 6.2.5
+  version: 7.2.0
   mode: Cluster
   cluster:
     master: 3

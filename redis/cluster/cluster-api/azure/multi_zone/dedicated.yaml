@@ -1,14 +1,14 @@
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
 metadata:
-  name: dedicated-redis-machinepool-0
+  name: multiple-zone-dedicated
   namespace: kubedb-managed
   annotations:
-    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "6"
-    cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "1"
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-max-size: "5"
+    cluster.x-k8s.io/cluster-api-autoscaler-node-group-min-size: "3"
 spec:
   clusterName: tapo-test
-  replicas: 1
+  replicas: 3
   template:
     metadata: {}
     spec:
@@ -18,21 +18,25 @@ spec:
       infrastructureRef:
         apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
         kind: AzureManagedMachinePool
-        name: dedicated-redis-machinepool-0
+        name: multiple-zone-dedicated
       version: v1.27.3
 ---
 apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
 kind: AzureManagedMachinePool
 metadata:
-  name: dedicated-redis-machinepool-0
+  name: multiple-zone-dedicated
   namespace: kubedb-managed
 spec:
   mode: User
-  name: dredispool0
+  name: dmultizone
   sku: Standard_D2s_v3
+  availabilityZones:
+    - "1"
+    - "2"
+    - "3"
   scaling:
-    maxSize: 6
-    minSize: 1
+    maxSize: 5
+    minSize: 3
   taints:
     - effect: NoSchedule
       key: dedicated
@@ -41,11 +45,11 @@ spec:
 apiVersion: kubedb.com/v1alpha2
 kind: Redis
 metadata:
-  name: redis-cluster-dedicated
+  name: redis-cluster-dedicated-multizone
   namespace: demo
 spec:
   disableAuth: true
-  version: 6.2.5
+  version: 7.2.0
   mode: Cluster
   cluster:
     master: 3
@@ -61,7 +65,7 @@ spec:
   podTemplate:
     spec:
       nodeSelector:
-        kubernetes.azure.com/agentpool: dredispool0
+        kubernetes.azure.com/agentpool: dmultizone
       resources:
         requests:
           cpu: "100m"
@@ -72,3 +76,4 @@ spec:
           value: "true"
           effect: "NoSchedule"
   terminationPolicy: WipeOut
+
