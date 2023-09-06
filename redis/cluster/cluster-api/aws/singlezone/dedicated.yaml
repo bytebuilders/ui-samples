@@ -6,10 +6,10 @@ metadata:
 spec:
   availabilityZones:
     - us-east-1a
-    roleName: nodesc2-kubedb-managed
-    scaling:
-      minSize: 1
-      maxSize: 6
+  roleName: nodesc2-kubedb-managed
+  scaling:
+    minSize: 1
+    maxSize: 6
 ---
 apiVersion: cluster.x-k8s.io/v1beta1
 kind: MachinePool
