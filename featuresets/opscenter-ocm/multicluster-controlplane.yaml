@@ -28,63 +28,16 @@ spec:
       retries: -1
   values:
     apiserver:
-      ca: |
-        -----BEGIN CERTIFICATE-----
-        MIIDAzCCAeugAwIBAgIUdOVCmLIa9FW9RYnwUwEn9bt+NK0wDQYJKoZIhvcNAQEL
-        BQAwETEPMA0GA1UEAwwGb2NtLW1jMB4XDTIzMDkwNjIzNDA0MloXDTI0MDkwNTIz
-        NDA0MlowETEPMA0GA1UEAwwGb2NtLW1jMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8A
-        MIIBCgKCAQEA11JZwyItTtzzix3Ku2tLJRPOPFbhLIRVJu8t+0AIbx850XI2AP8j
-        /8Wyd9yedzXA6vlP8dR2mr+sAH6sJ/sznWPXZ21Ics1UFpI5yneZC1ueeUVUBa1y
-        eHCCxMFy5ck2OligGZchEV+N1gAewp18bhXOUDWUA6/rdQCS3lkWSFVTR4zZEujl
-        itTP3oLmwYF9U2WHL3HZtQzwr6R1QsZSs9TGxGGciicWUKcfg7O+fN86gdqeLQ2U
-        FYPpOgib5mQgWYABwCocuGwmEdwbOOHNoCXf63UiLzn0H8A9UIfCldPFQtyyyTLN
-        nqO1UiigCDlBz0AdfgT6p4GKdfeI+HiO6wIDAQABo1MwUTAdBgNVHQ4EFgQUZJhc
-        Tmd+0mlVCKBlkJGKDilMxncwHwYDVR0jBBgwFoAUZJhcTmd+0mlVCKBlkJGKDilM
-        xncwDwYDVR0TAQH/BAUwAwEB/zANBgkqhkiG9w0BAQsFAAOCAQEApClKNgmo3cLn
-        RoA5YnexNwnqGE0YdiyAslM5yesxu47YKAU+vta1wLh/w4MIonvZdaIdFgSRm9T6
-        o9ZtabYnGHZHNOqFgltNw4KB/ozuZS79b0Q9d7r40aW2Xwt4WZWGNVxMWsDPniEh
-        j5uxzpPWFrzdLR1eiJ0UN3rSPvAVqtZMcD/mhxCI1RD+Sjz9aIABIYxU3qN0vdC+
-        DRN7yeZFEvOhvuSbhwavldAVHCFLfZW5cpqv5wH1cdbevb5Qk54w3+E1mreoc+Cy
-        dSPFUp/fjXhgn7d1vGoopUAtCzuKeHLzhGKxaHBZLodSKqzbwtGfL4WbF+U1/LS5
-        Fed3BAIBvQ==
-        -----END CERTIFICATE-----
-      cakey: |
-        -----BEGIN PRIVATE KEY-----
-        MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDXUlnDIi1O3POL
-        Hcq7a0slE848VuEshFUm7y37QAhvHznRcjYA/yP/xbJ33J53NcDq+U/x1Haav6wA
-        fqwn+zOdY9dnbUhyzVQWkjnKd5kLW555RVQFrXJ4cILEwXLlyTY6WKAZlyERX43W
-        AB7CnXxuFc5QNZQDr+t1AJLeWRZIVVNHjNkS6OWK1M/egubBgX1TZYcvcdm1DPCv
-        pHVCxlKz1MbEYZyKJxZQpx+Ds7583zqB2p4tDZQVg+k6CJvmZCBZgAHAKhy4bCYR
-        3Bs44c2gJd/rdSIvOfQfwD1Qh8KV08VC3LLJMs2eo7VSKKAIOUHPQB1+BPqngYp1
-        94j4eI7rAgMBAAECggEAIJcq1fG02ORximNyfYaiY5TJWPGveFz5RIDcPVS2Uhdw
-        WWbHjMQRb1O9jQ3cAGAm+InO02QcpZSQVKzXot+PMunbPyDX3+R7L0VnsOEETadK
-        58EaFBfqJReme2BqYyRe7FrgtK7exvHnFnaDMWLD5CexyAssAZjdcyKomDX0vPLC
-        Eeh/2VgVFypjZvx9Dpn7D12x4ttswDomEKk9BRL8QXyELxuFwxi4Eqp0Q6zhDgiM
-        +Wx1sRTFandoDd2QOB0p/q4HIkbG+dQ5XwuFv3XhBQedAq4/tXEKVrOJMLcC1mXY
-        EMF+OySdA5YcSq9Q2D0W6+yXLTxK2oqBptBqiznGgQKBgQD3cU7G7GBDT+8+3Np5
-        RgAE0NUt+JJ0gmJQ2OfLBD0uP/JdkalxZBhbdFsLvMWwzzyjYxHbYwjpBPvDObrD
-        QRAdr5z1wkrtvkyxNdptiTC8ul9PY09YhveFslDjzvXkAbBrvYFIqkrKqCL/gxpH
-        Vi2sVuL1+Pup+6RptxO4633YawKBgQDexKpkbf9GDSCS+Joq8p7V9r5oqLCQeT2K
-        VT0eUcnE9vfGfW1yELcLMKzH3Dez69Dw2r5otMQ58WzX4xLi4wzoQN/j5DigbNiY
-        m+28ApHqo9IMSQp8aOUhDLKlacUVZYzngzn30I7XfA3/dN46Jo5Y/UYD3umljq3H
-        U5ENB9/DgQKBgQCATZJpdxubC5GkaOQnyfIsjRRc1+0o2IqeHTpjfHk0yBemCOdx
-        UlOG6FhlR6bCPVLV7YLO3RU7rkfVPNPodo4itnKOxAYSLICbyq7N6TsKQSE2iuoT
-        nzgtbP6ggSni5jVSSFsHELXjSzeKgbJYlwjrucnJfScRRthDsJhbZFBGrQKBgFhd
-        Emm76CJVWrJxwlV+39pngafqIf9s2ChjH1dDghGLFUW6wwsX7kOWDzNH+yB3Te38
-        FsNZ0OxbA52vCPLOtXP7J9Qx1vRruI7wayDEtDSqvsr4vhwTT7AIZWSPzAlsurOq
-        rffK1p5LKxJFvVC7soNCE9+9MFjne68xSrwsf2oBAoGAfLFKzXm2JSWwVZy1l9g/
-        YMhEWxr/eljm3tUmxhwu3Tymbsdvl16r0VjIsACYCb5bN0Na2KVet0qxQ5k8UKl4
-        I8dHcOHeSQKITxM0QxgMIXowN382pdYcLrmZD0SuG2haPh3du5yzAwV2i7a3Alug
-        /Faq67hdtQZC+gN5P35g+eU=
-        -----END PRIVATE KEY-----
+      generateCA: true
     enableSelfManagement: true
+    autoApprovalBootstrapUsers: "system:admin"
     features: DefaultClusterSet=true,ManagedClusterAutoApproval=true,ManifestWorkReplicaSet=true
     image: ghcr.io/kluster-management/multicluster-controlplane:latest
     imagePullPolicy: Always
     loadbalancer:
       enabled: true
     pvc:
-      storageClassName: linode-block-storage
+      storageClassName: ""
     route:
       enabled: false
     securityContext:
