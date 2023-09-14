@@ -7,8 +7,8 @@ spec:
   interval: 5m
   timeout: 30m
   releaseName: capi-ui-presets
-  targetNamespace: kubeops
-  storageNamespace: kubeops
+  targetNamespace: capi-cluster
+  storageNamespace: capi-cluster
   chart:
     spec:
       chart: capi-ui-presets

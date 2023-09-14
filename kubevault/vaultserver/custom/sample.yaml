@@ -151,3 +151,28 @@ spec:
       name: elasticsearch
   task:
     name: elasticsearch-backup-7.3.2
+---
+apiVersion: stash.appscode.com/v1alpha1
+kind: Repository
+metadata:
+  labels:
+    app.kubernetes.io/instance: mariadb
+    app.kubernetes.io/name: mariadbs.kubedb.com
+  name: vault-repo
+  namespace: default
+spec:
+  backend:
+    gcs:
+      bucket: stash-testing
+      prefix: /demo/mariadb/mariadb
+    storageSecretName: gcs-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: vault-repo-cred
+  namespace: default
+stringData:
+  password: thisIs1StrongPassword
+  username: root
+type: Opaque

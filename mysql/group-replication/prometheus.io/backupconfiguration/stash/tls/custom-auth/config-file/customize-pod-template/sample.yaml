@@ -130,6 +130,16 @@ spec:
       prefix: /demo/mysql/mysql
     storageSecretName: gcs-secret
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-init-repo-cred
+  namespace: demo
+stringData:
+  password: thisIs1StrongPassword
+  username: root
+type: Opaque
+---
 apiVersion: stash.appscode.com/v1alpha1
 kind: Repository
 metadata:
@@ -144,6 +154,16 @@ spec:
       bucket: stash-testing
       prefix: /demo/mysql/mysql
     storageSecretName: gcs-secret
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-repo-cred
+  namespace: demo
+stringData:
+  password: thisIs1StrongPassword
+  username: root
+type: Opaque
 ---
 apiVersion: stash.appscode.com/v1beta1
 kind: BackupConfiguration

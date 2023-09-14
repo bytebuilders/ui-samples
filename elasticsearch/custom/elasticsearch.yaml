@@ -280,7 +280,16 @@ spec:
     gcs:
       bucket: kubedb-testing
       prefix: /elasticsearch
-    storageSecretName: gcs-secret
+    storageSecretName: elasticsearch-init-repo-cred
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: elasticsearch-init-repo-cred
+  namespace: demo
+stringData:
+  password: ""
+  username: ""
 ---
 apiVersion: stash.appscode.com/v1alpha1
 kind: Repository
@@ -292,7 +301,16 @@ spec:
     gcs:
       bucket: kubedb-testing
       prefix: /elasticsearch
-    storageSecretName: gcs-secret
+    storageSecretName: elasticsearch-repo-cred
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: elasticsearch-repo-cred
+  namespace: demo
+stringData:
+  password: ""
+  username: ""
 ---
 apiVersion: stash.appscode.com/v1beta1
 kind: BackupConfiguration

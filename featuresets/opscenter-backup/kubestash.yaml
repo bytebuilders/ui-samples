@@ -1,21 +1,21 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: capi-ui-presets
+  name: kubestash
   namespace: kubeops
 spec:
   interval: 5m
   timeout: 30m
-  releaseName: capi-ui-presets
-  targetNamespace: capi-cluster
-  storageNamespace: capi-cluster
+  releaseName: kubestash
+  targetNamespace: kubestash
+  storageNamespace: kubestash
   chart:
     spec:
-      chart: capi-ui-presets
-      version: "v2023.03.23"
+      chart: kubestash
+      version: "v2023.04.14"
       sourceRef:
         kind: HelmRepository
-        name: appscode
+        name: kubestash
         namespace: kubeops
   install:
     createNamespace: true
@@ -26,3 +26,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
+  values:
+    features:
+      enterprise: true
