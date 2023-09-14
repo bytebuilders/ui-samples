@@ -1,0 +1,28 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: keda
+  namespace: kubeops
+spec:
+  interval: 5m
+  timeout: 30m
+  releaseName: keda
+  targetNamespace: keda
+  storageNamespace: keda
+  chart:
+    spec:
+      chart: keda
+      version: ""
+      sourceRef:
+        kind: HelmRepository
+        name: kedacore
+        namespace: keda
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
