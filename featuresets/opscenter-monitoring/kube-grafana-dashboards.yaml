@@ -1,17 +1,17 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
-  name: monitoring-operator
+  name: kube-grafana-dashboards
   namespace: kubeops
 spec:
   interval: 5m
   timeout: 30m
-  releaseName: monitoring-operator
+  releaseName: kube-grafana-dashboards
   targetNamespace: monitoring
   storageNamespace: monitoring
   chart:
     spec:
-      chart: monitoring-operator
+      chart: kube-grafana-dashboards
       version: "v2023.10.1"
       sourceRef:
         kind: HelmRepository
