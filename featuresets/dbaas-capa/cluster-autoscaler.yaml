@@ -26,3 +26,8 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
+  values:
+    autoscalingGroups:
+      - name: dbaas-asg
+        maxSize: 6
+        minSize: 1
