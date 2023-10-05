@@ -27,7 +27,12 @@ spec:
     remediation:
       retries: -1
   values:
+    cloudProvider: clusterapi
     autoscalingGroups:
-      - name: dbaas-asg
-        maxSize: 6
+      - name: default
         minSize: 1
+        maxSize: 6
+    extraArgs:
+      logtostderr: null
+      stderrthreshold: null
+      v: null
