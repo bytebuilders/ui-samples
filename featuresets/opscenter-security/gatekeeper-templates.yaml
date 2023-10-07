@@ -11,7 +11,7 @@ spec:
   storageNamespace: gatekeeper-system
   chart:
     spec:
-      name: gatekeeper-library
+      chart: gatekeeper-library
       version: "v2023.10.1"
       sourceRef:
         kind: HelmRepository
