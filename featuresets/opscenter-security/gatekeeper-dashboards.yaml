@@ -11,7 +11,7 @@ spec:
   storageNamespace: gatekeeper-system
   chart:
     spec:
-      name: gatekeeper-grafana-dashboards
+      chart: gatekeeper-grafana-dashboards
       version: "v2023.10.1"
       sourceRef:
         kind: HelmRepository
