@@ -1,0 +1,16 @@
+apiVersion: elasticache.aws.upbound.io/v1beta1
+kind: ParameterGroup
+metadata:
+  annotations:
+    meta.upbound.io/example-id: elasticache/v1beta1/parametergroup
+  labels:
+    testing.upbound.io/example-name: default
+  name: default
+spec:
+  forProvider:
+    name: cache-params-test
+    family: redis7
+    parameter:
+    - name: activerehashing
+      value: "yes"
+    region: us-east-2
