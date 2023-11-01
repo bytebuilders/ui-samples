@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: monitoring-operator
   namespace: kubeops
+  labels:
+    ace.appscode.com/feature: monitoring-operator
 spec:
   interval: 5m
   timeout: 30m
@@ -15,7 +17,7 @@ spec:
       version: "v0.0.3"
       sourceRef:
         kind: HelmRepository
-        name: appscode
+        name: appscode-charts-oci
         namespace: kubeops
   install:
     createNamespace: true

@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: aws-ebs-csi-driver
   namespace: kubeops
+  labels:
+    ace.appscode.com/feature: aws-ebs-csi-driver
 spec:
   interval: 5m
   timeout: 30m
@@ -15,7 +17,7 @@ spec:
       version: "2.23.0"
       sourceRef:
         kind: HelmRepository
-        name: aws-ebs-csi-driver
+        name: appscode-charts-oci
         namespace: kubeops
   install:
     createNamespace: true

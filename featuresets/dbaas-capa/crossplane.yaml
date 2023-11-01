@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: crossplane
   namespace: kubeops
+  labels:
+    ace.appscode.com/feature: crossplane
 spec:
   interval: 5m
   timeout: 30m
@@ -12,10 +14,10 @@ spec:
   chart:
     spec:
       chart: crossplane
-      version: "1.12.2"
+      version: "1.13.2"
       sourceRef:
         kind: HelmRepository
-        name: crossplane
+        name: appscode-charts-oci
         namespace: kubeops
   install:
     createNamespace: true

@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: kubevault
   namespace: kubeops
+  labels:
+    ace.appscode.com/feature: kubevault
 spec:
   interval: 5m
   timeout: 30m
@@ -12,10 +14,10 @@ spec:
   chart:
     spec:
       chart: kubevault
-      version: "v2023.9.7"
+      version: "v2023.10.26-rc.0"
       sourceRef:
         kind: HelmRepository
-        name: kubevault
+        name: appscode-charts-oci
         namespace: kubeops
   install:
     createNamespace: true

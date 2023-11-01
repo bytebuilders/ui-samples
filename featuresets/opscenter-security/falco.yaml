@@ -3,6 +3,8 @@ kind: HelmRelease
 metadata:
   name: falco
   namespace: kubeops
+  labels:
+    ace.appscode.com/feature: falco
 spec:
   interval: 5m
   timeout: 30m
@@ -15,7 +17,7 @@ spec:
       version: ""
       sourceRef:
         kind: HelmRepository
-        name: falcosecurity
+        name: appscode-charts-oci
         namespace: kubeops
   install:
     createNamespace: true
