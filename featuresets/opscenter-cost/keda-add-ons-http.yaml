@@ -14,7 +14,7 @@ spec:
   chart:
     spec:
       chart: keda-add-ons-http
-      version: ""
+      version: "0.6.0"
       sourceRef:
         kind: HelmRepository
         name: appscode-charts-oci
