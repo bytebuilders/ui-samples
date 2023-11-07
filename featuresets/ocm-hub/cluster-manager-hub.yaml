@@ -26,4 +26,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  values: {}

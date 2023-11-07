@@ -18,7 +18,7 @@ spec:
         name: appscode-charts-oci
         namespace: kubeops
   dependsOn:
-    - cluster-manager-hub
+    - name: cluster-manager-hub
   install:
     createNamespace: true
     crds: Skip

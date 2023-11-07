@@ -19,6 +19,8 @@ spec:
         kind: HelmRepository
         name: appscode-charts-oci
         namespace: kubeops
+  dependsOn:
+    - name: multicluster-controlplane
   install:
     createNamespace: true
     crds: Skip
