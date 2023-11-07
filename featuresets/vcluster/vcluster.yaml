@@ -1,0 +1,41 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: vcluster
+  namespace: kubeops
+spec:
+  interval: 5m
+  timeout: 30m
+  releaseName: vcluster
+  targetNamespace: open-cluster-management
+  storageNamespace: open-cluster-management
+  chart:
+    spec:
+      chart: vcluster
+      version: "0.16.4"
+      sourceRef:
+        kind: HelmRepository
+        name: appscode-charts-oci
+        namespace: kubeops
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  values:
+    vcluster:
+      image: rancher/k3s:v1.23.5-k3s1    # Choose k3s version
+    sync:
+      # persistentvolumes:
+      #   enabled: true
+      # If you want to create custom storage classes
+      # inside the vcluster.
+      hoststorageclasses:
+        enabled: true
+    telemetry:
+      disabled: "true"
+
