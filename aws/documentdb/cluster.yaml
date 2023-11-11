@@ -1,11 +1,11 @@
-apiVersion: docdb.aws.upbound.io/v1beta1
+apiVersion: docdb.aws.kubedb.com/v1alpha1
 kind: Cluster
 metadata:
   annotations:
-    meta.upbound.io/example-id: docdb/v1beta1/cluster
+    meta.kubedb.com/example-id: docdb/v1alpha1/cluster
   labels:
-    testing.upbound.io/example-name: docdb
-  name: my-docdb-cluster
+    testing.kubedb.com/example-name: docdb
+  name: example
 spec:
   forProvider:
     region: us-east-2
@@ -26,10 +26,10 @@ apiVersion: v1
 kind: Secret
 metadata:
   annotations:
-    meta.upbound.io/example-id: docdb/v1beta1/cluster
+    meta.kubedb.com/example-id: docdb/v1alpha1/cluster
   labels:
-    testing.upbound.io/example-name: docdb-creds
-  name: docdb-creds
+    testing.kubedb.com/example-name: docdb-creds
+  name: example-creds
   namespace: upbound-system
 type: Opaque
 stringData:
@@ -38,11 +38,11 @@ stringData:
 
 ---
 
-apiVersion: docdb.aws.upbound.io/v1beta1
+apiVersion: docdb.aws.kubedb.com/v1alpha1
 kind: SubnetGroup
 metadata:
   labels:
-    testing.upbound.io/example-name: example
+    testing.kubedb.com/example-name: example
   name: example
 spec:
   forProvider:
@@ -55,57 +55,57 @@ spec:
     tags:
       Name: My docdb subnet group
 ---
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: VPC
-metadata:
-  name: sample-db-vpc
-spec:
-  forProvider:
-    region: us-east-2
-    cidrBlock: 172.16.0.0/16
-    tags:
-      Name: DemoVpc
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
+# kind: VPC
+# metadata:
+#   name: sample-db-vpc
+# spec:
+#   forProvider:
+#     region: us-east-2
+#     cidrBlock: 172.16.0.0/16
+#     tags:
+#       Name: DemoVpc
 
----
+# ---
 
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: Subnet
-metadata:
-  name: sample-db-subnet1
-spec:
-  forProvider:
-    region: us-east-2
-    availabilityZone: us-east-2b
-    vpcIdRef:
-      name: sample-db-vpc
-    cidrBlock: 172.16.10.0/24
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
+# kind: Subnet
+# metadata:
+#   name: sample-db-subnet1
+# spec:
+#   forProvider:
+#     region: us-east-2
+#     availabilityZone: us-east-2b
+#     vpcIdRef:
+#       name: sample-db-vpc
+#     cidrBlock: 172.16.10.0/24
 
----
+# ---
 
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: Subnet
-metadata:
-  name: sample-db-subnet2
-spec:
-  forProvider:
-    region: us-east-2
-    availabilityZone: us-east-2c
-    vpcIdRef:
-      name: sample-db-vpc
-    cidrBlock: 172.16.20.0/24
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
+# kind: Subnet
+# metadata:
+#   name: sample-db-subnet2
+# spec:
+#   forProvider:
+#     region: us-east-2
+#     availabilityZone: us-east-2c
+#     vpcIdRef:
+#       name: sample-db-vpc
+#     cidrBlock: 172.16.20.0/24
 
----
+# ---
 
-apiVersion: ec2.aws.upbound.io/v1beta1
-kind: Subnet
-metadata:
-  name: sample-db-subnet3
-spec:
-  forProvider:
-    region: us-east-2
-    availabilityZone: us-east-2a
-    vpcIdRef:
-      name: sample-db-vpc
-    cidrBlock: 172.16.30.0/24
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
+# kind: Subnet
+# metadata:
+#   name: sample-db-subnet3
+# spec:
+#   forProvider:
+#     region: us-east-2
+#     availabilityZone: us-east-2a
+#     vpcIdRef:
+#       name: sample-db-vpc
+#     cidrBlock: 172.16.30.0/24
 
 ---

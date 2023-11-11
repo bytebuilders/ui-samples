@@ -1,9 +1,9 @@
-apiVersion: rds.aws.upbound.io/v1beta1
+apiVersion: rds.aws.kubedb.com/v1alpha1
 kind: ProxyDefaultTargetGroup
 metadata:
   name: example
   annotations:
-    upjet.upbound.io/manual-intervention: "This resource has a reference to Proxy, which needs manual intervention."
+    upjet.kubedb.com/manual-intervention: "This resource has a reference to Proxy, which needs manual intervention."
 spec:
   forProvider:
     dbProxyName: example
@@ -21,12 +21,12 @@ spec:
 # Make sure that the commeted resouces are ready. If not reday, then deploy those resoures.
 
 
-# apiVersion: rds.aws.upbound.io/v1beta1
+# apiVersion: rds.aws.kubedb.com/v1alpha1
 # kind: Proxy
 # metadata:
 #   name: example
 #   annotations:
-#     upjet.upbound.io/manual-intervention: "This resource has a secret reference."
+#     upjet.kubedb.com/manual-intervention: "This resource has a secret reference."
 # spec:
 #   forProvider:
 #     region: us-east-2

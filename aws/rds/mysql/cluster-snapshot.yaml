@@ -1,11 +1,11 @@
-apiVersion: rds.aws.upbound.io/v1beta1
+apiVersion: rds.aws.kubedb.com/v1alpha1
 kind: ClusterSnapshot
 metadata:
   annotations:
-    meta.upbound.io/example-id: rds/v1beta1/clustersnapshot
-    upjet.upbound.io/manual-intervention: "This resource has a reference to Cluster, which needs manual intervention."
+    meta.kubedb.com/example-id: rds/v1alpha1/clustersnapshot
+    upjet.kubedb.com/manual-intervention: "This resource has a reference to Cluster, which needs manual intervention."
   labels:
-    testing.upbound.io/example-name: example
+    testing.kubedb.com/example-name: example
   name: example
 spec:
   forProvider:
@@ -16,12 +16,12 @@ spec:
 # ---
 # Make sure that the commeted resouces are ready. If not reday, then deploy those resoures.
 
-# apiVersion: rds.aws.upbound.io/v1beta1
+# apiVersion: rds.aws.kubedb.com/v1alpha1
 # kind: Cluster
 # metadata:
 #   name: example
 #   annotations:
-#     meta.upbound.io/example-id: rds/v1beta1/cluster
+#     meta.kubedb.com/example-id: rds/v1alpha1/cluster
 # spec:
 #   forProvider:
 #     dbSubnetGroupName: example-subnetgroup
@@ -60,7 +60,7 @@ spec:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: VPC
 # metadata:
 #   name: sample-db-vpc
@@ -73,7 +73,7 @@ spec:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
 #   name: sample-db-subnet1
@@ -87,7 +87,7 @@ spec:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
 #   name: sample-db-subnet2
@@ -101,7 +101,7 @@ spec:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
 #   name: sample-db-subnet3
@@ -115,7 +115,7 @@ spec:
 
 # ---
 
-# apiVersion: rds.aws.upbound.io/v1beta1
+# apiVersion: rds.aws.kubedb.com/v1alpha1
 # kind: SubnetGroup
 # metadata:
 #   name: example-subnetgroup
