@@ -1,11 +1,11 @@
-apiVersion: dynamodb.aws.kubeform.com/v1alpha1
+apiVersion: dynamodb.aws.kubedb.com/v1alpha1
 kind: TableItem
 metadata:
   annotations:
-    meta.upbound.io/example-id: dynamodb/v1alpha1/tableitem
+    meta.kubedb.com/example-id: dynamodb/v1alpha1/tableitem
   labels:
-    testing.upbound.io/example-name: mytable
-  name: mytable
+    testing.kubedb.com/example-name: mytable
+  name: example
 spec:
   forProvider:
     hashKey: exampleHashKey
@@ -20,18 +20,18 @@ spec:
     region: us-east-2
     tableNameSelector:
       matchLabels:
-        testing.upbound.io/example-name: mytable
+        testing.kubedb.com/example-name: mytable
 
 ---
 
-apiVersion: dynamodb.aws.kubeform.com/v1alpha1
+apiVersion: dynamodb.aws.kubedb.com/v1alpha1
 kind: Table
 metadata:
   annotations:
-    meta.upbound.io/example-id: dynamodb/v1alpha1/table
+    meta.kubedb.com/example-id: dynamodb/v1alpha1/table
   labels:
-    testing.upbound.io/example-name: mytable
-  name: mytable
+    testing.kubedb.com/example-name: mytable
+  name: example
 spec:
   forProvider:
     attribute:

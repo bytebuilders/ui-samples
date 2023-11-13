@@ -1,11 +1,11 @@
-apiVersion: rds.aws.upbound.io/v1beta1
+apiVersion: rds.aws.kubedb.com/v1alpha1
 kind: ClusterSnapshot
 metadata:
   annotations:
-    meta.upbound.io/example-id: rds/v1beta1/clustersnapshot
-    upjet.upbound.io/manual-intervention: "This resource has a reference to Cluster, which needs manual intervention."
+    meta.kubedb.com/example-id: rds/v1alpha1/clustersnapshot
+    upjet.kubedb.com/manual-intervention: "This resource has a reference to Cluster, which needs manual intervention."
   labels:
-    testing.upbound.io/example-name: example
+    testing.kubedb.com/example-name: example
   name: example
 spec:
   forProvider:
@@ -17,20 +17,20 @@ spec:
 # Make sure that the commeted resouces are ready. If not reday, then deploy those resoures.
 
 
-# apiVersion: rds.aws.upbound.io/v1beta1
+# apiVersion: rds.aws.kubedb.com/v1alpha1
 # kind: Cluster
 # metadata:
 #   name: example
 #   annotations:
-#     meta.upbound.io/example-id: rds/v1beta1/cluster
+#     meta.kubedb.com/example-id: rds/v1alpha1/cluster
 # spec:
 #   forProvider:
-#     dbSubnetGroupName: example-subnetgroup
+#     dbSubnetGroupName: example
 #     region: us-east-2
 #     engine: aurora-postgresql
 #     masterUsername: cpadmin
 #     masterPasswordSecretRef:
-#       name: sample-cluster-password
+#       name: example-password
 #       namespace: upbound-system
 #       key: password
 #     skipFinalSnapshot: true
@@ -41,7 +41,7 @@ spec:
 # apiVersion: v1
 # kind: Secret
 # metadata:
-#   name: sample-cluster-password
+#   name: example-password
 #   namespace: upbound-system
 # type: Opaque
 # stringData:
@@ -51,10 +51,10 @@ spec:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: VPC
 # metadata:
-#   name: sample-db-vpc
+#   name: example
 # spec:
 #   forProvider:
 #     region: us-east-2
@@ -64,58 +64,58 @@ spec:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
-#   name: sample-db-subnet1
+#   name: example-subnet1
 # spec:
 #   forProvider:
 #     region: us-east-2
 #     availabilityZone: us-east-2b
 #     vpcIdRef:
-#       name: sample-db-vpc
+#       name: example
 #     cidrBlock: 172.16.10.0/24
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
-#   name: sample-db-subnet2
+#   name: example-subnet2
 # spec:
 #   forProvider:
 #     region: us-east-2
 #     availabilityZone: us-east-2c
 #     vpcIdRef:
-#       name: sample-db-vpc
+#       name: example
 #     cidrBlock: 172.16.20.0/24
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
-#   name: sample-db-subnet3
+#   name: example-subnet3
 # spec:
 #   forProvider:
 #     region: us-east-2
 #     availabilityZone: us-east-2a
 #     vpcIdRef:
-#       name: sample-db-vpc
+#       name: example
 #     cidrBlock: 172.16.30.0/24
 
 # ---
 
-# apiVersion: rds.aws.upbound.io/v1beta1
+# apiVersion: rds.aws.kubedb.com/v1alpha1
 # kind: SubnetGroup
 # metadata:
-#   name: example-subnetgroup
+#   name: example
 # spec:
 #   forProvider:
 #     region: us-east-2
 #     subnetIdRefs:
-#       - name: sample-db-subnet1
-#       - name: sample-db-subnet2
-#       - name: sample-db-subnet3
+#       - name: example-subnet1
+#       - name: example-subnet2
+#       - name: example-subnet3
 #     tags:
 #       Name: My DB subnet group

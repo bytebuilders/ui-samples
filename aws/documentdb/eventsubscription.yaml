@@ -1,10 +1,10 @@
-apiVersion: docdb.aws.upbound.io/v1beta1
+apiVersion: docdb.aws.kubedb.com/v1alpha1
 kind: EventSubscription
 metadata:
   annotations:
-    meta.upbound.io/example-id: docdb/v1beta1/eventsubscription
+    meta.kubedb.com/example-id: docdb/v1alpha1/eventsubscription
   labels:
-    testing.upbound.io/example-name: example
+    testing.kubedb.com/example-name: example
   name: example
 spec:
   forProvider:
@@ -15,19 +15,19 @@ spec:
     region: us-east-2
     snsTopicArnSelector:
       matchLabels:
-        testing.upbound.io/example-name: example
+        testing.kubedb.com/example-name: example
     sourceType: db-cluster
 ---
-apiVersion: sns.aws.upbound.io/v1beta1
-kind: Topic
-metadata:
-  annotations:
-    meta.upbound.io/example-id: docdb/v1beta1/eventsubscription
-  labels:
-    testing.upbound.io/example-name: example
-  name: example
-spec:
-  forProvider:
-    region: us-east-2
+# apiVersion: sns.aws.kubedb.com/v1alpha1
+# kind: Topic
+# metadata:
+#   annotations:
+#     meta.kubedb.com/example-id: docdb/v1alpha1/eventsubscription
+#   labels:
+#     testing.kubedb.com/example-name: example
+#   name: example
+# spec:
+#   forProvider:
+#     region: us-east-2
 
 ---

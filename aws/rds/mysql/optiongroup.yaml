@@ -1,4 +1,4 @@
-apiVersion: rds.aws.upbound.io/v1beta1
+apiVersion: rds.aws.kubedb.com/v1alpha1
 kind: OptionGroup
 metadata:
   name: example

@@ -1,27 +1,27 @@
-apiVersion: docdb.aws.upbound.io/v1beta1
+apiVersion: docdb.aws.kubedb.com/v1alpha1
 kind: ClusterInstance
 metadata:
   annotations:
-    meta.upbound.io/example-id: docdb/v1beta1/clusterinstance
+    meta.kubedb.com/example-id: docdb/v1alpha1/clusterinstance
   labels:
-    testing.upbound.io/example-name: cluster_instances
-  name: cluster-instances
+    testing.kubedb.com/example-name: cluster_instances
+  name: example
 spec:
   forProvider:
     clusterIdentifierSelector:
       matchLabels:
-        testing.upbound.io/example-name: docdb
+        testing.kubedb.com/example-name: docdb
     instanceClass: db.t3.medium
     region: us-east-2
 ---
 
-# apiVersion: docdb.aws.upbound.io/v1beta1
+# apiVersion: docdb.aws.kubedb.com/v1alpha1
 # kind: Cluster
 # metadata:
 #   annotations:
-#     meta.upbound.io/example-id: docdb/v1beta1/cluster
+#     meta.kubedb.com/example-id: docdb/v1alpha1/cluster
 #   labels:
-#     testing.upbound.io/example-name: docdb
+#     testing.kubedb.com/example-name: docdb
 #   name: my-docdb-cluster
 # spec:
 #   forProvider:
@@ -43,9 +43,9 @@ spec:
 # kind: Secret
 # metadata:
 #   annotations:
-#     meta.upbound.io/example-id: docdb/v1beta1/cluster
+#     meta.kubedb.com/example-id: docdb/v1alpha1/cluster
 #   labels:
-#     testing.upbound.io/example-name: docdb-creds
+#     testing.kubedb.com/example-name: docdb-creds
 #   name: docdb-creds
 #   namespace: upbound-system
 # type: Opaque
@@ -55,11 +55,11 @@ spec:
 
 # ---
 
-# apiVersion: docdb.aws.upbound.io/v1beta1
+# apiVersion: docdb.aws.kubedb.com/v1alpha1
 # kind: SubnetGroup
 # metadata:
 #   labels:
-#     testing.upbound.io/example-name: example
+#     testing.kubedb.com/example-name: example
 #   name: example
 # spec:
 #   forProvider:
@@ -72,7 +72,7 @@ spec:
 #     tags:
 #       Name: My docdb subnet group
 # ---
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: VPC
 # metadata:
 #   name: sample-db-vpc
@@ -85,7 +85,7 @@ spec:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
 #   name: sample-db-subnet1
@@ -99,7 +99,7 @@ spec:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
 #   name: sample-db-subnet2
@@ -113,7 +113,7 @@ spec:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
 #   name: sample-db-subnet3

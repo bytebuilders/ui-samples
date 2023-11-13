@@ -1,9 +1,9 @@
-apiVersion: rds.aws.upbound.io/v1beta1
+apiVersion: rds.aws.kubedb.com/v1alpha1
 kind: Cluster
 metadata:
   name: example
   annotations:
-    meta.upbound.io/example-id: rds/v1beta1/cluster
+    meta.kubedb.com/example-id: rds/v1alpha1/cluster
 spec:
   forProvider:
     dbSubnetGroupName: example-subnetgroup
@@ -40,7 +40,7 @@ data:
 # Make sure that the commeted resouces are ready. If not reday, then deploy those resoures.
 
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: VPC
 # metadata:
 #   name: sample-db-vpc
@@ -53,7 +53,7 @@ data:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
 #   name: sample-db-subnet1
@@ -67,7 +67,7 @@ data:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
 #   name: sample-db-subnet2
@@ -81,7 +81,7 @@ data:
 
 # ---
 
-# apiVersion: ec2.aws.upbound.io/v1beta1
+# apiVersion: ec2.aws.kubedb.com/v1alpha1
 # kind: Subnet
 # metadata:
 #   name: sample-db-subnet3
@@ -95,7 +95,7 @@ data:
 
 # ---
 
-# apiVersion: rds.aws.upbound.io/v1beta1
+# apiVersion: rds.aws.kubedb.com/v1alpha1
 # kind: SubnetGroup
 # metadata:
 #   name: example-subnetgroup

@@ -1,9 +1,9 @@
-apiVersion: rds.aws.upbound.io/v1beta1
+apiVersion: rds.aws.kubedb.com/v1alpha1
 kind: Snapshot
 metadata:
   name: example
   annotations:
-    upjet.upbound.io/manual-intervention: "This resource has a reference to Instance, which needs manual intervention."
+    upjet.kubedb.com/manual-intervention: "This resource has a reference to Instance, which needs manual intervention."
 spec:
   forProvider:
     region: us-east-2
