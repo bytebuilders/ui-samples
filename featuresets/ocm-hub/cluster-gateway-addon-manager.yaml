@@ -22,11 +22,11 @@ spec:
     - name: managed-serviceaccount
   install:
     createNamespace: true
-    crds: Skip
+    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
-    crds: Skip
+    crds: CreateReplace
     remediation:
       retries: -1
   values:

@@ -21,10 +21,10 @@ spec:
     - name: cluster-manager-hub
   install:
     createNamespace: true
-    crds: Skip
+    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
-    crds: Skip
+    crds: CreateReplace
     remediation:
       retries: -1
