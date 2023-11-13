@@ -1,0 +1,72 @@
+# apiVersion: dbforpostgresql.azure.kubedb.com/v1alpha1
+# kind: Database
+# metadata:
+#   annotations:
+#     meta.kubedb.com/example-id: dbforpostgresql/v1alpha1/database
+#   labels:
+#     testing.kubedb.com/example-name: example
+#   name: example-database
+# spec:
+#   forProvider:
+#     charset: UTF8
+#     collation: English_United States.1252
+#     resourceGroupNameSelector:
+#       matchLabels:
+#         testing.kubedb.com/example-name: example
+#     serverNameSelector:
+#       matchLabels:
+#         testing.kubedb.com/example-name: example
+
+# ---
+
+apiVersion: dbforpostgresql.azure.kubedb.com/v1alpha1
+kind: Server
+metadata:
+  annotations:
+    meta.kubedb.com/example-id: dbforpostgresql/v1alpha1/database
+  labels:
+    testing.kubedb.com/example-name: example
+  name: example-server-for-database
+spec:
+  forProvider:
+    administratorLogin: psqladmin
+    administratorLoginPasswordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    autoGrowEnabled: true
+    backupRetentionDays: 7
+    geoRedundantBackupEnabled: false
+    location: East Us 2
+    resourceGroupNameSelector:
+      matchLabels:
+        testing.kubedb.com/example-name: example
+    skuName: B_Gen5_2
+    sslEnforcementEnabled: true
+    storageMb: 5120
+    version: "11"
+
+---
+
+apiVersion: azure.kubedb.com/v1alpha1
+kind: ResourceGroup
+metadata:
+  annotations:
+    meta.kubedb.com/example-id: dbforpostgresql/v1alpha1/database
+  labels:
+    testing.kubedb.com/example-name: example
+  name: example
+spec:
+  forProvider:
+    location: East Us 2
+
+---
+
+apiVersion: v1
+data:
+  example-key: dXBiMHVuZHIwY2s1ITMxMzM3
+kind: Secret
+metadata:
+  name: example-secret
+  namespace: upbound-system
+type: Opaque

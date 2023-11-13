@@ -1,0 +1,11 @@
+apiVersion: azure.kubedb.com/v1alpha1
+metadata:
+  name: default
+kind: ProviderConfig
+spec:
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: azure-secret
+      key: creds
