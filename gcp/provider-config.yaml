@@ -1,0 +1,12 @@
+apiVersion: gcp.kubedb.com/v1alpha1
+kind: ProviderConfig
+metadata:
+  name: default
+spec:
+  projectID: appscode-testing
+  credentials:
+    source: Secret
+    secretRef:
+      namespace: crossplane-system
+      name: gcp-secret
+      key: creds

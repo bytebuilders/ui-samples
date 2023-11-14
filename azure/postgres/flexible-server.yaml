@@ -1,0 +1,47 @@
+# Error
+#apply failed: waiting for creation of the Postgresql Flexible Server "example" (Resource Group "example-flexible-server-pg-arm"): 
+# Code="ServerGroupDropping" Message="Operations on a server group in dropping state are not allowed.
+
+apiVersion: dbforpostgresql.azure.kubedb.com/v1alpha1
+kind: FlexibleServer
+metadata:
+  labels:
+    testing.kubedb.com/example-name: example
+  name: example
+spec:
+  forProvider:
+    administratorLogin: psqladmin
+    administratorPasswordSecretRef:
+      key: example-key
+      name: example-secret
+      namespace: upbound-system
+    location: East US 2
+    resourceGroupNameSelector:
+      matchLabels:
+        testing.kubedb.com/example-name: example-flexible-server-pg
+    skuName: GP_Standard_D4s_v3
+    storageMb: 32768
+    version: "12"
+
+---
+
+apiVersion: azure.kubedb.com/v1alpha1
+kind: ResourceGroup
+metadata:
+  labels:
+    testing.kubedb.com/example-name: example-flexible-server-pg
+  name: example-flexible-server-pg-arm
+spec:
+  forProvider:
+    location: East US 2
+
+---
+
+apiVersion: v1
+data:
+  example-key: dXBiMHVuZHIwY2s1ITMxMzM3Cg==
+kind: Secret
+metadata:
+  name: example-secret
+  namespace: upbound-system
+type: Opaque
