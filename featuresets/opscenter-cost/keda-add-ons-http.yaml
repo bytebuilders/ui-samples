@@ -4,7 +4,7 @@ metadata:
   name: keda-add-ons-http
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: keda-add-ons-http
+    app.kubernetes.io/component: keda-add-ons-http
 spec:
   interval: 5m
   timeout: 30m

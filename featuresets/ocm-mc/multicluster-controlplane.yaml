@@ -4,7 +4,7 @@ metadata:
   name: multicluster-controlplane
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: multicluster-controlplane
+    app.kubernetes.io/component: multicluster-controlplane
 spec:
   interval: 5m
   timeout: 30m

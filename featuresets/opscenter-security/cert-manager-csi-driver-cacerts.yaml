@@ -4,7 +4,7 @@ metadata:
   name: cert-manager-csi-driver-cacerts
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: cert-manager-csi-driver-cacerts
+    app.kubernetes.io/component: cert-manager-csi-driver-cacerts
 spec:
   interval: 5m
   timeout: 30m

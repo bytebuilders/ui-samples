@@ -4,7 +4,7 @@ metadata:
   name: cluster-autoscaler
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: cluster-autoscaler
+    app.kubernetes.io/component: cluster-autoscaler
 spec:
   interval: 5m
   timeout: 30m

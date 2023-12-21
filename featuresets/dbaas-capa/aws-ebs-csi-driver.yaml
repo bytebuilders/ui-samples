@@ -4,7 +4,7 @@ metadata:
   name: aws-ebs-csi-driver
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: aws-ebs-csi-driver
+    app.kubernetes.io/component: aws-ebs-csi-driver
 spec:
   interval: 5m
   timeout: 30m

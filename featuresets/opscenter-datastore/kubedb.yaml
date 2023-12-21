@@ -4,7 +4,7 @@ metadata:
   name: kubedb
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: kubedb
+    app.kubernetes.io/component: kubedb
 spec:
   interval: 5m
   timeout: 30m

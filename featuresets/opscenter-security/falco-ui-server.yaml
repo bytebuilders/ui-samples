@@ -4,7 +4,7 @@ metadata:
   name: falco-ui-server
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: falco-ui-server
+    app.kubernetes.io/component: falco-ui-server
 spec:
   interval: 5m
   timeout: 30m

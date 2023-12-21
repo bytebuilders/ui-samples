@@ -4,7 +4,7 @@ metadata:
   name: gatekeeper
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: gatekeeper
+    app.kubernetes.io/component: gatekeeper
 spec:
   interval: 5m
   timeout: 30m

@@ -4,7 +4,7 @@ metadata:
   name: external-dns-operator
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: external-dns-operator
+    app.kubernetes.io/component: external-dns-operator
 spec:
   interval: 5m
   timeout: 30m

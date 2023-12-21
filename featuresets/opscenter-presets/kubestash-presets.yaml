@@ -4,7 +4,7 @@ metadata:
   name: kubestash-presets
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: kubestash-presets
+    app.kubernetes.io/component: kubestash-presets
 spec:
   interval: 5m
   timeout: 30m

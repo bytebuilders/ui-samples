@@ -4,7 +4,7 @@ metadata:
   name: monitoring-operator
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: monitoring-operator
+    app.kubernetes.io/component: monitoring-operator
 spec:
   interval: 5m
   timeout: 30m

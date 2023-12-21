@@ -4,7 +4,7 @@ metadata:
   name: scanner
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: scanner
+    app.kubernetes.io/component: scanner
 spec:
   interval: 5m
   timeout: 30m

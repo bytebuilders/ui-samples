@@ -4,7 +4,7 @@ metadata:
   name: kubevault
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: kubevault
+    app.kubernetes.io/component: kubevault
 spec:
   interval: 5m
   timeout: 30m

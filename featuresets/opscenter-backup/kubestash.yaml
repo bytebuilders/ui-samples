@@ -4,7 +4,7 @@ metadata:
   name: kubestash
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: kubestash
+    app.kubernetes.io/component: kubestash
 spec:
   interval: 5m
   timeout: 30m

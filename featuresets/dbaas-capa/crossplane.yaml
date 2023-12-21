@@ -4,7 +4,7 @@ metadata:
   name: crossplane
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: crossplane
+    app.kubernetes.io/component: crossplane
 spec:
   interval: 5m
   timeout: 30m

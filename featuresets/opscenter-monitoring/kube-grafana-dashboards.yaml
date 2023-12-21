@@ -4,7 +4,7 @@ metadata:
   name: kube-grafana-dashboards
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: kube-grafana-dashboards
+    app.kubernetes.io/component: kube-grafana-dashboards
 spec:
   interval: 5m
   timeout: 30m

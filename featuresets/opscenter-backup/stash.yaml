@@ -4,7 +4,7 @@ metadata:
   name: stash
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: stash
+    app.kubernetes.io/component: stash
 spec:
   interval: 5m
   timeout: 30m

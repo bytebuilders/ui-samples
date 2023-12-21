@@ -4,7 +4,7 @@ metadata:
   name: capi-cluster-presets
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: capi-cluster-presets
+    app.kubernetes.io/component: capi-cluster-presets
 spec:
   interval: 5m
   timeout: 30m

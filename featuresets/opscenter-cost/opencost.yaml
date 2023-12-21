@@ -4,7 +4,7 @@ metadata:
   name: opencost
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: opencost
+    app.kubernetes.io/component: opencost
 spec:
   interval: 5m
   timeout: 30m

@@ -4,7 +4,7 @@ metadata:
   name: falco
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: falco
+    app.kubernetes.io/component: falco
 spec:
   interval: 5m
   timeout: 30m

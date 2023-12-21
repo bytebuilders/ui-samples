@@ -4,7 +4,7 @@ metadata:
   name: voyager
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: voyager
+    app.kubernetes.io/component: voyager
 spec:
   interval: 5m
   timeout: 30m

@@ -4,7 +4,7 @@ metadata:
   name: stash-presets
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: stash-presets
+    app.kubernetes.io/component: stash-presets
 spec:
   interval: 5m
   timeout: 30m

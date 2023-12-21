@@ -4,7 +4,7 @@ metadata:
   name: sidekick
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: sidekick
+    app.kubernetes.io/component: sidekick
 spec:
   interval: 5m
   timeout: 30m

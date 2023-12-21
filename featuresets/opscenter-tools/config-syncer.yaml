@@ -4,7 +4,7 @@ metadata:
   name: config-syncer
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: reloader
+    app.kubernetes.io/component: reloader
 spec:
   interval: 5m
   timeout: 30m

@@ -4,7 +4,7 @@ metadata:
   name: gatekeeper-templates
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: gatekeeper-templates
+    app.kubernetes.io/component: gatekeeper-templates
 spec:
   interval: 5m
   timeout: 30m

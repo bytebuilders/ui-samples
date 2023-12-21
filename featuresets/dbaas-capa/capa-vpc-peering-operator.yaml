@@ -4,7 +4,7 @@ metadata:
   name: capa-vpc-peering-operator
   namespace: kubeops
   labels:
-    ace.appscode.com/feature: capa-vpc-peering-operator
+    app.kubernetes.io/component: capa-vpc-peering-operator
 spec:
   interval: 5m
   timeout: 30m
