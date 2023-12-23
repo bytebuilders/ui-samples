@@ -1,14 +1,14 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: external-snapshotter
+  name: snapshot-controller
   namespace: kubeops
   labels:
-    app.kubernetes.io/component: external-snapshotter
+    app.kubernetes.io/component: snapshot-controller
 spec:
   interval: 5m
   timeout: 30m
-  releaseName: external-snapshotter
+  releaseName: snapshot-controller
   targetNamespace: kubeops
   storageNamespace: kubeops
   chart:
