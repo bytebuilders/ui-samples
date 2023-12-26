@@ -1,0 +1,43 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
+kind: HelmRelease
+metadata:
+  labels:
+    app.kubernetes.io/component: opscenter-features
+  name: opscenter-features
+  namespace: kubeops
+spec:
+  interval: 5m
+  timeout: 30m
+  releaseName: opscenter-features
+  targetNamespace: kubeops
+  storageNamespace: kubeops
+  chart:
+    spec:
+      chart: opscenter-features
+      version: v2023.12.20
+      sourceRef:
+        kind: HelmRepository
+        name: appscode-charts-oci
+        namespace: kubeops
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: -1
+  values:
+    helm:
+      repositories:
+        appscode-charts-oci:
+          url: 'oci://ghcr.io/appscode-charts'
+    image:
+      proxies:
+        appscode: r.appscode.com
+        dockerHub: ''
+        dockerLibrary: ''
+        ghcr: ghcr.io
+        kubernetes: registry.k8s.io
+        quay: quay.io
