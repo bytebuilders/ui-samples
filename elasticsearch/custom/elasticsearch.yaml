@@ -408,11 +408,10 @@ stringData:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: encryption-secret
+  name: elasticsearch-encryption-secret
   namespace: demo
 stringData:
-  password: ""
-  username: ""
+  key: ""
 ---
 apiVersion: core.kubestash.com/v1alpha1
 kind: BackupConfiguration
@@ -445,7 +444,7 @@ spec:
           backend: elasticsearch-backend
           directory: /es-repo
           encryptionSecret:
-            name: encryption-secret
+            name: elasticsearch-encryption-secret
             namespace: demo
       addon:
         name: elasticsearch-addon
@@ -484,7 +483,7 @@ spec:
     snapshot: latest
     repository: elasticsearch-repo
     encryptionSecret:
-      name: encryption-secret
+      name: elasticsearch-encryption-secret
       namespace: demo
   addon:
     name: elasticsearch-addon
