@@ -236,3 +236,116 @@ spec:
       name: mongodb
   task:
     name: mongodb-restore-4.2.3-v5
+---
+apiVersion: storage.kubestash.com/v1alpha1
+kind: BackupStorage
+metadata:
+  name: mongodb-storage
+  namespace: demo
+spec:
+  storage:
+    provider: gcs
+    gcs:
+      bucket: kubedb-testing
+      prefix: /mongodb
+      secret: mongodb-storage-cred
+  deletionPolicy: Delete
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-storage-cred
+  namespace: demo
+stringData:
+  password: ""
+  username: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mongodb-encryption-secret
+  namespace: demo
+stringData:
+  key: ""
+---
+apiVersion: core.kubestash.com/v1alpha1
+kind: BackupConfiguration
+metadata:
+  name: mongodb
+  namespace: demo
+spec:
+  target:
+    apiGroup: kubedb.com
+    kind: MongoDB
+    name: mongodb
+    namespace: demo
+  backends:
+    - name: mongodb-backend
+      storageRef:
+        name: mongodb-storage
+        namespace: demo
+      retentionPolicy:
+        name: mongodb-retention-policy
+        namespace: demo
+  sessions:
+    - name: mongodb-frequent-backup
+      sessionHistoryLimit: 2
+      scheduler:
+        schedule: "*/5 * * * *"
+        jobTemplate:
+          backoffLimit: 1
+      repositories:
+        - name: mongodb-repo
+          backend: mongodb-backend
+          directory: /mongo-repo
+          encryptionSecret:
+            name: mongodb-encryption-secret
+            namespace: demo
+      addon:
+        name: mongodb-addon
+        tasks:
+          - name: LogicalBackup
+        jobTemplate:
+          spec:
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+---
+apiVersion: storage.kubestash.com/v1alpha1
+kind: RetentionPolicy
+metadata:
+  name: mongodb-retention-policy
+  namespace: demo
+spec:
+  maxRetentionPeriod: 2mo
+  successfulSnapshots:
+    last: 5
+  failedSnapshots:
+    last: 2
+---
+apiVersion: core.kubestash.com/v1alpha1
+kind: RestoreSession
+metadata:
+  name: mongodb
+  namespace: demo
+spec:
+  target:
+    apiGroup: kubedb.com
+    kind: MongoDB
+    name: mongodb
+    namespace: demo
+  dataSource:
+    snapshot: latest
+    repository: mongodb-repo
+    encryptionSecret:
+      name: mongodb-encryption-secret
+      namespace: demo
+  addon:
+    name: mongodb-addon
+    tasks:
+      - name: LogicalBackupRestore
+    jobTemplate:
+      spec:
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
