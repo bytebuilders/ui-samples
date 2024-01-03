@@ -203,3 +203,116 @@ spec:
       apiVersion: appcatalog.appscode.com/v1alpha1
       kind: AppBinding
       name: redis
+---
+apiVersion: storage.kubestash.com/v1alpha1
+kind: BackupStorage
+metadata:
+  name: redis-storage
+  namespace: demo
+spec:
+  storage:
+    provider: gcs
+    gcs:
+      bucket: kubedb-testing
+      prefix: /redis
+      secret: redis-storage-cred
+  deletionPolicy: Delete
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: redis-storage-cred
+  namespace: demo
+stringData:
+  password: ""
+  username: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: redis-encryption-secret
+  namespace: demo
+stringData:
+  key: ""
+---
+apiVersion: core.kubestash.com/v1alpha1
+kind: BackupConfiguration
+metadata:
+  name: redis
+  namespace: demo
+spec:
+  target:
+    apiGroup: kubedb.com
+    kind: Redis
+    name: redis
+    namespace: demo
+  backends:
+    - name: redis-backend
+      storageRef:
+        name: redis-storage
+        namespace: demo
+      retentionPolicy:
+        name: redis-retention-policy
+        namespace: demo
+  sessions:
+    - name: redis-frequent-backup
+      sessionHistoryLimit: 2
+      scheduler:
+        schedule: "*/5 * * * *"
+        jobTemplate:
+          backoffLimit: 1
+      repositories:
+        - name: redis-repo
+          backend: redis-backend
+          directory: /redis-repo
+          encryptionSecret:
+            name: redis-encryption-secret
+            namespace: demo
+      addon:
+        name: redis-addon
+        tasks:
+          - name: LogicalBackup
+        jobTemplate:
+          spec:
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+---
+apiVersion: storage.kubestash.com/v1alpha1
+kind: RetentionPolicy
+metadata:
+  name: redis-retention-policy
+  namespace: demo
+spec:
+  maxRetentionPeriod: 2mo
+  successfulSnapshots:
+    last: 5
+  failedSnapshots:
+    last: 2
+---
+apiVersion: core.kubestash.com/v1alpha1
+kind: RestoreSession
+metadata:
+  name: redis
+  namespace: demo
+spec:
+  target:
+    apiGroup: kubedb.com
+    kind: Redis
+    name: redis
+    namespace: demo
+  dataSource:
+    snapshot: latest
+    repository: redis-repo
+    encryptionSecret:
+      name: redis-encryption-secret
+      namespace: demo
+  addon:
+    name: redis-addon
+    tasks:
+      - name: LogicalBackupRestore
+    jobTemplate:
+      spec:
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0

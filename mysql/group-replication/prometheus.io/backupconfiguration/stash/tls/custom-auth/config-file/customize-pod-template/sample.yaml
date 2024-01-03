@@ -208,3 +208,116 @@ spec:
       name: mysql
   task:
     name: mysql-restore-8.0.21
+---
+apiVersion: storage.kubestash.com/v1alpha1
+kind: BackupStorage
+metadata:
+  name: mysql-storage
+  namespace: demo
+spec:
+  storage:
+    provider: gcs
+    gcs:
+      bucket: kubedb-testing
+      prefix: /mysql
+      secret: mysql-storage-cred
+  deletionPolicy: Delete
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-storage-cred
+  namespace: demo
+stringData:
+  password: ""
+  username: ""
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mysql-encryption-secret
+  namespace: demo
+stringData:
+  key: ""
+---
+apiVersion: core.kubestash.com/v1alpha1
+kind: BackupConfiguration
+metadata:
+  name: mysql
+  namespace: demo
+spec:
+  target:
+    apiGroup: kubedb.com
+    kind: MySQL
+    name: mysql
+    namespace: demo
+  backends:
+    - name: mysql-backend
+      storageRef:
+        name: mysql-storage
+        namespace: demo
+      retentionPolicy:
+        name: mysql-retention-policy
+        namespace: demo
+  sessions:
+    - name: mysql-frequent-backup
+      sessionHistoryLimit: 2
+      scheduler:
+        schedule: "*/5 * * * *"
+        jobTemplate:
+          backoffLimit: 1
+      repositories:
+        - name: mysql-repo
+          backend: mysql-backend
+          directory: /mysql-repo
+          encryptionSecret:
+            name: mysql-encryption-secret
+            namespace: demo
+      addon:
+        name: mysql-addon
+        tasks:
+          - name: LogicalBackup
+        jobTemplate:
+          spec:
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+---
+apiVersion: storage.kubestash.com/v1alpha1
+kind: RetentionPolicy
+metadata:
+  name: mysql-retention-policy
+  namespace: demo
+spec:
+  maxRetentionPeriod: 2mo
+  successfulSnapshots:
+    last: 5
+  failedSnapshots:
+    last: 2
+---
+apiVersion: core.kubestash.com/v1alpha1
+kind: RestoreSession
+metadata:
+  name: mysql
+  namespace: demo
+spec:
+  target:
+    apiGroup: kubedb.com
+    kind: MySQL
+    name: mysql
+    namespace: demo
+  dataSource:
+    snapshot: latest
+    repository: mysql-repo
+    encryptionSecret:
+      name: mysql-encryption-secret
+      namespace: demo
+  addon:
+    name: mysql-addon
+    tasks:
+      - name: LogicalBackupRestore
+    jobTemplate:
+      spec:
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
