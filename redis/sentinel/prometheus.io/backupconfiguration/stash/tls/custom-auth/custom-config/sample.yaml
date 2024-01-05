@@ -271,7 +271,7 @@ spec:
       addon:
         name: redis-addon
         tasks:
-          - name: LogicalBackup
+          - name: logical-backup
         jobTemplate:
           spec:
             securityContext:
@@ -310,7 +310,7 @@ spec:
   addon:
     name: redis-addon
     tasks:
-      - name: LogicalBackupRestore
+      - name: logical-backup-restore
     jobTemplate:
       spec:
         securityContext:
