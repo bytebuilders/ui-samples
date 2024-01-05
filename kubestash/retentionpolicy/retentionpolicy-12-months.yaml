@@ -1,0 +1,15 @@
+apiVersion: storage.kubestash.com/v1alpha1
+kind: RetentionPolicy
+metadata:
+  name: retentionpolicy-12-months
+  namespace: demo
+spec:
+  successfulSnapshots: # Hourly, daily for 7 days
+    hourly: 8
+    daily: 7
+    monthly: 12
+  failedSnapshots:
+    last: 2
+  usagePolicy:
+    allowedNamespaces:
+      from: All
