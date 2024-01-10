@@ -204,29 +204,6 @@ spec:
       kind: AppBinding
       name: redis
 ---
-apiVersion: storage.kubestash.com/v1alpha1
-kind: BackupStorage
-metadata:
-  name: redis-storage
-  namespace: demo
-spec:
-  storage:
-    provider: gcs
-    gcs:
-      bucket: kubedb-testing
-      prefix: /redis
-      secret: redis-storage-cred
-  deletionPolicy: Delete
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: redis-storage-cred
-  namespace: demo
-stringData:
-  password: ""
-  username: ""
----
 apiVersion: v1
 kind: Secret
 metadata:
@@ -277,18 +254,6 @@ spec:
             securityContext:
               runAsUser: 0
               runAsGroup: 0
----
-apiVersion: storage.kubestash.com/v1alpha1
-kind: RetentionPolicy
-metadata:
-  name: redis-retention-policy
-  namespace: demo
-spec:
-  maxRetentionPeriod: 2mo
-  successfulSnapshots:
-    last: 5
-  failedSnapshots:
-    last: 2
 ---
 apiVersion: core.kubestash.com/v1alpha1
 kind: RestoreSession

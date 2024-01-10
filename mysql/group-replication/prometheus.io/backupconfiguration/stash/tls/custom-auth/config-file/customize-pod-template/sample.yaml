@@ -209,29 +209,6 @@ spec:
   task:
     name: mysql-restore-8.0.21
 ---
-apiVersion: storage.kubestash.com/v1alpha1
-kind: BackupStorage
-metadata:
-  name: mysql-storage
-  namespace: demo
-spec:
-  storage:
-    provider: gcs
-    gcs:
-      bucket: kubedb-testing
-      prefix: /mysql
-      secret: mysql-storage-cred
-  deletionPolicy: Delete
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mysql-storage-cred
-  namespace: demo
-stringData:
-  password: ""
-  username: ""
----
 apiVersion: v1
 kind: Secret
 metadata:
@@ -282,18 +259,6 @@ spec:
             securityContext:
               runAsUser: 0
               runAsGroup: 0
----
-apiVersion: storage.kubestash.com/v1alpha1
-kind: RetentionPolicy
-metadata:
-  name: mysql-retention-policy
-  namespace: demo
-spec:
-  maxRetentionPeriod: 2mo
-  successfulSnapshots:
-    last: 5
-  failedSnapshots:
-    last: 2
 ---
 apiVersion: core.kubestash.com/v1alpha1
 kind: RestoreSession
