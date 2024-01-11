@@ -237,29 +237,6 @@ spec:
   task:
     name: mongodb-restore-4.2.3-v5
 ---
-apiVersion: storage.kubestash.com/v1alpha1
-kind: BackupStorage
-metadata:
-  name: mongodb-storage
-  namespace: demo
-spec:
-  storage:
-    provider: gcs
-    gcs:
-      bucket: kubedb-testing
-      prefix: /mongodb
-      secret: mongodb-storage-cred
-  deletionPolicy: Delete
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: mongodb-storage-cred
-  namespace: demo
-stringData:
-  password: ""
-  username: ""
----
 apiVersion: v1
 kind: Secret
 metadata:
@@ -310,18 +287,6 @@ spec:
             securityContext:
               runAsUser: 0
               runAsGroup: 0
----
-apiVersion: storage.kubestash.com/v1alpha1
-kind: RetentionPolicy
-metadata:
-  name: mongodb-retention-policy
-  namespace: demo
-spec:
-  maxRetentionPeriod: 2mo
-  successfulSnapshots:
-    last: 5
-  failedSnapshots:
-    last: 2
 ---
 apiVersion: core.kubestash.com/v1alpha1
 kind: RestoreSession

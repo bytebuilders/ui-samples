@@ -382,29 +382,6 @@ spec:
       kind: AppBinding
       name: elasticsearch
 ---
-apiVersion: storage.kubestash.com/v1alpha1
-kind: BackupStorage
-metadata:
-  name: elasticsearch-storage
-  namespace: demo
-spec:
-  storage:
-    provider: gcs
-    gcs:
-      bucket: kubedb-testing
-      prefix: /elasticsearch
-      secret: elasticsearch-storage-cred
-  deletionPolicy: Delete
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: elasticsearch-storage-cred
-  namespace: demo
-stringData:
-  password: ""
-  username: ""
----
 apiVersion: v1
 kind: Secret
 metadata:
@@ -455,18 +432,6 @@ spec:
             securityContext:
               runAsUser: 0
               runAsGroup: 0
----
-apiVersion: storage.kubestash.com/v1alpha1
-kind: RetentionPolicy
-metadata:
-  name: elasticsearch-retention-policy
-  namespace: demo
-spec:
-  maxRetentionPeriod: 2mo
-  successfulSnapshots:
-    last: 5
-  failedSnapshots:
-    last: 2
 ---
 apiVersion: core.kubestash.com/v1alpha1
 kind: RestoreSession
