@@ -388,7 +388,7 @@ metadata:
   name: elasticsearch-encryption-secret
   namespace: demo
 stringData:
-  key: ""
+  RESTIC_PASSWORD: ""
 ---
 apiVersion: core.kubestash.com/v1alpha1
 kind: BackupConfiguration
