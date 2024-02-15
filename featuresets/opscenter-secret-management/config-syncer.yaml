@@ -4,7 +4,7 @@ metadata:
   name: config-syncer
   namespace: kubeops
   labels:
-    app.kubernetes.io/component: reloader
+    app.kubernetes.io/component: config-syncer
 spec:
   interval: 5m
   timeout: 30m
@@ -14,7 +14,7 @@ spec:
   chart:
     spec:
       chart: config-syncer
-      version: "0.14.2"
+      version: "0.14.6"
       sourceRef:
         kind: HelmRepository
         name: appscode-charts-oci
