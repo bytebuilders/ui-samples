@@ -1,24 +1,25 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: cluster-proxy
+  name: cluster-gateway-manager
   namespace: kubeops
 spec:
   interval: 5m
   timeout: 30m
-  releaseName: cluster-proxy
-  targetNamespace: open-cluster-management
-  storageNamespace: open-cluster-management
+  releaseName: cluster-gateway-manager
+  targetNamespace: open-cluster-management-addon
+  storageNamespace: open-cluster-management-addon
   chart:
     spec:
-      chart: cluster-proxy
-      version: "0.3.0"
+      chart: cluster-gateway-manager
+      version: "v2024.2.25"
       sourceRef:
         kind: HelmRepository
         name: appscode-charts-oci
         namespace: kubeops
   dependsOn:
     - name: cluster-manager-hub
+    - name: managed-serviceaccount-manager
   install:
     createNamespace: true
     crds: CreateReplace
@@ -28,3 +29,6 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
+  values:
+    manualSecretManagement: false
+    konnectivityEgress: true

@@ -7,12 +7,12 @@ spec:
   interval: 5m
   timeout: 30m
   releaseName: ace-ocm-addons
-  targetNamespace: open-cluster-management
-  storageNamespace: open-cluster-management
+  targetNamespace: open-cluster-management-addon
+  storageNamespace: open-cluster-management-addon
   chart:
     spec:
       chart: ace-ocm-addons
-      version: "v2023.11.14"
+      version: "v2024.2.13"
       sourceRef:
         kind: HelmRepository
         name: appscode-charts-oci

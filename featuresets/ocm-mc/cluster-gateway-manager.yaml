@@ -1,34 +1,35 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: kube-ui-server
+  name: cluster-gateway-manager
   namespace: kubeops
-  labels:
-    app.kubernetes.io/component: kube-ui-server
 spec:
   interval: 5m
   timeout: 30m
-  releaseName: kube-ui-server
-  targetNamespace: multicluster-controlplane
-  storageNamespace: multicluster-controlplane
+  releaseName: cluster-gateway-manager
+  targetNamespace: open-cluster-management-addon
+  storageNamespace: open-cluster-management-addon
   chart:
     spec:
-      chart: kube-ui-server
-      version: "v2023.10.1"
+      chart: cluster-gateway-manager
+      version: "v2024.2.25"
       sourceRef:
         kind: HelmRepository
         name: appscode-charts-oci
         namespace: kubeops
   dependsOn:
-    - name: multicluster-controlplane
+    - name: cluster-manager-hub
+    - name: managed-serviceaccount-manager
   install:
     createNamespace: true
-    crds: Skip
+    crds: CreateReplace
     remediation:
       retries: -1
   upgrade:
-    crds: Skip
+    crds: CreateReplace
     remediation:
       retries: -1
   values:
+    manualSecretManagement: false
+    konnectivityEgress: true
     kubeconfigSecretName: multicluster-controlplane-svc-kubeconfig
