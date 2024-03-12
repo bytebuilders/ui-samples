@@ -1,12 +1,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: cluster-auth-manager
+  name: cluster-auth-manager-mc
   namespace: kubeops
 spec:
   interval: 5m
   timeout: 30m
-  releaseName: cluster-auth-manager
+  releaseName: cluster-auth-manager-mc
   targetNamespace: open-cluster-management-addon
   storageNamespace: open-cluster-management-addon
   chart:
