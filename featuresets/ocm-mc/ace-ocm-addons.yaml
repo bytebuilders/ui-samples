@@ -17,8 +17,6 @@ spec:
         kind: HelmRepository
         name: appscode-charts-oci
         namespace: kubeops
-  dependsOn:
-    - name: cluster-manager-hub
   install:
     createNamespace: true
     crds: CreateReplace
@@ -28,5 +26,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  values:
-    kubeconfigSecretName: multicluster-controlplane-svc-kubeconfig

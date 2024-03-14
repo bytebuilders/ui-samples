@@ -1,10 +1,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: ocm-mc
+  name: multicluster-controlplane
   namespace: kubeops
-  labels:
-    app.kubernetes.io/component: multicluster-controlplane
 spec:
   interval: 5m
   timeout: 30m
@@ -28,21 +26,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  values:
-    apiserver:
-      generateCA: true
-    enableSelfManagement: true
-    autoApprovalBootstrapUsers: "system:admin"
-    features: DefaultClusterSet=true,ManagedClusterAutoApproval=true,ManifestWorkReplicaSet=true
-    image: ghcr.io/kluster-manager/multicluster-controlplane:latest
-    imagePullPolicy: Always
-    loadbalancer:
-      enabled: true
-    pvc:
-      storageClassName: ""
-    route:
-      enabled: false
-    securityContext:
-      fsGroup: 10001
-      runAsGroup: 10001
-      runAsUser: 10001

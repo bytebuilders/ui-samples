@@ -17,10 +17,6 @@ spec:
         kind: HelmRepository
         name: appscode-charts-oci
         namespace: kubeops
-  dependsOn:
-    - name: cluster-manager-hub
-    - name: managed-serviceaccount-manager
-    - name: cluster-gateway-manager
   install:
     createNamespace: true
     crds: CreateReplace

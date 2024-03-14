@@ -17,9 +17,6 @@ spec:
         kind: HelmRepository
         name: appscode-charts-oci
         namespace: kubeops
-  dependsOn:
-    - name: cluster-manager-hub
-    - name: managed-serviceaccount-manager
   install:
     createNamespace: true
     crds: CreateReplace
@@ -29,7 +26,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  values:
-    manualSecretManagement: false
-    konnectivityEgress: true
-    kubeconfigSecretName: multicluster-controlplane-svc-kubeconfig

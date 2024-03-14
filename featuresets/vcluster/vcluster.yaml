@@ -26,16 +26,3 @@ spec:
     crds: CreateReplace
     remediation:
       retries: -1
-  values:
-    vcluster:
-      image: rancher/k3s:v1.23.5-k3s1    # Choose k3s version
-    sync:
-      # persistentvolumes:
-      #   enabled: true
-      # If you want to create custom storage classes
-      # inside the vcluster.
-      hoststorageclasses:
-        enabled: true
-    telemetry:
-      disabled: "true"
-

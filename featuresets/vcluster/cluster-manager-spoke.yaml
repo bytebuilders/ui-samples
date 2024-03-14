@@ -17,8 +17,6 @@ spec:
         kind: HelmRepository
         name: appscode-charts-oci
         namespace: kubeops
-  dependsOn:
-    - name: vcluster
   install:
     createNamespace: true
     crds: CreateReplace

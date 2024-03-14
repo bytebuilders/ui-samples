@@ -1,12 +1,12 @@
 apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
-  name: ocm-spoke
+  name: cluster-manager-spoke
   namespace: kubeops
 spec:
   interval: 5m
   timeout: 30m
-  releaseName: ocm-spoke
+  releaseName: cluster-manager-spoke
   targetNamespace: open-cluster-management
   storageNamespace: open-cluster-management
   chart:
