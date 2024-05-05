@@ -204,3 +204,81 @@ spec:
       name: mariadb
   task:
     name: mariadb-restore-10.5.8
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: mariadb-encryption-secret
+  namespace: demo
+stringData:
+  RESTIC_PASSWORD: ""
+---
+apiVersion: core.kubestash.com/v1alpha1
+kind: BackupConfiguration
+metadata:
+  name: mariadb
+  namespace: demo
+spec:
+  target:
+    apiGroup: kubedb.com
+    kind: MySQL
+    name: mariadb
+    namespace: demo
+  backends:
+    - name: mariadb-backend
+      storageRef:
+        name: mariadb-storage
+        namespace: demo
+      retentionPolicy:
+        name: mariadb-retention-policy
+        namespace: demo
+  sessions:
+    - name: mariadb-frequent-backup
+      sessionHistoryLimit: 2
+      scheduler:
+        schedule: "*/5 * * * *"
+        jobTemplate:
+          backoffLimit: 1
+      repositories:
+        - name: mariadb-repo
+          backend: mariadb-backend
+          directory: /mariadb-repo
+          encryptionSecret:
+            name: mariadb-encryption-secret
+            namespace: demo
+      addon:
+        name: mariadb-addon
+        tasks:
+          - name: logical-backup
+        jobTemplate:
+          spec:
+            securityContext:
+              runAsUser: 0
+              runAsGroup: 0
+---
+apiVersion: core.kubestash.com/v1alpha1
+kind: RestoreSession
+metadata:
+  name: mariadb
+  namespace: demo
+spec:
+  target:
+    apiGroup: kubedb.com
+    kind: MySQL
+    name: mariadb
+    namespace: demo
+  dataSource:
+    snapshot: latest
+    repository: mariadb-repo
+    encryptionSecret:
+      name: mariadb-encryption-secret
+      namespace: demo
+  addon:
+    name: mariadb-addon
+    tasks:
+      - name: logical-backup-restore
+    jobTemplate:
+      spec:
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
