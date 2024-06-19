@@ -26,7 +26,7 @@ spec:
     resources:
       requests:
         storage: 1Gi
-  terminationPolicy: Delete
+  deletionPolicy: Delete
 ---
 apiVersion: cert-manager.io/v1
 kind: Issuer
