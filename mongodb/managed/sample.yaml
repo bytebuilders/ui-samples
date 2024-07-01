@@ -314,3 +314,28 @@ spec:
         securityContext:
           runAsUser: 0
           runAsGroup: 0
+---
+apiVersion: autoscaling.kubedb.com/v1alpha1
+kind: MongoDBAutoscaler
+metadata:
+  name: mongodb
+  namespace: demo
+spec:
+  databaseRef:
+    name: repl
+  opsRequestOptions:
+    timeout: 10m
+    apply: IfReady
+  compute:
+    replicaSet:
+      trigger: "On"
+      podLifeTimeThreshold: 10m
+      resourceDiffPercentage: 20
+      minAllowed:
+        cpu: 400m
+        memory: 400Mi
+      maxAllowed:
+        cpu: 1
+        memory: 2Gi
+    nodeTopology:
+      name: standard-basv2-family
